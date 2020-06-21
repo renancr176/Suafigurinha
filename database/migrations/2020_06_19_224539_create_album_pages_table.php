@@ -18,6 +18,7 @@ class CreateAlbumPagesTable extends Migration
         Schema::create($tableName, function (Blueprint $table) {
             $table->id();
             $table->integer('album_id')->unsigned();
+            $table->integer('sequence');
             $table->string('image_path');
             $table->timestamps();
         });

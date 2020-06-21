@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AlbumPage extends Model
 {
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
     public function album()
     {
         return $this->belongsTo('App\Album');

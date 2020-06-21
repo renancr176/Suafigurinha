@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Album extends Model
 {
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
     public function pageType()
     {
         return $this->belongsTo('App\PageType');
