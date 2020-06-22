@@ -13,25 +13,15 @@ class CreateAlbumPageBackgroundsTable extends Migration
      */
     public function up()
     {
-        $tableName = 'album_page_backgrounds';
-        
-        Schema::create($tableName, function (Blueprint $table) {
+        Schema::create('album_page_backgrounds', function (Blueprint $table) {
             $table->id();
-            $table->integer('page_id')->unsigned();
+            $table->unsignedBigInteger('page_id');
             $table->integer('sequence');
             $table->integer('x_position');
             $table->integer('y_position');
             $table->integer('rotation');
             $table->timestamps();
         });
-
-        Schema::table($tableName, function (Blueprint $table) {
-            $table->foreign('page_id')
-            ->references('id')->on('album_pages')
-            ->onDelete('cascade');
-        });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

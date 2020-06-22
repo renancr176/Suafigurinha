@@ -13,23 +13,13 @@ class CreateAlbumPagesTable extends Migration
      */
     public function up()
     {
-        $tableName = 'album_pages';
-        
-        Schema::create($tableName, function (Blueprint $table) {
+        Schema::create('album_pages', function (Blueprint $table) {
             $table->id();
-            $table->integer('album_id')->unsigned();
+            $table->unsignedBigInteger('album_id');
             $table->integer('sequence');
             $table->string('image_path');
             $table->timestamps();
         });
-
-        Schema::table($tableName, function (Blueprint $table) {
-            $table->foreign('album_id')
-            ->references('id')->on('albums')
-            ->onDelete('cascade');
-        });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
