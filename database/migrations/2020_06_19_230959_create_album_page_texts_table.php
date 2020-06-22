@@ -13,12 +13,10 @@ class CreateAlbumPageTextsTable extends Migration
      */
     public function up()
     {
-        $tableName = 'album_page_texts';
-
-        Schema::create($tableName, function (Blueprint $table) {
+        Schema::create('album_page_texts', function (Blueprint $table) {
             $table->id();
-            $table->integer('page_id')->unsigned();
-            $table->integer('font_id')->unsigned();
+            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('font_id');
             $table->text('text');
             $table->integer('font_size');
             $table->boolean('bold');
@@ -31,17 +29,6 @@ class CreateAlbumPageTextsTable extends Migration
             $table->integer('rotation');
             $table->timestamps();
         });
-
-        Schema::table($tableName, function (Blueprint $table) {
-            $table->foreign('page_id')
-            ->references('id')->on('album_pages')
-            ->onDelete('cascade');
-            $table->foreign('font_id')
-            ->references('id')->on('fonts')
-            ->onDelete('cascade');
-        });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

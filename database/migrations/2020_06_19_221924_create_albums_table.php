@@ -13,11 +13,9 @@ class CreateAlbumsTable extends Migration
      */
     public function up()
     {
-        $tableName = 'albums';
-
-        Schema::create($tableName, function (Blueprint $table) {
+        Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->integer('page_type_id')->unsigned();
+            $table->unsignedBigInteger('page_type_id');
             $table->string('ref_code')->unique();
             $table->string('title');
             $table->decimal('price');
@@ -25,14 +23,6 @@ class CreateAlbumsTable extends Migration
             $table->string('page_orientation');
             $table->timestamps();
         });
-
-        Schema::table($tableName, function (Blueprint $table) {
-            $table->foreign('page_type_id')
-            ->references('id')->on('page_types')
-            ->onDelete('cascade');
-        });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

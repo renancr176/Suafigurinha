@@ -2,3 +2,18 @@
 {
     padding-top: 15px;
 }
+
+.inline{
+    display: inline;
+}
+
+.inline-block
+{
+    display: inline-block;
+}
+
+.vr-middle
+{
+    display: table-cell;
+    vertical-align: middle;
+}
