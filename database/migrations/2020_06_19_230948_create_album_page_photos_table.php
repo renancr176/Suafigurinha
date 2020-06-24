@@ -18,9 +18,9 @@ class CreateAlbumPagePhotosTable extends Migration
             $table->unsignedBigInteger('page_id');
             $table->unsignedBigInteger('frame_id');
             $table->integer('sequence');
-            $table->integer('x_position');
-            $table->integer('y_position');
-            $table->integer('rotation');
+            $table->decimal('x_position');
+            $table->decimal('y_position');
+            $table->decimal('rotation');
             $table->timestamps();
         });
     }

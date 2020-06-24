@@ -15,10 +15,12 @@ class CreateAlbumFrameTypesTable extends Migration
     {
         Schema::create('album_frame_types', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('font_id');
             $table->string('title');
+            $table->integer('font_size');
             $table->string('image_path');
-            $table->integer('width');
-            $table->integer('height');
+            $table->decimal('width');
+            $table->decimal('height');
             $table->timestamps();
         });
     }

@@ -19,8 +19,9 @@ class CreateAlbumsTable extends Migration
             $table->string('ref_code')->unique();
             $table->string('title');
             $table->decimal('price');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('page_orientation');
+            $table->boolean('active');
             $table->timestamps();
         });
     }

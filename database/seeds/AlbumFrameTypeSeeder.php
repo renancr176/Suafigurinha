@@ -11,27 +11,31 @@ class AlbumFrameTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('album_frame_types')->truncate();
-
         App\AlbumFrameType::create([
+            'font_id' => 1,
             'title' => 'Pequeno',
-            'image_path' => '',
-            'width' => '',
-            'height' => ''
+            'font_size' => '24',
+            'image_path' => 'files/images/albuns/frames/default.png',
+            'width' => '100',
+            'height' => '100'
         ]);
 
         App\AlbumFrameType::create([
+            'font_id' => 1,
             'title' => 'Médio',
-            'image_path' => '',
-            'width' => '',
-            'height' => ''
+            'font_size' => '45',
+            'image_path' => 'files/images/albuns/frames/default.png',
+            'width' => '250',
+            'height' => '250'
         ]);
 
         App\AlbumFrameType::create([
+            'font_id' => 1,
             'title' => 'Grande',
-            'image_path' => '',
-            'width' => '',
-            'height' => ''
+            'font_size' => '72',
+            'image_path' => 'files/images/albuns/frames/default.png',
+            'width' => '400',
+            'height' => '400'
         ]);
     }
 }

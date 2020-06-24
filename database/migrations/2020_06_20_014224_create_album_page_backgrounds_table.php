@@ -16,10 +16,11 @@ class CreateAlbumPageBackgroundsTable extends Migration
         Schema::create('album_page_backgrounds', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('page_id');
-            $table->integer('sequence');
-            $table->integer('x_position');
-            $table->integer('y_position');
-            $table->integer('rotation');
+            $table->decimal('width');
+            $table->decimal('height');
+            $table->decimal('x_position');
+            $table->decimal('y_position');
+            $table->decimal('rotation');
             $table->timestamps();
         });
     }

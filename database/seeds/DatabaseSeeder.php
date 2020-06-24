@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(PageTypeSeeder::class);
+        $this->call(FontSeeder::class);
         $this->call(AlbumFrameTypeSeeder::class);
+        $this->call(AlbumSeeder::class);
     }
 }

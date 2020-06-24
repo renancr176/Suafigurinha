@@ -22,11 +22,11 @@ class CreateAlbumPageTextsTable extends Migration
             $table->boolean('bold');
             $table->boolean('italic');
             $table->boolean('underlined');
-            $table->integer('width');
-            $table->integer('height');
-            $table->integer('x_position');
-            $table->integer('y_position');
-            $table->integer('rotation');
+            $table->decimal('width');
+            $table->decimal('height');
+            $table->decimal('x_position');
+            $table->decimal('y_position');
+            $table->decimal('rotation');
             $table->timestamps();
         });
     }

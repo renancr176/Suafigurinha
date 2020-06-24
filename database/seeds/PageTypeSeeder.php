@@ -11,8 +11,6 @@ class PageTypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('page_types')->truncate();
-
         App\PageType::create([
             'type' => 'A0',
             'width' => '841',
