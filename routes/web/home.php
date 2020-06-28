@@ -6,7 +6,7 @@ Route::get(
         'as' => 'meu-album', 
         'uses' => 'Home\MeuAlbumController@Get'
     ]
-)->where('id', '\d+');
+)->where('id', $guidRegex);
 
 // Route::group(['namespace' => 'Home'], 
 // function () {

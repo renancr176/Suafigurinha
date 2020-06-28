@@ -15,8 +15,8 @@ class CreateAlbumPagePhotosTable extends Migration
     {
         Schema::create('album_page_photos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('page_id');
-            $table->unsignedBigInteger('frame_id');
+            $table->unsignedBigInteger('album_page_id');
+            $table->unsignedBigInteger('album_frame_type_id');
             $table->integer('sequence');
             $table->decimal('x_position');
             $table->decimal('y_position');

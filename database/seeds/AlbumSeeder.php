@@ -30,7 +30,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'page_id' => 1,
+            'album_page_id' => 1,
             'width' => 500,
             'height' => 400,
             'x_position' => 200,
@@ -39,7 +39,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageText::create([
-            'page_id' => 1,
+            'album_page_id' => 1,
             'font_id' => 2,
             'text' => 'Eu e Ele(a)',
             'font_size' => 57,
@@ -64,8 +64,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 2,
-            'frame_id' => 2,
+            'album_page_id' => 2,
+            'album_frame_type_id' => 2,
             'sequence' => 1,
             'x_position' => 100,
             'y_position' => 100,
@@ -73,8 +73,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 2,
-            'frame_id' => 2,
+            'album_page_id' => 2,
+            'album_frame_type_id' => 2,
             'sequence' => 2,
             'x_position' => 400,
             'y_position' => 100,
@@ -82,8 +82,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 2,
-            'frame_id' => 2,
+            'album_page_id' => 2,
+            'album_frame_type_id' => 2,
             'sequence' => 3,
             'x_position' => 100,
             'y_position' => 400,
@@ -91,8 +91,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 2,
-            'frame_id' => 2,
+            'album_page_id' => 2,
+            'album_frame_type_id' => 2,
             'sequence' => 4,
             'x_position' => 400,
             'y_position' => 400,
@@ -110,8 +110,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 3,
-            'frame_id' => 2,
+            'album_page_id' => 3,
+            'album_frame_type_id' => 2,
             'sequence' => 5,
             'x_position' => 50,
             'y_position' => 100,
@@ -119,8 +119,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 3,
-            'frame_id' => 2,
+            'album_page_id' => 3,
+            'album_frame_type_id' => 2,
             'sequence' => 6,
             'x_position' => 50,
             'y_position' => 400,
@@ -128,7 +128,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'page_id' => 3,
+            'album_page_id' => 3,
             'width' => 400,
             'height' => 800,
             'x_position' => 350,
@@ -147,8 +147,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 4,
-            'frame_id' => 2,
+            'album_page_id' => 4,
+            'album_frame_type_id' => 2,
             'sequence' => 7,
             'x_position' => 100,
             'y_position' => 50,
@@ -156,8 +156,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 4,
-            'frame_id' => 2,
+            'album_page_id' => 4,
+            'album_frame_type_id' => 2,
             'sequence' => 8,
             'x_position' => 400,
             'y_position' => 50,
@@ -165,7 +165,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'page_id' => 4,
+            'album_page_id' => 4,
             'width' => 500,
             'height' => 400,
             'x_position' => 100,
@@ -184,8 +184,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 5,
-            'frame_id' => 2,
+            'album_page_id' => 5,
+            'album_frame_type_id' => 2,
             'sequence' => 9,
             'x_position' => 100,
             'y_position' => 100,
@@ -193,8 +193,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 5,
-            'frame_id' => 2,
+            'album_page_id' => 5,
+            'album_frame_type_id' => 2,
             'sequence' => 10,
             'x_position' => 400,
             'y_position' => 100,
@@ -202,8 +202,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 5,
-            'frame_id' => 2,
+            'album_page_id' => 5,
+            'album_frame_type_id' => 2,
             'sequence' => 11,
             'x_position' => 100,
             'y_position' => 400,
@@ -211,8 +211,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 5,
-            'frame_id' => 2,
+            'album_page_id' => 5,
+            'album_frame_type_id' => 2,
             'sequence' => 12,
             'x_position' => 400,
             'y_position' => 400,
@@ -230,7 +230,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'page_id' => 6,
+            'album_page_id' => 6,
             'width' => 700,
             'height' => 600,
             'x_position' => 150,
@@ -249,8 +249,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 7,
-            'frame_id' => 2,
+            'album_page_id' => 7,
+            'album_frame_type_id' => 2,
             'sequence' => 13,
             'x_position' => 100,
             'y_position' => 120,
@@ -258,8 +258,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 7,
-            'frame_id' => 2,
+            'album_page_id' => 7,
+            'album_frame_type_id' => 2,
             'sequence' => 14,
             'x_position' => 100,
             'y_position' => 400,
@@ -267,7 +267,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'page_id' => 7,
+            'album_page_id' => 7,
             'width' => 400,
             'height' => 800,
             'x_position' => 350,
@@ -286,7 +286,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'page_id' => 7,
+            'album_page_id' => 7,
             'width' => 500,
             'height' => 800,
             'x_position' => 150,
@@ -305,8 +305,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 9,
-            'frame_id' => 2,
+            'album_page_id' => 9,
+            'album_frame_type_id' => 2,
             'sequence' => 15,
             'x_position' => 100,
             'y_position' => 100,
@@ -314,8 +314,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 9,
-            'frame_id' => 2,
+            'album_page_id' => 9,
+            'album_frame_type_id' => 2,
             'sequence' => 16,
             'x_position' => 400,
             'y_position' => 100,
@@ -323,8 +323,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 9,
-            'frame_id' => 2,
+            'album_page_id' => 9,
+            'album_frame_type_id' => 2,
             'sequence' => 17,
             'x_position' => 100,
             'y_position' => 400,
@@ -332,8 +332,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 9,
-            'frame_id' => 2,
+            'album_page_id' => 9,
+            'album_frame_type_id' => 2,
             'sequence' => 18,
             'x_position' => 400,
             'y_position' => 400,
@@ -351,7 +351,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'page_id' => 7,
+            'album_page_id' => 7,
             'width' => 800,
             'height' => 600,
             'x_position' => 0,
@@ -370,8 +370,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 9,
-            'frame_id' => 2,
+            'album_page_id' => 9,
+            'album_frame_type_id' => 2,
             'sequence' => 19,
             'x_position' => 100,
             'y_position' => 300,
@@ -379,8 +379,8 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'page_id' => 9,
-            'frame_id' => 2,
+            'album_page_id' => 9,
+            'album_frame_type_id' => 2,
             'sequence' => 20,
             'x_position' => 400,
             'y_position' => 300,

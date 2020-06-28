@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AlbumOrder extends Model
 {
+    public function album()
+    {
+        return $this->belongsTo('App\Album');
+    }
 
     public function client()
     {

@@ -15,7 +15,7 @@ class CreateAlbumPageBackgroundsTable extends Migration
     {
         Schema::create('album_page_backgrounds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('album_page_id');
             $table->decimal('width');
             $table->decimal('height');
             $table->decimal('x_position');

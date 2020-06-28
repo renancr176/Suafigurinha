@@ -17,4 +17,9 @@ class Album extends Model
     {
         return $this->hasMany('App\AlbumPage');
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\AlbumOrder');
+    }
 }

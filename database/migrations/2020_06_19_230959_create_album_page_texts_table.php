@@ -15,7 +15,7 @@ class CreateAlbumPageTextsTable extends Migration
     {
         Schema::create('album_page_texts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('album_page_id');
             $table->unsignedBigInteger('font_id');
             $table->text('text');
             $table->integer('font_size');
