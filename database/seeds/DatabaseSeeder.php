@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FontSeeder::class);
         $this->call(AlbumFrameTypeSeeder::class);
         $this->call(AlbumSeeder::class);
+        $this->call(AlbumOrderFileTypeSeeder::class);
     }
 }
