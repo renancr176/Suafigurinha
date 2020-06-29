@@ -1,20 +1,12 @@
 <?php
 
-Route::get(
-    'meu-album/{id}', 
+Route::group(
     [
-        'as' => 'meu-album', 
-        'uses' => 'Home\MeuAlbumController@Get'
-    ]
-)->where('id', $guidRegex);
+        'namespace' => 'Web\Home'
+    ],
+    function () {
 
-// Route::group(['namespace' => 'Home'], 
-// function () {
-//     Route::controller(
-//         '', 
-//         'MeuAlbumController',
-//         [
-//             'Get' => 'meu-album/{id}'
-//         ]
-//     );
-// });
+        Route::resource('meu-album', 'MyAlbumController')
+            ->only(['show', 'update']);
+    }
+);
