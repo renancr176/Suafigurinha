@@ -14,7 +14,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.album.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.album.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect('index');
     }
 
     /**
@@ -46,7 +46,7 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.album.show');
     }
 
     /**
@@ -57,7 +57,7 @@ class AlbumController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.album.edit');
     }
 
     /**
@@ -69,7 +69,7 @@ class AlbumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect('index');
     }
 
     /**
@@ -80,6 +80,6 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return redirect('index');
     }
 }

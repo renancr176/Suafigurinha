@@ -63,7 +63,7 @@ class MyAlbumController extends Controller
             'pages.backgrounds'
         ])->firstOrFail();
 
-        return view('home.meu-album');
+        return view('home.my-album.index', compact('album'));
     }
 
     /**
