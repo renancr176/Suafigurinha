@@ -63,7 +63,7 @@ class MyAlbumController extends Controller
             'pages.backgrounds'
         ])->firstOrFail();
 
-        return view('home.my-album.index', compact('album'));
+        return view('home.my-album.index', compact('order', 'album'));
     }
 
     /**
@@ -98,5 +98,17 @@ class MyAlbumController extends Controller
     public function destroy($id)
     {
         return redirect(env('BASE_SITE'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get(Request $request, $id)
+    {
+        return dd($request::all());
     }
 }
