@@ -15,7 +15,7 @@ class AlbumFrameTypeSeeder extends Seeder
             'font_id' => 1,
             'title' => 'Pequeno',
             'font_size' => '24',
-            'image_path' => 'files/images/albuns/frames/default.png',
+            'image_path' => '/files/images/albuns/frames/default.png',
             'width' => '100',
             'height' => '100'
         ]);
@@ -24,7 +24,7 @@ class AlbumFrameTypeSeeder extends Seeder
             'font_id' => 1,
             'title' => 'Médio',
             'font_size' => '45',
-            'image_path' => 'files/images/albuns/frames/default.png',
+            'image_path' => '/files/images/albuns/frames/default.png',
             'width' => '250',
             'height' => '250'
         ]);
@@ -33,7 +33,7 @@ class AlbumFrameTypeSeeder extends Seeder
             'font_id' => 1,
             'title' => 'Grande',
             'font_size' => '72',
-            'image_path' => 'files/images/albuns/frames/default.png',
+            'image_path' => '/files/images/albuns/frames/default.png',
             'width' => '400',
             'height' => '400'
         ]);

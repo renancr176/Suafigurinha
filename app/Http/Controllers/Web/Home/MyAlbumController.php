@@ -59,11 +59,15 @@ class MyAlbumController extends Controller
             },
             'pages.photos.frameType',
             'pages.texts',
-            'pages.texts.font',
             'pages.backgrounds'
         ])->firstOrFail();
 
-        return view('home.my-album.index', compact('order', 'album'));
+        $fonts = array();
+        foreach($album->pages()->get() as $page)
+            foreach($page->texts()->get() as $text)
+                array_push($fonts, $text->font);
+
+        return view('home.my-album.index', compact('order', 'album', 'fonts'));
     }
 
     /**

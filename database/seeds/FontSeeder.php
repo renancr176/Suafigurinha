@@ -13,12 +13,12 @@ class FontSeeder extends Seeder
     {
         App\Font::create([
             'title' => 'Rage Italic',
-            'path' => 'files/fonts/rage-italic.ttf'
+            'path' => '/files/fonts/rage-italic.ttf'
         ]);
 
         App\Font::create([
             'title' => 'Stefont',
-            'path' => 'files/fonts/Stefont.ttf'
+            'path' => '/files/fonts/Stefont.ttf'
         ]);
     }
 }

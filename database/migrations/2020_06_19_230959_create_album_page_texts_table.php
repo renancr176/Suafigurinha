@@ -18,12 +18,13 @@ class CreateAlbumPageTextsTable extends Migration
             $table->unsignedBigInteger('album_page_id');
             $table->unsignedBigInteger('font_id');
             $table->text('text');
+            $table->string('color');
+            $table->string('alignment');
             $table->integer('font_size');
             $table->boolean('bold');
             $table->boolean('italic');
             $table->boolean('underlined');
             $table->decimal('width');
-            $table->decimal('height');
             $table->decimal('x_position');
             $table->decimal('y_position');
             $table->decimal('rotation');

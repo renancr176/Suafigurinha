@@ -14,10 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::namespace('Api')->group(function () {
-    Route::get('album/{id}', ['as'=> 'api.album.get', 'AlbumController@get']);
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
 });
+
+Route::group(
+    [
+        'namespace' => 'Api'
+    ],
+    function () {
+
+        Route::apiResource('album', 'AlbumController')
+            ->only(['show']);
+    }
+);
+

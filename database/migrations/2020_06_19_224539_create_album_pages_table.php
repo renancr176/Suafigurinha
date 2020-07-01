@@ -17,7 +17,7 @@ class CreateAlbumPagesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('album_id');
             $table->integer('sequence');
-            $table->string('image_path');
+            $table->string('image_path')->unique();
             $table->timestamps();
         });
     }

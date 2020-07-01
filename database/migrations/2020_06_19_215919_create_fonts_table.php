@@ -15,8 +15,8 @@ class CreateFontsTable extends Migration
     {
         Schema::create('fonts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('path');
+            $table->string('title')->unique();
+            $table->string('path')->unique();
             $table->timestamps();
         });
     }

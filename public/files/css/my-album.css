@@ -1,4 +1,44 @@
+.fotorama__nav__shaft
+{
+    background-color: #C0C0C0;
+}
+
 .album-pages-container
 {
-    background-color: #d6d8d9;
+    background-image: url('/files/images/page-bg.jpg');
+    background-repeat: repeat;
+}
+
+.album-pages-container .input-container
+{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    display: grid;
+}
+
+.album-pages-container .input-container input
+{
+    border: none;
+    border-radius: 5px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.album-pages-container .input-container input::placeholder
+{
+    color: inherit;
+    font: inherit;
+}
+
+.album-pages-container .input-container input:focus
+{
+    border: 1px solid #b8daff;
+    outline: none !important;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+.input-container .btn-group
+{
+    margin: 2px auto 0px auto;
 }
