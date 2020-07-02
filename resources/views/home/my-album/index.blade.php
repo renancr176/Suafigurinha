@@ -13,8 +13,9 @@
 @section('scripts')
     @parent
     <script src="/files/js/inputmask.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+    <script src="/files/js/exif.js"></script>
+    <script src="/files/js/croppie.min.js"></script>
+    <script src="/files/js/fotorama.js"></script>
     <script src="/files/js/my-album.js"></script>
 @endsection
 @section('content')

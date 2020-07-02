@@ -31,11 +31,12 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 1,
-            'width' => 500,
-            'height' => 400,
-            'x_position' => 200,
-            'y_position' => 200,
-            'rotation' => 5
+            'width' => 150,
+            'height' => 110,
+            'x_position' => 52,
+            'y_position' => 80,
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPageText::create([
@@ -44,14 +45,15 @@ class AlbumSeeder extends Seeder
             'text' => 'Eu e Ele(a)',
             'alignment' => 'center',
             'color' => '#F26955',
-            'font_size' => 50,
+            'font_size' => 46,
             'bold' => false,
             'italic' => false,
             'underlined' => false,
-            'width' => 100,
-            'x_position' => 52,
+            'width' => 210,
+            'x_position' => 0,
             'y_position' => 170,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         #endregion
@@ -70,7 +72,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 1,
             'x_position' => 100,
             'y_position' => 100,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -79,7 +82,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 2,
             'x_position' => 400,
             'y_position' => 100,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -88,7 +92,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 3,
             'x_position' => 100,
             'y_position' => 400,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -97,7 +102,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 4,
             'x_position' => 400,
             'y_position' => 400,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         #endregion
@@ -116,7 +122,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 5,
             'x_position' => 50,
             'y_position' => 100,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -125,16 +132,18 @@ class AlbumSeeder extends Seeder
             'sequence' => 6,
             'x_position' => 50,
             'y_position' => 400,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         App\AlbumPageBackground::create([
             'album_page_id' => 3,
-            'width' => 400,
-            'height' => 800,
-            'x_position' => 350,
+            'width' => 120,
+            'height' => 210,
+            'x_position' => 90,
             'y_position' => 0,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'right'
         ]);
 
         #endregion
@@ -153,7 +162,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 7,
             'x_position' => 100,
             'y_position' => 50,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -162,16 +172,18 @@ class AlbumSeeder extends Seeder
             'sequence' => 8,
             'x_position' => 400,
             'y_position' => 50,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPageBackground::create([
             'album_page_id' => 4,
-            'width' => 500,
-            'height' => 400,
+            'width' => 150,
+            'height' => 110,
             'x_position' => 100,
             'y_position' => 380,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'left'
         ]);
 
         #endregion
@@ -190,7 +202,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 9,
             'x_position' => 100,
             'y_position' => 100,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -199,7 +212,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 10,
             'x_position' => 400,
             'y_position' => 100,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -208,7 +222,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 11,
             'x_position' => 100,
             'y_position' => 400,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -217,7 +232,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 12,
             'x_position' => 400,
             'y_position' => 400,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         #endregion
@@ -232,11 +248,12 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 6,
-            'width' => 700,
-            'height' => 600,
-            'x_position' => 150,
-            'y_position' => 100,
-            'rotation' => 5
+            'width' => 190,
+            'height' => 160,
+            'x_position' => 30,
+            'y_position' => 40,
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         #endregion
@@ -255,7 +272,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 13,
             'x_position' => 100,
             'y_position' => 120,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -264,16 +282,18 @@ class AlbumSeeder extends Seeder
             'sequence' => 14,
             'x_position' => 100,
             'y_position' => 400,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         App\AlbumPageBackground::create([
             'album_page_id' => 7,
-            'width' => 400,
-            'height' => 800,
-            'x_position' => 350,
+            'width' => 120,
+            'height' => 210,
+            'x_position' => 90,
             'y_position' => 0,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'right'
         ]);
 
         #endregion
@@ -287,12 +307,13 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'album_page_id' => 7,
-            'width' => 500,
-            'height' => 800,
-            'x_position' => 150,
+            'album_page_id' => 8,
+            'width' => 180,
+            'height' => 210,
+            'x_position' => 50,
             'y_position' => 0,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'right'
         ]);
 
         #endregion
@@ -311,7 +332,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 15,
             'x_position' => 100,
             'y_position' => 100,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -320,7 +342,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 16,
             'x_position' => 400,
             'y_position' => 100,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'top'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -329,7 +352,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 17,
             'x_position' => 100,
             'y_position' => 400,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -338,7 +362,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 18,
             'x_position' => 400,
             'y_position' => 400,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         #endregion
@@ -352,12 +377,13 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageBackground::create([
-            'album_page_id' => 7,
-            'width' => 800,
-            'height' => 600,
+            'album_page_id' => 10,
+            'width' => 210,
+            'height' => 150,
             'x_position' => 0,
             'y_position' => 0,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         #endregion
@@ -376,7 +402,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 19,
             'x_position' => 100,
             'y_position' => 300,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         App\AlbumPagePhoto::create([
@@ -385,7 +412,8 @@ class AlbumSeeder extends Seeder
             'sequence' => 20,
             'x_position' => 400,
             'y_position' => 300,
-            'rotation' => 0
+            'rotation' => 0,
+            'controls_position' => 'bottom'
         ]);
 
         #endregion

@@ -28,6 +28,7 @@ class CreateAlbumPageTextsTable extends Migration
             $table->decimal('x_position');
             $table->decimal('y_position');
             $table->decimal('rotation');
+            $table->string('controls_position');
             $table->timestamps();
         });
     }

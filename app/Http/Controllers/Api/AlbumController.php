@@ -39,6 +39,7 @@ class AlbumController extends Controller
     public function show($id)
     {
         $album = Album::with([
+            'pageType',
             'pages' => function($query){
                 $query->orderBy('sequence');
             },
