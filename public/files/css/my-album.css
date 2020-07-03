@@ -1,7 +1,8 @@
 .fotorama,
 .fotorama__stage,
 .fotorama__stage__shaft,
-.input-container
+.input-container,
+.background-container
 {
     overflow: visible;
 }
@@ -9,6 +10,11 @@
 .fotorama__nav__shaft
 {
     background-color: #C0C0C0;
+}
+
+.cr-viewport
+{
+    border: none !important;
 }
 
 .controls-top,
@@ -34,14 +40,29 @@
     top: -40px;
 }
 
+.controls-top.has-zoom
+{
+    top: -60px;
+}
+
 .controls-left
 {
     left: -46px;
 }
 
+.controls-left.has-zoom
+{
+    left: -66px;
+}
+
 .controls-right
 {
     right: -46px;
+}
+
+.controls-right.has-zoom
+{
+    right: -66px;
 }
 
 .controls-top .btn-group
@@ -52,6 +73,41 @@
 .controls-bottom .btn-group
 {
     margin: 2px auto 0px auto;
+}
+
+.zoom-container-horizontal
+{
+    margin: auto auto;
+    width: calc(100% - 30px);
+    padding-top: 5px;
+}
+
+.zoom-container-vertical
+{
+    margin-top: 15px;
+    height: calc(100% - 30px);
+}
+
+.zoom-container-vertical .zoom
+{
+    height: 100%;
+}
+
+.controls-bottom .zoom-container-horizontal
+{
+    padding-bottom: 2px;
+}
+
+.controls-left .zoom-container-vertical
+{
+    float: right;
+    padding-left: 5px;
+}
+
+.controls-right .zoom-container-vertical
+{
+    float: left;
+    padding-right: 5px;
 }
 
 .album-pages-container
@@ -102,7 +158,12 @@
     display: none;
 }
 
-input.cr-slider:hover
+.base-view
 {
-    cursor: pointer;
+    display: none;
+}
+
+.view
+{
+    position: fixed;
 }

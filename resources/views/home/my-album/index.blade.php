@@ -13,11 +13,11 @@
 @endsection
 @section('scripts')
     @parent
-    <script src="/files/js/inputmask.min.js"></script>
-    <script src="/files/js/exif.js"></script>
-    <script src="/files/js/croppie.min.js"></script>
-    <script src="/files/js/fotorama.js"></script>
-    <script src="/files/js/my-album.js"></script>
+    <script type="text/javascript" src="/files/js/inputmask.min.js"></script>
+    <script type="text/javascript" src="/files/js/exif.js"></script>
+    <script type="text/javascript" src="/files/js/croppie.min.js"></script>
+    <script type="text/javascript" src="/files/js/fotorama.js"></script>
+    <script type="text/javascript" src="/files/js/my-album.js"></script>
 @endsection
 @section('content')
     <div class="container">

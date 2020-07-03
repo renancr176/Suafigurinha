@@ -68,7 +68,7 @@ $(document).ready(function(){
         '"';
         let textElement = $('<div class="input-container" '+textElementStyle+' pageid="'+pageId+'" textid="'+textObj.id+'"></div>');
         let input = $('<input name="texts['+pageId+']['+textObj.id+']" value="'+textObj.text+'" id="text-'+textObj.id+'" type="text" placeholder="Informe o texto" '+inputStyle+'/>');
-        let buttons = $(
+        let controls = $(
             '<div class="controls-'+textObj.controls_position+'">'+
                 '<div class="'+((textObj.controls_position == 'left' || textObj.controls_position == 'right')? 'btn-group-vertical':'btn-group')+'" role="group">'+
                     '<button type="button" class="btn btn-info btn-change-text" ref="text-'+textObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(textObj.controls_position)+'" title="Alterar o texto"><i class="far fa-edit"></i></button>'+
@@ -77,7 +77,7 @@ $(document).ready(function(){
             '</div>'
         );
         textElement.append(input);
-        textElement.append(buttons);
+        textElement.append(controls);
         textElement.hide();
         return textElement;
     }
@@ -102,23 +102,31 @@ $(document).ready(function(){
                 height: backgroundObj.height+'mm'
             },
             showZoomer: false,
-            enableResize: false
+            enableResize: false,
+            mouseWheelZoom: false
         };
+        let zoomSlideOrientation = ((backgroundObj.controls_position == 'left' || backgroundObj.controls_position == 'right')? 'vertical':'horizontal');
 
         let backgroundElement = $('<div class="background-container" pageid="'+pageId+'" backgroundid="'+backgroundObj.id+'" '+backgroundElementStyle+'></div>');
         let pluginContainer = $('<div class="plugin-container unloaded" id="background-'+backgroundObj.id+'" '+pluginContainerStyle+'></div>');
-        let inputFile = $('<input type="file" value="background['+pageId+']['+backgroundObj.id+']" accept="image/*" class="background-input"/>');
-        let buttons = $(
-            '<div class="controls-'+backgroundObj.controls_position+'">'+
+        let inputFile = $('<input type="file" accept="image/*" class="background-input"/>');
+        let controls = $(
+            '<div class="controls-'+backgroundObj.controls_position+' has-zoom">'+
+                ((backgroundObj.controls_position == 'bottom' || backgroundObj.controls_position == 'right')? '<div class="zoom-container-'+zoomSlideOrientation+'"><div class="zoom" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Zoom"></div></div>':'')+
                 '<div class="'+((backgroundObj.controls_position == 'left' || backgroundObj.controls_position == 'right')? 'btn-group-vertical':'btn-group')+'" role="group">'+
                     '<button type="button" class="btn btn-info btn-upload-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Carregar imagem"><i class="fas fa-upload"></i></button>'+
                     '<button type="button" class="btn btn-success btn-apply-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Aplicar" disabled><i class="fas fa-check"></i></button>'+
                 '</div>'+
+                ((backgroundObj.controls_position == 'top' || backgroundObj.controls_position == 'left')? '<div class="zoom-container-'+zoomSlideOrientation+'"><div class="zoom" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Zoom"></div></div>':'')+
             '</div>'
         );
+        let viewElement = $('<img class="base-view" pageid="'+pageId+'" '+backgroundElementStyle+'/>');
+
         backgroundElement.append(pluginContainer);
         backgroundElement.append(inputFile);
-        backgroundElement.append(buttons);
+        backgroundElement.append(controls);
+        backgroundElement.append(viewElement);
+        zoomSlider(controls.find('.zoom'), zoomSlideOrientation);
         pluginContainer.croppie(croppieOpts);
         backgroundElement.hide();
         return backgroundElement;
@@ -157,6 +165,8 @@ $(document).ready(function(){
     {
         if(pageId in pagesElements)
         {
+            $('.view[pageid="'+pageId+'"]').hide();
+
             $.each(pagesElements[pageId]['texts'], function(){
                 $(this).hide();
             });
@@ -180,6 +190,8 @@ $(document).ready(function(){
 
             if(pageId in pagesElements)
             {
+                $('.view[pageid="'+pageId+'"]').show();
+
                 $.each(pagesElements[pageId]['texts'], function(){
                     $(this).show();
                 });
@@ -196,6 +208,25 @@ $(document).ready(function(){
         }
     }
 
+    function zoomSlider(element, orientation)
+    {
+        element.slider({
+            disabled: true,
+            min: 20,
+            orientation: orientation,
+            slide: zoomSlideHandler
+        });
+    }
+
+    function zoomSlideHandler(event, ui)
+    {
+        var container = $(this).closest('.background-container, .photo-container').find('.plugin-container');
+        if(container.length == 1)
+        {
+            container.croppie('setZoom', (ui.value/100));
+        }
+    }
+
     function enableBtn(btnElement)
     {
         btnElement.removeAttr('disabled');
@@ -207,9 +238,24 @@ $(document).ready(function(){
         btnElement.tooltip('hide');
     }
 
+    function enableZoom(slideElement)
+    {
+        slideElement.slider("option", "disabled", false);
+    }
+
+    function disableZoom(slideElement)
+    {
+        slideElement.slider("option", "disabled", true);
+    }
+
+    function getBackgroundContainer(childElement)
+    {
+        return childElement.closest('.background-container');
+    }
+
     function getBackgroundPluginContainer(childElement)
     {
-        return childElement.closest('.background-container').find('.plugin-container');
+        return getBackgroundContainer(childElement).find('.plugin-container');
     }
     //#endregion
 
@@ -259,23 +305,37 @@ $(document).ready(function(){
 
     $('.album-pages-container').on('change', '.background-input', function(){
         let pluginContainer = getBackgroundPluginContainer($(this));
+        let backgroundContainer = getBackgroundContainer($(this));
         pluginContainer.removeClass('unloaded');
+
         readFile(this, pluginContainer);
-        console.log($(this).closest('.background-container').innerHTML);
-        enableBtn($(this).closest('.background-container').find('.btn-apply-background'));
+        enableBtn(backgroundContainer.find('.btn-apply-background'));
+        enableZoom(backgroundContainer.find('.zoom'));
     });
 
     $('.album-pages-container').on('click', '.btn-apply-background', function(){
-        let pluginContainer = getBackgroundPluginContainer($(this));
+        let thisBtn = $(this);
+        let pluginContainer = getBackgroundPluginContainer(thisBtn);
+        let backgroundContainer = getBackgroundContainer(thisBtn);
         pluginContainer.croppie('result', {
             type: 'canvas',
             size: 'viewport'
         }).then(function (resp) {
             console.log(resp);
             pluginContainer.hide();
+            let container = thisBtn.closest('.fotorama__stage');
+            let ref = thisBtn.attr('ref');
+            let view = backgroundContainer.find('.base-view').clone().attr('id', ref)
+            .removeClass('base-view').addClass('view')
+            .attr('src', resp);
+            if(container.find('.view#'+ref).length > 0)
+                container.find('.view#'+ref).replaceWith(view);
+            else
+                container.prepend(view);
         });
 
         disableBtn($(this));
+        disableZoom(getBackgroundContainer($(this)).find('.zoom'));
     });
     //#endregion
 
