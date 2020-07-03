@@ -31,7 +31,7 @@
 
 .controls-top
 {
-    top: -60px;
+    top: -40px;
 }
 
 .controls-left
@@ -105,21 +105,4 @@
 input.cr-slider:hover
 {
     cursor: pointer;
-}
-
-.zoom-container-horizontal
-{
-    margin: auto auto;
-    width: calc(100% - 30px);
-    height: 20px;
-}
-
-.zoom-container-horizontal .zoom-container-horizontal
-{
-    width: calc(100% - 10px);
-}
-
-.zoom-container-vertical
-{
-
 }
