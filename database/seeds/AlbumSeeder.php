@@ -31,10 +31,10 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 1,
-            'width' => 150,
-            'height' => 110,
-            'x_position' => 52,
-            'y_position' => 80,
+            'width' => 142,
+            'height' => 113,
+            'x_position' => 33.5,
+            'y_position' => 48.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);

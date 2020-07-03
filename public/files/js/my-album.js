@@ -20,6 +20,20 @@ $(document).ready(function(){
     //#endregion
 
     //#region Functions
+    function readFile(input, pluginContainer) {
+        if (input.files && input.files[0])
+        {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                pluginContainer.croppie('bind', {
+                    url: e.target.result
+                });
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     function tooltipPlacement(placement)
     {
         switch(placement)
@@ -70,37 +84,40 @@ $(document).ready(function(){
 
     function generateBackgroundElement(pageId, backgroundObj)
     {
-        let diffWorkSpace = 10;
-        let containerWidth = (parseInt(backgroundObj.width, 10) + (diffWorkSpace * 2));
-        let containerHeight = (parseInt(backgroundObj.height, 10) + (diffWorkSpace * 2));
-        let backgroudElementStyle = 'style="'+
-        'left: '+(backgroundObj.x_position - diffWorkSpace)+'mm;'+
-        'top: '+(backgroundObj.y_position - diffWorkSpace)+'mm;'+
+        let backgroundElementStyle = 'style="'+
+        'left: '+backgroundObj.x_position+'mm;'+
+        'top: '+backgroundObj.y_position+'mm;'+
         'transform: rotate('+backgroundObj.rotation+'deg);'+
+        'width: '+backgroundObj.width+'mm;'+
+        'height: '+backgroundObj.height+'mm;'+
+        '"';
+        let pluginContainerStyle = 'style="'+
+        'width: '+backgroundObj.width+'mm;'+
+        'height: '+backgroundObj.height+'mm;'+
         '"';
         let croppieOpts = {
+            enableExif: true,
             viewport: {
-                width: containerWidth+'mm',
-                height: containerHeight+'mm'
-            },
-            boundary: {
                 width: backgroundObj.width+'mm',
                 height: backgroundObj.height+'mm'
-            }
+            },
+            showZoomer: false,
+            enableResize: false
         };
 
-        let backgroundElement = $('<div class="background-container" pageid="'+pageId+'" backgroundid="'+backgroundObj.id+'" '+backgroudElementStyle+'></div>');
-        let pluginContainer = $('<div class="plugin-container" id="background-'+backgroundObj.id+'" style="width: '+containerWidth+'mm; height: '+containerHeight+'mm; padding: '+diffWorkSpace+'mm;"></div>');
-
+        let backgroundElement = $('<div class="background-container" pageid="'+pageId+'" backgroundid="'+backgroundObj.id+'" '+backgroundElementStyle+'></div>');
+        let pluginContainer = $('<div class="plugin-container unloaded" id="background-'+backgroundObj.id+'" '+pluginContainerStyle+'></div>');
+        let inputFile = $('<input type="file" value="background['+pageId+']['+backgroundObj.id+']" accept="image/*" class="background-input"/>');
         let buttons = $(
             '<div class="controls-'+backgroundObj.controls_position+'">'+
                 '<div class="'+((backgroundObj.controls_position == 'left' || backgroundObj.controls_position == 'right')? 'btn-group-vertical':'btn-group')+'" role="group">'+
-                    '<button type="button" class="btn btn-success btn-upload-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Carregar imagem"><i class="fas fa-upload"></i></button>'+
-                    '<button type="button" class="btn btn-info btn-view-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Aplicar e vizualisar" disabled><i class="fas fa-eye"></i></button>'+
+                    '<button type="button" class="btn btn-info btn-upload-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Carregar imagem"><i class="fas fa-upload"></i></button>'+
+                    '<button type="button" class="btn btn-success btn-apply-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Aplicar" disabled><i class="fas fa-check"></i></button>'+
                 '</div>'+
             '</div>'
         );
         backgroundElement.append(pluginContainer);
+        backgroundElement.append(inputFile);
         backgroundElement.append(buttons);
         pluginContainer.croppie(croppieOpts);
         backgroundElement.hide();
@@ -113,29 +130,27 @@ $(document).ready(function(){
             pagesElements[pageObj.id] = [];
             pagesElements[pageObj.id]['texts'] = [];
             pagesElements[pageObj.id]['photos'] = [];
-            pagesElements[pageObj.id]['backgrouds'] = [];
+            pagesElements[pageObj.id]['backgrounds'] = [];
 
             $.each(pageObj.photos, function(k, photoObj){
                 //console.log(photoObj);
                 //pagesElements[pageObj.id]['photos'].push();
             });
 
-            $.each(pageObj.backgrounds, function(k, backgroudObj){
-                //console.log(backgroudObj);
-                let backgroudElement = generateBackgroundElement(pageObj.id, backgroudObj);
-                $(".album-pages-container .fotorama__stage").append(backgroudElement);
-                pagesElements[pageObj.id]['backgrouds'].push(backgroudElement);
+            $.each(pageObj.backgrounds, function(k, backgroundObj){
+                let backgroundElement = generateBackgroundElement(pageObj.id, backgroundObj);
+                $(".album-pages-container .fotorama__stage").append(backgroundElement);
+                pagesElements[pageObj.id]['backgrounds'].push(backgroundElement);
             });
 
             $.each(pageObj.texts, function(k, textObj){
-                //console.log(textObj);
                 let textElement = generateTextElement(pageObj.id, textObj);
                 $(".album-pages-container .fotorama__stage").append(textElement);
                 pagesElements[pageObj.id]['texts'].push(textElement);
             });
         });
         $('[data-toggle="tooltip"]').tooltip();
-        console.log(pagesElements);
+        //console.log(pagesElements);
     }
 
     function hidePageElements(pageId)
@@ -150,7 +165,7 @@ $(document).ready(function(){
                 //$(this).hide();
             });
 
-            $.each(pagesElements[pageId]['backgrouds'], function(){
+            $.each(pagesElements[pageId]['backgrounds'], function(){
                 $(this).hide();
             });
         }
@@ -173,7 +188,7 @@ $(document).ready(function(){
                     //$(this).show();
                 });
 
-                $.each(pagesElements[pageId]['backgrouds'], function(){
+                $.each(pagesElements[pageId]['backgrounds'], function(){
                     $(this).show();
                 });
             }
@@ -181,10 +196,20 @@ $(document).ready(function(){
         }
     }
 
-    function disableBtnApllyText(btnElement)
+    function enableBtn(btnElement)
+    {
+        btnElement.removeAttr('disabled');
+    }
+
+    function disableBtn(btnElement)
     {
         btnElement.attr('disabled', 'disabled');
         btnElement.tooltip('hide');
+    }
+
+    function getBackgroundPluginContainer(childElement)
+    {
+        return childElement.closest('.background-container').find('.plugin-container');
     }
     //#endregion
 
@@ -203,27 +228,56 @@ $(document).ready(function(){
         showPageElements(fotorama.activeFrame.id);
     });
 
+    //#region Text Element Controls
+
     $('.album-pages-container').on('click', '.btn-change-text', function(){
         $('input#'+$(this).attr('ref')).val('');
         $('input#'+$(this).attr('ref')).focus();
-        $(this).closest('.input-container').find('.btn-aplly-text').removeAttr('disabled');
+        enableBtn($(this).closest('.input-container').find('.btn-aplly-text'));
     });
 
     $('.album-pages-container').on('click', '.btn-aplly-text', function(){
         $('input#'+$(this).attr('ref')).blur();
-        disableBtnApllyText($(this).closest('.input-container').find('.btn-aplly-text'));
+        disableBtn($(this));
     });
 
     $('.album-pages-container').on('keypress', '.input-container input', function(event){
         if(event.which == 13){
             $(this).blur();
-            disableBtnApllyText($(this).closest('.input-container').find('.btn-aplly-text'));
+            disableBtn($(this).closest('.input-container').find('.btn-aplly-text'));
         }
     });
 
-    $('.album-pages-container').on('click', '.btn-upload-background', function(){
+    //#endregion
 
+    //#region Background Element Controls
+    $('.album-pages-container').on('click', '.btn-upload-background', function(){
+        let pluginContainer = getBackgroundPluginContainer($(this));
+        pluginContainer.show();
+        $(this).closest('.background-container').find('.background-input').trigger('click');
     });
+
+    $('.album-pages-container').on('change', '.background-input', function(){
+        let pluginContainer = getBackgroundPluginContainer($(this));
+        pluginContainer.removeClass('unloaded');
+        readFile(this, pluginContainer);
+        console.log($(this).closest('.background-container').innerHTML);
+        enableBtn($(this).closest('.background-container').find('.btn-apply-background'));
+    });
+
+    $('.album-pages-container').on('click', '.btn-apply-background', function(){
+        let pluginContainer = getBackgroundPluginContainer($(this));
+        pluginContainer.croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+            console.log(resp);
+            pluginContainer.hide();
+        });
+
+        disableBtn($(this));
+    });
+    //#endregion
 
     //#endregion
 });

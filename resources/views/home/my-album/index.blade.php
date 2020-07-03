@@ -3,6 +3,7 @@
 @section('styles')
     @parent
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <link rel="stylesheet" href="/files/css/croppie.css">
     <link rel="stylesheet" href="/files/css/my-album.css">
     <style>
         @foreach ($fonts as $font)

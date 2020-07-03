@@ -31,7 +31,7 @@
 
 .controls-top
 {
-    top: -40px;
+    top: -60px;
 }
 
 .controls-left
@@ -53,12 +53,6 @@
 {
     margin: 2px auto 0px auto;
 }
-
-.cr-slider-wrap input
-{
-    width: 100%;
-}
-
 
 .album-pages-container
 {
@@ -97,8 +91,35 @@
     box-shadow: 0 0 10px #719ECE;
 }
 
-.album-pages-container .background-container .plugin-container .cr-boundary
+.album-pages-container .background-container .plugin-container.unloaded .cr-boundary
 {
     background-color: #aaaaaa;
     opacity: 0.5;
+}
+
+.album-pages-container .background-container .background-input
+{
+    display: none;
+}
+
+input.cr-slider:hover
+{
+    cursor: pointer;
+}
+
+.zoom-container-horizontal
+{
+    margin: auto auto;
+    width: calc(100% - 30px);
+    height: 20px;
+}
+
+.zoom-container-horizontal .zoom-container-horizontal
+{
+    width: calc(100% - 10px);
+}
+
+.zoom-container-vertical
+{
+
 }
