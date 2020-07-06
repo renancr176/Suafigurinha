@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Home;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\AlbumOrder;
+use App\State;
 
 class MyAlbumController extends Controller
 {
@@ -69,7 +70,9 @@ class MyAlbumController extends Controller
             foreach($page->texts()->get() as $text)
                 array_push($fonts, $text->font);
 
-        return view('home.my-album.index', compact('order', 'album', 'fonts'));
+        $states = State::get();
+
+        return view('home.my-album.index', compact('order', 'album', 'fonts', 'states'));
     }
 
     /**

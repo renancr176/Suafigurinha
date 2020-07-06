@@ -143,7 +143,7 @@ class AlbumSeeder extends Seeder
             'x_position' => 85,
             'y_position' => 0,
             'rotation' => 0,
-            'controls_position' => 'right'
+            'controls_position' => 'top'
         ]);
 
         #endregion
@@ -293,7 +293,7 @@ class AlbumSeeder extends Seeder
             'x_position' => 100,
             'y_position' => 0,
             'rotation' => 0,
-            'controls_position' => 'right'
+            'controls_position' => 'top'
         ]);
 
         #endregion
@@ -313,7 +313,7 @@ class AlbumSeeder extends Seeder
             'x_position' => 32,
             'y_position' => 0,
             'rotation' => 0,
-            'controls_position' => 'right'
+            'controls_position' => 'top'
         ]);
 
         #endregion

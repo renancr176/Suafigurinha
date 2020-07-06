@@ -17,6 +17,18 @@ $(document).ready(function(){
             }
         });
     }
+
+    function getAddressByZipcode(zipcode, handler)
+    {
+        $.ajax({
+            url: "https://viacep.com.br/ws/"+removeNonDigits(zipcode)+"/json/",
+            method: "GET",
+            dataType: "json",
+            success: function(res){
+                handler(res);
+            }
+        });
+    }
     //#endregion
 
     //#region Functions
@@ -382,8 +394,39 @@ $(document).ready(function(){
         enableZoom(photoContainer.find('.zoom'));
 
     }
+
+    function removeNonDigits(text)
+    {
+        return text.replace( /\D+/g, '');
+    }
+
+    function changePhoneMask()
+    {
+        phoneNum = removeNonDigits($(this).val());
+        $(this).unmask();
+        $(this).val(phoneNum);
+        if(phoneNum.length == 10)
+        {
+            $(this).mask('(99) 9999-9999?9');
+        }
+        else if(phoneNum.length == 11)
+        {
+            $(this).mask('(99) 99999-999?9');
+        }
+    }
+
+    function setAddressHandler(addressObj)
+    {
+        var form = $('.form');
+        form.find('#state').val(addressObj.uf.toUpperCase());
+        form.find('#city').val(addressObj.localidade);
+        form.find('#district').val(addressObj.bairro);
+        form.find('#address').val(addressObj.logradouro);
+        form.find('#address-number').focus();
+    }
     //#endregion
 
+    //#region Init
     getAlbum($(".album-pages-container").attr("albumid"), function(res){
         albumObj = res;
         //console.log(albumObj);
@@ -394,7 +437,24 @@ $(document).ready(function(){
         }
     });
 
+    $('.zipcode').mask('99999-999', {
+        completed: function(){
+            getAddressByZipcode(this.val(), setAddressHandler);
+        }
+    });
+    $('.phone').mask('(99) 9999-9999?9').change(changePhoneMask);
+    //#endregion
+
     //#region Event Handlers
+
+    //#region Steps
+    $('.step').click(function(){
+        let stepNum = $(this).attr('step');
+        $('.step-content').removeClass('active');
+        $('#step-'+stepNum+'-content').addClass('active');
+    });
+    //#endregion
+
     $('.fotorama').on('fotorama:show', function (e, fotorama, extra) {
         showPageElements(fotorama.activeFrame.id);
     });
@@ -489,5 +549,10 @@ $(document).ready(function(){
     });
     //#endregion
 
+    $('#client-name').focusout(function(){
+        console.log($('#receiver-name').length);
+        if($(this).val() != '' && $('#receiver-name').val() == '')
+            $('#receiver-name').val($(this).val());
+    });
     //#endregion
 });
