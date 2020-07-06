@@ -137,6 +137,58 @@ $(document).ready(function(){
         return backgroundElement;
     }
 
+    function generatePhotoElement(pageId, photoObj)
+    {
+        let photoElementStyle = 'style="'+
+        'left: '+photoObj.x_position+'mm;'+
+        'top: '+photoObj.y_position+'mm;'+
+        'transform: rotate('+photoObj.rotation+'deg);'+
+        'width: '+photoObj.frame_type.width+'mm;'+
+        'height: '+photoObj.frame_type.height+'mm;'+
+        '"';
+        let pluginContainerStyle = 'style="'+
+        'width: '+photoObj.frame_type.width+'mm;'+
+        'height: '+photoObj.frame_type.height+'mm;'+
+        '"';
+        let croppieOpts = {
+            enableExif: true,
+            viewport: {
+                width: photoObj.frame_type.width+'mm',
+                height: photoObj.frame_type.height+'mm'
+            },
+            showZoomer: false,
+            enableResize: false,
+            mouseWheelZoom: false
+        };
+        let zoomSlideOrientation = ((photoObj.controls_position == 'left' || photoObj.controls_position == 'right')? 'vertical':'horizontal');
+
+        let photoElement = $('<div class="photo-container" pageid="'+pageId+'" photoid="'+photoObj.id+'" '+photoElementStyle+'></div>');
+        let pluginContainer = $('<div class="plugin-container unloaded" id="photo-'+photoObj.id+'" '+pluginContainerStyle+'></div>');
+        let inputs = $(
+            '<input type="file" accept="image/*" class="photo-input"/>'+
+            '<input type="hidden" name="photo['+pageId+']['+photoObj.id+']" class="album-data" value="" />'
+        );
+        let controls = $(
+            '<div class="controls-'+photoObj.controls_position+' has-zoom">'+
+                ((photoObj.controls_position == 'bottom' || photoObj.controls_position == 'right')? '<div class="zoom-container-'+zoomSlideOrientation+'"><div class="zoom" data-toggle="tooltip" data-placement="'+tooltipPlacement(photoObj.controls_position)+'" title="Zoom"></div></div>':'')+
+                '<div class="'+((photoObj.controls_position == 'left' || photoObj.controls_position == 'right')? 'btn-group-vertical':'btn-group')+'" role="group">'+
+                    '<button type="button" class="btn btn-info btn-upload-photo" ref="photo-'+photoObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(photoObj.controls_position)+'" title="Carregar imagem"><i class="fas fa-upload"></i></button>'+
+                '</div>'+
+                ((photoObj.controls_position == 'top' || photoObj.controls_position == 'left')? '<div class="zoom-container-'+zoomSlideOrientation+'"><div class="zoom" data-toggle="tooltip" data-placement="'+tooltipPlacement(photoObj.controls_position)+'" title="Zoom"></div></div>':'')+
+            '</div>'
+        );
+
+        photoElement.append(pluginContainer);
+        photoElement.append(inputs);
+        photoElement.append(controls);
+        controls.find('.btn-undo-photo').hide();
+        zoomSlider(controls.find('.zoom'), zoomSlideOrientation);
+        pluginContainer.croppie(croppieOpts);
+        pluginContainer.on('update.croppie', photoUpdate);
+        photoElement.hide();
+        return photoElement;
+    }
+
     function loadPagesElements(albumObj)
     {
         $.each(albumObj.pages, function(k, pageObj){
@@ -146,24 +198,29 @@ $(document).ready(function(){
             pagesElements[pageObj.id]['backgrounds'] = [];
 
             $.each(pageObj.photos, function(k, photoObj){
-                //console.log(photoObj);
-                //pagesElements[pageObj.id]['photos'].push();
+                let photoElement = generatePhotoElement(pageObj.id, photoObj);
+                addElement(photoElement);
+                pagesElements[pageObj.id]['photos'].push(photoElement);
             });
 
             $.each(pageObj.backgrounds, function(k, backgroundObj){
                 let backgroundElement = generateBackgroundElement(pageObj.id, backgroundObj);
-                $(".album-pages-container .fotorama__stage").append(backgroundElement);
+                addElement(backgroundElement);
                 pagesElements[pageObj.id]['backgrounds'].push(backgroundElement);
             });
 
             $.each(pageObj.texts, function(k, textObj){
                 let textElement = generateTextElement(pageObj.id, textObj);
-                $(".album-pages-container .fotorama__stage").append(textElement);
+                addElement(textElement);
                 pagesElements[pageObj.id]['texts'].push(textElement);
             });
         });
         $('[data-toggle="tooltip"]').tooltip();
-        //console.log(pagesElements);
+    }
+
+    function addElement(element)
+    {
+        $(".album-pages-container .fotorama__stage").append(element);
     }
 
     function hidePageElements(pageId)
@@ -177,7 +234,7 @@ $(document).ready(function(){
             });
 
             $.each(pagesElements[pageId]['photos'], function(){
-                //$(this).hide();
+                $(this).hide();
             });
 
             $.each(pagesElements[pageId]['backgrounds'], function(){
@@ -202,7 +259,7 @@ $(document).ready(function(){
                 });
 
                 $.each(pagesElements[pageId]['photos'], function(){
-                    //$(this).show();
+                    $(this).show();
                 });
 
                 $.each(pagesElements[pageId]['backgrounds'], function(){
@@ -230,6 +287,18 @@ $(document).ready(function(){
         {
             container.croppie('setZoom', (ui.value/100));
         }
+    }
+
+    function photoUpdate(ev, cropData)
+    {
+        let photoContainer = getPhotoContainer($(this));
+        $(this).croppie('result', {
+            type: 'canvas',
+            size: 'viewport'
+        }).then(function (resp) {
+            console.log(resp);
+            photoContainer.find('.album-data').val(resp);
+        });
     }
 
     function enableBtn(btnElement)
@@ -289,6 +358,30 @@ $(document).ready(function(){
         enableZoom(backgroundContainer.find('.zoom'));
 
     }
+
+    function getPhotoContainer(childElement)
+    {
+        return childElement.closest('.photo-container');
+    }
+
+    function getPhotoPluginContainer(childElement)
+    {
+        return getPhotoContainer(childElement).find('.plugin-container');
+    }
+
+    function undoPhoto(photoContainer)
+    {
+        let btnUndo = photoContainer.find('.btn-undo-background');
+        let btnApply = photoContainer.find('.btn-apply-background');
+
+        btnApply.insertAfter(btnUndo);
+
+        photoContainer.find('.cr-boundary').show();
+        hideBtn(btnUndo);
+        showBtn(btnApply);
+        enableZoom(photoContainer.find('.zoom'));
+
+    }
     //#endregion
 
     getAlbum($(".album-pages-container").attr("albumid"), function(res){
@@ -330,9 +423,9 @@ $(document).ready(function(){
 
     //#region Background Element Controls
     $('.album-pages-container').on('click', '.btn-upload-background', function(){
-        let pluginContainer = getBackgroundPluginContainer($(this));
-        $(this).closest('.background-container').find('.background-input').trigger('click');
-        undoBackground(getBackgroundContainer($(this)));
+        let backgroundContainer = getBackgroundContainer($(this));
+        backgroundContainer.find('.background-input').trigger('click');
+        undoBackground(backgroundContainer);
     });
 
     $('.album-pages-container').on('change', '.background-input', function(){
@@ -375,6 +468,24 @@ $(document).ready(function(){
 
     $('.album-pages-container').on('click', '.btn-undo-background', function(){
         undoBackground(getBackgroundContainer($(this)));
+    });
+    //#endregion
+
+    //#region Photo Element Controls
+    $('.album-pages-container').on('click', '.btn-upload-photo', function(){
+        let photoContainer = getPhotoContainer($(this));
+        photoContainer.find('.photo-input').trigger('click');
+        undoPhoto(photoContainer);
+    });
+
+    $('.album-pages-container').on('change', '.photo-input', function(){
+        let pluginContainer = getPhotoPluginContainer($(this));
+        let photoContainer = getPhotoContainer($(this));
+        pluginContainer.removeClass('unloaded');
+
+        readFile(this, pluginContainer);
+        enableBtn(photoContainer.find('.btn-apply-photo'));
+        enableZoom(photoContainer.find('.zoom'));
     });
     //#endregion
 

@@ -15,6 +15,6 @@ class AlbumPagePhoto extends Model
 
     public function frameType()
     {
-        return $this->belongsTo('App\AlbumFrameType');
+        return $this->belongsTo('App\AlbumFrameType', 'album_frame_type_id');
     }
 }

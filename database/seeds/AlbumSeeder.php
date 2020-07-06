@@ -70,8 +70,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 2,
             'album_frame_type_id' => 2,
             'sequence' => 1,
-            'x_position' => 100,
-            'y_position' => 100,
+            'x_position' => 22.5,
+            'y_position' => 22.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -80,8 +80,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 2,
             'album_frame_type_id' => 2,
             'sequence' => 2,
-            'x_position' => 400,
-            'y_position' => 100,
+            'x_position' => 113.8,
+            'y_position' => 22.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -90,8 +90,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 2,
             'album_frame_type_id' => 2,
             'sequence' => 3,
-            'x_position' => 100,
-            'y_position' => 400,
+            'x_position' => 22.5,
+            'y_position' => 113.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -100,8 +100,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 2,
             'album_frame_type_id' => 2,
             'sequence' => 4,
-            'x_position' => 400,
-            'y_position' => 400,
+            'x_position' => 113.8,
+            'y_position' => 113.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -120,8 +120,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 3,
             'album_frame_type_id' => 2,
             'sequence' => 5,
-            'x_position' => 50,
-            'y_position' => 100,
+            'x_position' => 13.8,
+            'y_position' => 22.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -130,8 +130,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 3,
             'album_frame_type_id' => 2,
             'sequence' => 6,
-            'x_position' => 50,
-            'y_position' => 400,
+            'x_position' => 13.8,
+            'y_position' => 113.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -160,20 +160,20 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 4,
             'album_frame_type_id' => 2,
             'sequence' => 7,
-            'x_position' => 100,
-            'y_position' => 50,
+            'x_position' => 22.5,
+            'y_position' => 11.5,
             'rotation' => 0,
-            'controls_position' => 'top'
+            'controls_position' => 'left'
         ]);
 
         App\AlbumPagePhoto::create([
             'album_page_id' => 4,
             'album_frame_type_id' => 2,
             'sequence' => 8,
-            'x_position' => 400,
-            'y_position' => 50,
+            'x_position' => 113.8,
+            'y_position' => 11.5,
             'rotation' => 0,
-            'controls_position' => 'top'
+            'controls_position' => 'right'
         ]);
 
         App\AlbumPageBackground::create([
@@ -200,8 +200,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 5,
             'album_frame_type_id' => 2,
             'sequence' => 9,
-            'x_position' => 100,
-            'y_position' => 100,
+            'x_position' => 22.5,
+            'y_position' => 22.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -210,8 +210,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 5,
             'album_frame_type_id' => 2,
             'sequence' => 10,
-            'x_position' => 400,
-            'y_position' => 100,
+            'x_position' => 113.8,
+            'y_position' => 22.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -220,8 +220,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 5,
             'album_frame_type_id' => 2,
             'sequence' => 11,
-            'x_position' => 100,
-            'y_position' => 400,
+            'x_position' => 22.5,
+            'y_position' => 113.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -230,8 +230,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 5,
             'album_frame_type_id' => 2,
             'sequence' => 12,
-            'x_position' => 400,
-            'y_position' => 400,
+            'x_position' => 113.8,
+            'y_position' => 113.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -248,8 +248,8 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 6,
-            'width' => 175,
-            'height' => 160,
+            'width' => 175.5,
+            'height' => 161,
             'x_position' => 18,
             'y_position' => 25,
             'rotation' => 0,
@@ -270,8 +270,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 7,
             'album_frame_type_id' => 2,
             'sequence' => 13,
-            'x_position' => 100,
-            'y_position' => 120,
+            'x_position' => 22.5,
+            'y_position' => 22.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -280,8 +280,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 7,
             'album_frame_type_id' => 2,
             'sequence' => 14,
-            'x_position' => 100,
-            'y_position' => 400,
+            'x_position' => 22.5,
+            'y_position' => 113.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -330,8 +330,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 9,
             'album_frame_type_id' => 2,
             'sequence' => 15,
-            'x_position' => 100,
-            'y_position' => 100,
+            'x_position' => 22.5,
+            'y_position' => 22.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -340,8 +340,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 9,
             'album_frame_type_id' => 2,
             'sequence' => 16,
-            'x_position' => 400,
-            'y_position' => 100,
+            'x_position' => 113.8,
+            'y_position' => 22.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -350,8 +350,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 9,
             'album_frame_type_id' => 2,
             'sequence' => 17,
-            'x_position' => 100,
-            'y_position' => 400,
+            'x_position' => 22.5,
+            'y_position' => 113.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -360,8 +360,8 @@ class AlbumSeeder extends Seeder
             'album_page_id' => 9,
             'album_frame_type_id' => 2,
             'sequence' => 18,
-            'x_position' => 400,
-            'y_position' => 400,
+            'x_position' => 113.8,
+            'y_position' => 113.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -397,21 +397,21 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPagePhoto::create([
-            'album_page_id' => 9,
+            'album_page_id' => 11,
             'album_frame_type_id' => 2,
             'sequence' => 19,
-            'x_position' => 100,
-            'y_position' => 300,
+            'x_position' => 22.5,
+            'y_position' => 55.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
 
         App\AlbumPagePhoto::create([
-            'album_page_id' => 9,
+            'album_page_id' => 11,
             'album_frame_type_id' => 2,
             'sequence' => 20,
-            'x_position' => 400,
-            'y_position' => 300,
+            'x_position' => 113.8,
+            'y_position' => 55.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);

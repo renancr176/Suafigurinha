@@ -16,8 +16,8 @@ class AlbumFrameTypeSeeder extends Seeder
             'title' => 'Pequeno',
             'font_size' => '24',
             'image_path' => '/files/images/albuns/frames/default.png',
-            'width' => '100',
-            'height' => '100'
+            'width' => '60',
+            'height' => '60'
         ]);
 
         App\AlbumFrameType::create([
@@ -25,8 +25,8 @@ class AlbumFrameTypeSeeder extends Seeder
             'title' => 'Médio',
             'font_size' => '45',
             'image_path' => '/files/images/albuns/frames/default.png',
-            'width' => '250',
-            'height' => '250'
+            'width' => '73',
+            'height' => '73'
         ]);
 
         App\AlbumFrameType::create([
@@ -34,8 +34,8 @@ class AlbumFrameTypeSeeder extends Seeder
             'title' => 'Grande',
             'font_size' => '72',
             'image_path' => '/files/images/albuns/frames/default.png',
-            'width' => '400',
-            'height' => '400'
+            'width' => '86',
+            'height' => '86'
         ]);
     }
 }

@@ -2,7 +2,8 @@
 .fotorama__stage,
 .fotorama__stage__shaft,
 .input-container,
-.background-container
+.background-container,
+.photo-container
 {
     overflow: visible;
 }
@@ -42,7 +43,7 @@
 
 .controls-top.has-zoom
 {
-    top: -60px;
+    top: -64px;
 }
 
 .controls-left
@@ -62,7 +63,7 @@
 
 .controls-right.has-zoom
 {
-    right: -66px;
+    right: -68px;
 }
 
 .controls-top .btn-group
@@ -80,6 +81,10 @@
     margin: auto auto;
     width: calc(100% - 30px);
     padding-top: 5px;
+}
+
+.controls-bottom .zoom-container-horizontal{
+    padding-top: 8px;
 }
 
 .zoom-container-vertical
@@ -117,7 +122,8 @@
 }
 
 .album-pages-container .input-container,
-.album-pages-container .background-container
+.album-pages-container .background-container,
+.album-pages-container .photo-container
 {
     position: fixed;
     margin: 0px;
@@ -147,13 +153,15 @@
     box-shadow: 0 0 10px #719ECE;
 }
 
-.album-pages-container .background-container .plugin-container.unloaded .cr-boundary
+.album-pages-container .background-container .plugin-container.unloaded .cr-boundary,
+.album-pages-container .photo-container .plugin-container.unloaded .cr-boundary
 {
     background-color: #aaaaaa;
     opacity: 0.5;
 }
 
-.album-pages-container .background-container .background-input
+.album-pages-container .background-container .background-input,
+.album-pages-container .photo-container .photo-input
 {
     display: none;
 }
