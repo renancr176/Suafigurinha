@@ -67,7 +67,7 @@ $(document).ready(function(){
         'font-family: '+textObj.font.title+';'+
         '"';
         let textElement = $('<div class="input-container" '+textElementStyle+' pageid="'+pageId+'" textid="'+textObj.id+'"></div>');
-        let input = $('<input name="texts['+pageId+']['+textObj.id+']" value="'+textObj.text+'" id="text-'+textObj.id+'" type="text" placeholder="Informe o texto" '+inputStyle+'/>');
+        let input = $('<input name="texts['+pageId+']['+textObj.id+']" value="'+textObj.text+'" id="text-'+textObj.id+'" class="album-data" type="text" placeholder="Informe o texto" '+inputStyle+'/>');
         let controls = $(
             '<div class="controls-'+textObj.controls_position+'">'+
                 '<div class="'+((textObj.controls_position == 'left' || textObj.controls_position == 'right')? 'btn-group-vertical':'btn-group')+'" role="group">'+
@@ -109,12 +109,16 @@ $(document).ready(function(){
 
         let backgroundElement = $('<div class="background-container" pageid="'+pageId+'" backgroundid="'+backgroundObj.id+'" '+backgroundElementStyle+'></div>');
         let pluginContainer = $('<div class="plugin-container unloaded" id="background-'+backgroundObj.id+'" '+pluginContainerStyle+'></div>');
-        let inputFile = $('<input type="file" accept="image/*" class="background-input"/>');
+        let inputs = $(
+            '<input type="file" accept="image/*" class="background-input"/>'+
+            '<input type="hidden" name="background['+pageId+']['+backgroundObj.id+']" class="album-data" value="" />'
+        );
         let controls = $(
             '<div class="controls-'+backgroundObj.controls_position+' has-zoom">'+
                 ((backgroundObj.controls_position == 'bottom' || backgroundObj.controls_position == 'right')? '<div class="zoom-container-'+zoomSlideOrientation+'"><div class="zoom" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Zoom"></div></div>':'')+
                 '<div class="'+((backgroundObj.controls_position == 'left' || backgroundObj.controls_position == 'right')? 'btn-group-vertical':'btn-group')+'" role="group">'+
                     '<button type="button" class="btn btn-info btn-upload-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Carregar imagem"><i class="fas fa-upload"></i></button>'+
+                    '<button type="button" class="btn btn-warning btn-undo-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Desfazer" disabled><i class="fas fa-undo"></i></button>'+
                     '<button type="button" class="btn btn-success btn-apply-background" ref="background-'+backgroundObj.id+'" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Aplicar" disabled><i class="fas fa-check"></i></button>'+
                 '</div>'+
                 ((backgroundObj.controls_position == 'top' || backgroundObj.controls_position == 'left')? '<div class="zoom-container-'+zoomSlideOrientation+'"><div class="zoom" data-toggle="tooltip" data-placement="'+tooltipPlacement(backgroundObj.controls_position)+'" title="Zoom"></div></div>':'')+
@@ -123,9 +127,10 @@ $(document).ready(function(){
         let viewElement = $('<img class="base-view" pageid="'+pageId+'" '+backgroundElementStyle+'/>');
 
         backgroundElement.append(pluginContainer);
-        backgroundElement.append(inputFile);
+        backgroundElement.append(inputs);
         backgroundElement.append(controls);
         backgroundElement.append(viewElement);
+        controls.find('.btn-undo-background').hide();
         zoomSlider(controls.find('.zoom'), zoomSlideOrientation);
         pluginContainer.croppie(croppieOpts);
         backgroundElement.hide();
@@ -238,6 +243,18 @@ $(document).ready(function(){
         btnElement.tooltip('hide');
     }
 
+    function showBtn(btnElement)
+    {
+        enableBtn(btnElement);
+        btnElement.show();
+    }
+
+    function hideBtn(btnElement)
+    {
+        disableBtn(btnElement);
+        btnElement.hide();
+    }
+
     function enableZoom(slideElement)
     {
         slideElement.slider("option", "disabled", false);
@@ -246,6 +263,7 @@ $(document).ready(function(){
     function disableZoom(slideElement)
     {
         slideElement.slider("option", "disabled", true);
+        slideElement.tooltip('hide');
     }
 
     function getBackgroundContainer(childElement)
@@ -256,6 +274,20 @@ $(document).ready(function(){
     function getBackgroundPluginContainer(childElement)
     {
         return getBackgroundContainer(childElement).find('.plugin-container');
+    }
+
+    function undoBackground(backgroundContainer)
+    {
+        let btnUndo = backgroundContainer.find('.btn-undo-background');
+        let btnApply = backgroundContainer.find('.btn-apply-background');
+
+        btnApply.insertAfter(btnUndo);
+
+        backgroundContainer.find('.cr-boundary').show();
+        hideBtn(btnUndo);
+        showBtn(btnApply);
+        enableZoom(backgroundContainer.find('.zoom'));
+
     }
     //#endregion
 
@@ -299,8 +331,8 @@ $(document).ready(function(){
     //#region Background Element Controls
     $('.album-pages-container').on('click', '.btn-upload-background', function(){
         let pluginContainer = getBackgroundPluginContainer($(this));
-        pluginContainer.show();
         $(this).closest('.background-container').find('.background-input').trigger('click');
+        undoBackground(getBackgroundContainer($(this)));
     });
 
     $('.album-pages-container').on('change', '.background-input', function(){
@@ -322,7 +354,8 @@ $(document).ready(function(){
             size: 'viewport'
         }).then(function (resp) {
             console.log(resp);
-            pluginContainer.hide();
+            pluginContainer.find('.cr-boundary').hide();
+            backgroundContainer.find('.album-data').val(resp);
             let container = thisBtn.closest('.fotorama__stage');
             let ref = thisBtn.attr('ref');
             let view = backgroundContainer.find('.base-view').clone().attr('id', ref)
@@ -334,8 +367,14 @@ $(document).ready(function(){
                 container.prepend(view);
         });
 
-        disableBtn($(this));
-        disableZoom(getBackgroundContainer($(this)).find('.zoom'));
+        disableZoom(backgroundContainer.find('.zoom'));
+        backgroundContainer.find('.btn-undo-background').insertAfter(thisBtn);
+        hideBtn(thisBtn);
+        showBtn(backgroundContainer.find('.btn-undo-background'));
+    });
+
+    $('.album-pages-container').on('click', '.btn-undo-background', function(){
+        undoBackground(getBackgroundContainer($(this)));
     });
     //#endregion
 

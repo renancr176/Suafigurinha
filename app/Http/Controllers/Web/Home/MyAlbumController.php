@@ -47,7 +47,9 @@ class MyAlbumController extends Controller
      */
     public function show($id)
     {
-        $order = AlbumOrder::where('transaction_id', $id)->firstOrFail();
+        $order = AlbumOrder::where('transaction_id', $id)
+        ->where('completed', false)
+        ->firstOrFail();
 
         $album = $order->album()->with([
             'pageType',

@@ -17,6 +17,7 @@ class CreateAlbumOrdersTable extends Migration
             $table->id();
             $table->string('transaction_id')->unique();
             $table->foreignId('album_id')->constrained();
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }
