@@ -7,24 +7,30 @@
     margin-bottom: 70px;
 }
 
+.step.col
+{
+    padding: 0px;
+}
+
 .step img
 {
-    opacity: 1;
+    opacity: 0;
+    max-width: 100%;
 }
 
 .step-1
 {
-    background-image: url('/files/images/album/steps/step-1.png');
+    background-image: url('/files/images/albuns/steps/step-1.png');
 }
 
 .step-2
 {
-    background-image: url('/files/images/album/steps/step-2.png');
+    background-image: url('/files/images/albuns/steps/step-2.png');
 }
 
 .step-3
 {
-    background-image: url('/files/images/album/steps/step-3.png');
+    background-image: url('/files/images/albuns/steps/step-3.png');
 }
 
 .step-1.active

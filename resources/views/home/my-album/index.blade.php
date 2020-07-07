@@ -25,14 +25,14 @@
         <h5 class="text-center text-secondary">Álbum Personalizado - {{ $album->title }}</h5>
         <hr/>
         <div class="row text-center">
-            <div class="col-sm hvr-underline-from-center step step-1" step="1">
-                <img src="/files/images/album/steps/step-1.png"  class="imageimg-fluid" alt="Passo 1 - Montagem do album">
+            <div class="col hvr-underline-from-center step step-1" step="1">
+                <img src="/files/images/albuns/steps/step-1.png" alt="Passo 1 - Montagem do album">
             </div>
-            <div class="col-sm hvr-underline-from-center step step-2" step="2">
-                <img src="/files/images/album/steps/step-2.png" class="imageimg-fluid" alt="Passo 2 - Dados de envio">
+            <div class="col hvr-underline-from-center step step-2" step="2">
+                <img src="/files/images/albuns/steps/step-2.png" alt="Passo 2 - Dados de envio">
             </div>
-            <div class="col-sm hvr-underline-from-center step step-3" step="3">
-                <img src="/files/images/album/steps/step-3.png" class="imageimg-fluid" alt="Passo 3 - Conferência e confirmação">
+            <div class="col hvr-underline-from-center step step-3" step="3">
+                <img src="/files/images/albuns/steps/step-3.png" alt="Passo 3 - Conferência e confirmação">
             </div>
         </div>
         <div id="step-1-content" class="step-content active">
