@@ -22,3 +22,11 @@
 {
     display: none;
 }
+
+#toast-container
+{
+    position: fixed;
+    right: 0;
+    top: 25%;
+    padding: 0px 20px 20px 0px;
+}

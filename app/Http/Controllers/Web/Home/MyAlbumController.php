@@ -95,7 +95,7 @@ class MyAlbumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return dd($request::all());
+        return dd($request->all());
     }
 
     /**

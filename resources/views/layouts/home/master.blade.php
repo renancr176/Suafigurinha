@@ -52,10 +52,14 @@
     @include('home.partials.menu')
     </div>
 
+    <main>
     @yield('content')
+    </main>
 
     <footer class="page-footer">
     </footer>
+
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     @section('scripts')
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
