@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Home;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\MyAlbumRequest;
 use App\AlbumOrder;
 use App\State;
 
@@ -93,7 +94,7 @@ class MyAlbumController extends Controller
      * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MyAlbumRequest $request, $id)
     {
         return dd($request->all());
     }
