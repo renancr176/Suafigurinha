@@ -26,6 +26,9 @@ Route::group(
 
         Route::apiResource('album', 'AlbumController')
             ->only(['show']);
+
+        Route::apiResource('my-album', 'MyAlbumController')
+            ->only(['update']);
     }
 );
 
