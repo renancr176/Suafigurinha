@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use App\Http\Requests\MyAlbumRequest;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\Storage;
 use App\AlbumOrder;
+use Exception;
+use App\Enums\AlbumOrderFileTypeEnum;
 
 class MyAlbumController extends Controller
 {
@@ -87,8 +88,6 @@ class MyAlbumController extends Controller
             'pages.backgrounds'
         ])->firstOrFail();
 
-
-
         #region Validations
         foreach ($album->pages as $page)
         {
@@ -96,7 +95,8 @@ class MyAlbumController extends Controller
             {
                 if ($request->texts == null
                 || !array_key_exists($page->id, $request->texts)
-                || !array_key_exists($text->id, $request->texts[$page->id]))
+                || !array_key_exists($text->id, $request->texts[$page->id])
+                || strlen(trim($request->texts[$page->id][$text->id])) == 0)
                 {
                     return response(null, 400);
                 }
@@ -125,33 +125,114 @@ class MyAlbumController extends Controller
         #endregion
 
         $tempDir = sys_get_temp_dir();
-        $baseDir = "client_album/$id";
+
+        $baseDir = "album_orders/$id";
 
         $files = [];
 
-        foreach ($album->pages as $page)
+        try
         {
-            foreach ($page->photos as $photo)
+            foreach ($album->pages as $page)
             {
-                $guid = Uuid::uuid1()->toString();
+                foreach ($page->photos as $photo)
+                {
 
-                array_push($files, $this->generateImage($request->photo[$page->id][$photo->id], $baseDir, $guid));
+                    $file = [];
+                    $file['album_order_file_type_id'] = AlbumOrderFileTypeEnum::Figure;
+                    $file['sequence'] = $photo->sequence;
+                    $file['path'] = $this->generateImageFile($request->photo[$page->id][$photo->id], $baseDir, "figure-$photo->sequence");
+                    array_push($files, $file);
+                }
+
+                // if(count($page->backgrounds) > 0 || count($page->texts) > 0)
+                // {
+                //     $file = [];
+                //     $file['album_order_file_type_id'] = AlbumOrderFileTypeEnum::AlbumPage;
+                //     $file['sequence'] = $page->sequence;
+
+                //     $albumBasePage = $this->getImageResource(public_path().$page->image_path);
+
+                //     if($albumBasePage == false)
+                //         throw new Exception('Erro ao tentar gerar o album.');
+
+                //     list($albumBasePageWidth, $albumBasePageHeight) = getimagesize(public_path().$page->image_path);
+                //     imagealphablending($albumBasePage, true);
+                //     imagesavealpha($albumBasePage, true);
+
+                //     $newPage = imagecreatetruecolor($this->mmToPx($album->pageType->width), $this->mmToPx($album->pageType->width));
+                //     imagealphablending($newPage, true);
+                //     imagesavealpha($newPage, true);
+
+                //     foreach ($page->backgrounds as $background)
+                //     {
+                //         $guid = Uuid::uuid1()->toString();
+                //         $pathToBg = $this->generateImageFile($request->background[$page->id][$background->id], $tempDir, "bg-$guid", false);
+                //         $bgResourceImage = $this->getImageResource($pathToBg);
+                //         if($bgResourceImage == false)
+                //             throw new Exception('Erro ao tentar gerar o album.');
+                //         imagecopymerge(
+                //             $newPage,
+                //             $bgResourceImage,
+                //             $this->mmToPx($background->x_position),
+                //             $this->mmToPx($background->y_position),
+                //             0,
+                //             0,
+                //             $this->mmToPx($background->width),
+                //             $this->mmToPx($background->height),
+                //             100
+                //         );
+                //         imagedestroy($bgResourceImage);
+                //     }
+
+                //     imagecopyresized(
+                //         $newPage,
+                //         $albumBasePage,
+                //         0,
+                //         0,
+                //         0,
+                //         0,
+                //         $this->mmToPx($album->pageType->width),
+                //         $this->mmToPx($album->pageType->width),
+                //         $albumBasePageWidth,
+                //         $albumBasePageHeight
+                //     );
+
+                //     // foreach ($page->texts as $text)
+                //     // {
+                //     //     $rgb = $this->getRgbFormHex($text->color);
+                //     //     $textColor = imagecolorallocate($newPage, $rgb['r'], $rgb['g'], $rgb['b']);
+                //     //     imagettftext(
+                //     //         $newPage,
+                //     //         $text->font_size,
+                //     //         $text->rotation,
+                //     //         $text->x_position,
+                //     //         $text->y_position,
+                //     //         $textColor,
+                //     //         public_path().$text->font->path,
+                //     //         trim($request->texts[$page->id][$text->id]));
+                //     // }
+
+                //     $file['path'] = $this->generateImageFile($this->resourceImageToBase64($newPage), $baseDir, "page-$page->sequence");
+                //     array_push($files, $file);
+                // }
+            }
+        }
+        catch (Exception $e)
+        {
+            foreach($files as $file)
+            {
+                Storage::delete($file['path']);
             }
 
-            // foreach ($page->texts as $text)
-            // {
-            // }
+            $files = [];
 
-
-            // foreach ($page->backgrounds as $background)
-            // {
-            // }
+            throw $e;
         }
 
         return $files;
     }
 
-    private function generateImage($base64Image, $storePath, $imageName)
+    private function generateImageFile($base64Image, $path, $imageName, $useStorage = true)
     {
         $imageType = $this->getImageType($base64Image);
         $base64Image = explode(',', $base64Image)[1];
@@ -168,13 +249,73 @@ class MyAlbumController extends Controller
         }
 
         $content = base64_decode($base64Image);
-        $fileName = "$storePath/$imageName";
-        Storage::disk('local')->put($fileName, $content);
+        $fileName = "$path/$imageName";
+        if($useStorage)
+            Storage::disk('local')->put($fileName, $content);
+        else
+            file_put_contents($fileName, $content);
         return $fileName;
     }
 
     private function getImageType($base64Image)
     {
         return $imageType = explode(':', explode(';', explode(',', $base64Image)[0])[0])[1];
+    }
+
+    /**
+     * @param string $filename — Path to the PNG image.
+     * @return resource|false — an image resource identifier on success, false on errors.
+    */
+    private function getImageResource($imagePath)
+    {
+        switch(strtolower(pathinfo($imagePath)['extension']))
+        {
+            case 'png':
+                return imagecreatefrompng($imagePath);
+            case 'jpg':
+            case 'jpeg':
+                return imagecreatefromjpeg($imagePath);
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * @param resource $resourceImage — An image resource identifier.
+     * @return string — an base64 string.
+    */
+    private function resourceImageToBase64($resourceImage)
+    {
+        imagefilter($resourceImage, IMG_FILTER_PIXELATE, 1, true);
+        imagefilter($resourceImage, IMG_FILTER_MEAN_REMOVAL);
+
+        ob_start();
+        imagepng($resourceImage);
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        return "data:image/png;base64,".base64_encode($contents);
+    }
+
+    private function getRgbFormHex($hex)
+    {
+        $hex = str_replace('#', '', $hex);
+        $rgb = [];
+        $rgb['r'] = hexdec(substr($hex, 0, 2));
+        $rgb['g'] = hexdec(substr($hex, 2, 2));
+        $rgb['b'] = hexdec(substr($hex, 4, 2));
+        return $rgb;
+    }
+
+    private function mmToPx($mm)
+    {
+        $px = $mm * 3.779528;
+        return $px;
+    }
+
+    private function pxToMm($px)
+    {
+        $mm = $px / 3.779528;
+        return $mm;
     }
 }
