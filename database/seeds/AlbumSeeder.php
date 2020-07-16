@@ -31,6 +31,7 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 1,
+            'sequence' => 1,
             'width' => 142,
             'height' => 113,
             'x_position' => 33.5,
@@ -138,6 +139,7 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 3,
+            'sequence' => 2,
             'width' => 125,
             'height' => 210,
             'x_position' => 85,
@@ -178,6 +180,7 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 4,
+            'sequence' => 3,
             'width' => 168,
             'height' => 117,
             'x_position' => 21,
@@ -248,6 +251,7 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 6,
+            'sequence' => 4,
             'width' => 175.5,
             'height' => 161,
             'x_position' => 18,
@@ -288,6 +292,7 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 7,
+            'sequence' => 5,
             'width' => 110,
             'height' => 210,
             'x_position' => 100,
@@ -308,6 +313,7 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 8,
+            'sequence' => 6,
             'width' => 143,
             'height' => 210,
             'x_position' => 32,
@@ -378,6 +384,7 @@ class AlbumSeeder extends Seeder
 
         App\AlbumPageBackground::create([
             'album_page_id' => 10,
+            'sequence' => 7,
             'width' => 210,
             'height' => 154,
             'x_position' => 0,

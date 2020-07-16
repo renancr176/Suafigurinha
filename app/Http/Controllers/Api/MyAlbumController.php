@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\MyAlbumRequest;
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\AlbumOrder;
 use Exception;
@@ -54,7 +54,56 @@ class MyAlbumController extends Controller
      */
     public function update(MyAlbumRequest $request, $id)
     {
-        return $this->makeAlbum($request, $id);
+        $order = AlbumOrder::where('transaction_id', $id)
+        ->where('completed', false)
+        ->firstOrFail();
+
+        try
+        {
+            DB::beginTransaction();
+
+            $files = $this->makeAlbum($request, $order);
+
+            $order->client()->updateOrCreate([
+                'client_name' => $request->client_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number
+            ]);
+
+            $order->deliveryAddress()->updateOrCreate([
+                'zipcode' => $request->zipcode,
+                'state' => $request->state,
+                'city' => $request->city,
+                'district' => $request->district,
+                'address' => $request->address,
+                'address_number' => $request->address_number,
+                'complement' => $request->complement,
+                'receiver_name' => $request->receiver_name
+            ]);
+
+            $order->files()->delete();
+            foreach ($files as $file)
+                $order->files()->create($file);
+
+            $order->texts()->delete();
+            foreach ($request->texts as $pageId => $texts)
+                foreach ($texts as $textId => $text)
+                    $order->texts()->create([
+                        'text' => $text,
+                        'album_page_id' => $pageId,
+                        'album_page_text_id' => $textId
+                    ]);
+
+            DB::commit();
+        }
+        catch (Exception $e)
+        {
+            $this->deleteFiles($files);
+
+            DB::rollBack();
+
+            throw $e;
+        }
     }
 
     /**
@@ -68,12 +117,8 @@ class MyAlbumController extends Controller
         //
     }
 
-    private function makeAlbum(MyAlbumRequest $request, $id)
+    private function makeAlbum(MyAlbumRequest $request, AlbumOrder $order)
     {
-        $order = AlbumOrder::where('transaction_id', $id)
-        ->where('completed', false)
-        ->firstOrFail();
-
         $album = $order->album()->with([
             'pageType',
             'pages' => function($query){
@@ -124,9 +169,7 @@ class MyAlbumController extends Controller
         }
         #endregion
 
-        $tempDir = sys_get_temp_dir();
-
-        $baseDir = "album_orders/$id";
+        $baseDir = "album_orders/$order->transaction_id";
 
         $files = [];
 
@@ -136,11 +179,19 @@ class MyAlbumController extends Controller
             {
                 foreach ($page->photos as $photo)
                 {
-
                     $file = [];
                     $file['album_order_file_type_id'] = AlbumOrderFileTypeEnum::Figure;
                     $file['sequence'] = $photo->sequence;
-                    $file['path'] = $this->generateImageFile($request->photo[$page->id][$photo->id], $baseDir, "figure-$photo->sequence");
+                    $file['path'] = $this->generateImageFile($request->photo[$page->id][$photo->id], $baseDir, "figurinha-$photo->sequence");
+                    array_push($files, $file);
+                }
+
+                foreach ($page->backgrounds as $background)
+                {
+                    $file = [];
+                    $file['album_order_file_type_id'] = AlbumOrderFileTypeEnum::Background;
+                    $file['sequence'] = $background->sequence;
+                    $file['path'] = $this->generateImageFile($request->background[$page->id][$background->id], $baseDir, "fundo-$background->sequence-pagina-$page->sequence");
                     array_push($files, $file);
                 }
 
@@ -219,10 +270,7 @@ class MyAlbumController extends Controller
         }
         catch (Exception $e)
         {
-            foreach($files as $file)
-            {
-                Storage::delete($file['path']);
-            }
+            $this->deleteFiles($files);
 
             $files = [];
 
@@ -259,63 +307,71 @@ class MyAlbumController extends Controller
 
     private function getImageType($base64Image)
     {
-        return $imageType = explode(':', explode(';', explode(',', $base64Image)[0])[0])[1];
+        return explode(':', explode(';', explode(',', $base64Image)[0])[0])[1];
     }
 
-    /**
-     * @param string $filename — Path to the PNG image.
-     * @return resource|false — an image resource identifier on success, false on errors.
-    */
-    private function getImageResource($imagePath)
+    private function deleteFiles(array $files)
     {
-        switch(strtolower(pathinfo($imagePath)['extension']))
+        foreach($files as $file)
         {
-            case 'png':
-                return imagecreatefrompng($imagePath);
-            case 'jpg':
-            case 'jpeg':
-                return imagecreatefromjpeg($imagePath);
-            default:
-                return false;
+            Storage::disk('local')->delete($file['path']);
         }
     }
 
-    /**
-     * @param resource $resourceImage — An image resource identifier.
-     * @return string — an base64 string.
-    */
-    private function resourceImageToBase64($resourceImage)
-    {
-        imagefilter($resourceImage, IMG_FILTER_PIXELATE, 1, true);
-        imagefilter($resourceImage, IMG_FILTER_MEAN_REMOVAL);
+    // /**
+    //  * @param string $filename — Path to the PNG image.
+    //  * @return resource|false — an image resource identifier on success, false on errors.
+    // */
+    // private function getImageResource($imagePath)
+    // {
+    //     switch(strtolower(pathinfo($imagePath)['extension']))
+    //     {
+    //         case 'png':
+    //             return imagecreatefrompng($imagePath);
+    //         case 'jpg':
+    //         case 'jpeg':
+    //             return imagecreatefromjpeg($imagePath);
+    //         default:
+    //             return false;
+    //     }
+    // }
 
-        ob_start();
-        imagepng($resourceImage);
-        $contents = ob_get_contents();
-        ob_end_clean();
+    // /**
+    //  * @param resource $resourceImage — An image resource identifier.
+    //  * @return string — an base64 string.
+    // */
+    // private function resourceImageToBase64($resourceImage)
+    // {
+    //     imagefilter($resourceImage, IMG_FILTER_PIXELATE, 1, true);
+    //     imagefilter($resourceImage, IMG_FILTER_MEAN_REMOVAL);
 
-        return "data:image/png;base64,".base64_encode($contents);
-    }
+    //     ob_start();
+    //     imagepng($resourceImage);
+    //     $contents = ob_get_contents();
+    //     ob_end_clean();
 
-    private function getRgbFormHex($hex)
-    {
-        $hex = str_replace('#', '', $hex);
-        $rgb = [];
-        $rgb['r'] = hexdec(substr($hex, 0, 2));
-        $rgb['g'] = hexdec(substr($hex, 2, 2));
-        $rgb['b'] = hexdec(substr($hex, 4, 2));
-        return $rgb;
-    }
+    //     return "data:image/png;base64,".base64_encode($contents);
+    // }
 
-    private function mmToPx($mm)
-    {
-        $px = $mm * 3.779528;
-        return $px;
-    }
+    // private function getRgbFormHex($hex)
+    // {
+    //     $hex = str_replace('#', '', $hex);
+    //     $rgb = [];
+    //     $rgb['r'] = hexdec(substr($hex, 0, 2));
+    //     $rgb['g'] = hexdec(substr($hex, 2, 2));
+    //     $rgb['b'] = hexdec(substr($hex, 4, 2));
+    //     return $rgb;
+    // }
 
-    private function pxToMm($px)
-    {
-        $mm = $px / 3.779528;
-        return $mm;
-    }
+    // private function mmToPx($mm)
+    // {
+    //     $px = $mm * 3.779528;
+    //     return $px;
+    // }
+
+    // private function pxToMm($px)
+    // {
+    //     $mm = $px / 3.779528;
+    //     return $mm;
+    // }
 }

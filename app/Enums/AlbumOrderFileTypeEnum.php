@@ -6,10 +6,10 @@ use BenSampo\Enum\Enum;
 
 /**
  * @method static static Figure()
- * @method static static AlbumPage()
+ * @method static static Background()
  */
 final class AlbumOrderFileTypeEnum extends Enum
 {
     const Figure =   1;
-    const AlbumPage =   2;
+    const Background =   2;
 }

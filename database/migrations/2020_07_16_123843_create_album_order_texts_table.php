@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateAlbumOrderTextsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('album_order_texts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('album_order_id')->constrained();
+            $table->foreignId('album_page_id')->constrained();
+            $table->foreignId('album_page_text_id')->constrained();
+            $table->text('text');
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('album_order_texts');
+    }
+}

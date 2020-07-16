@@ -16,7 +16,7 @@ class AlbumOrderFileTypeSeeder extends Seeder
         ]);
 
         App\AlbumOrderFileType::create([
-            'title' => 'Página de album gerada'
+            'title' => 'Fundo'
         ]);
     }
 }

@@ -23,6 +23,8 @@ class CreateAlbumPagePhotosTable extends Migration
             $table->decimal('rotation');
             $table->string('controls_position');
             $table->timestamps();
+
+            $table->unique(['album_page_id', 'sequence']);
         });
     }
 

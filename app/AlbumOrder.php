@@ -23,8 +23,18 @@ class AlbumOrder extends Model
         return $this->hasOne('App\AlbumOrderClientData');
     }
 
-    public function delivery_address()
+    public function deliveryAddress()
     {
         return $this->hasOne('App\AlbumOrderDeliveryAddress');
+    }
+
+    public function files()
+    {
+        return $this->hasMany('App\AlbumOrderFile');
+    }
+
+    public function texts()
+    {
+        return $this->hasMany('App\AlbumOrderText');
     }
 }
