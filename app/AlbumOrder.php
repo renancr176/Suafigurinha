@@ -9,7 +9,6 @@ class AlbumOrder extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public static $rules = [
-        'transaction_id' => 'required',
         'album_id' => 'required'
     ];
 

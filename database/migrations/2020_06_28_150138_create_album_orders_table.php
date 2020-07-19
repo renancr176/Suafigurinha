@@ -18,6 +18,8 @@ class CreateAlbumOrdersTable extends Migration
             $table->string('transaction_id')->unique();
             $table->foreignId('album_id')->constrained();
             $table->boolean('completed')->default(false);
+            $table->boolean('confirmation_email_sent')->default(false);
+            $table->boolean('album_email_sent')->default(false);
             $table->timestamps();
         });
     }

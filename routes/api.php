@@ -23,9 +23,11 @@ Route::group(
         'namespace' => 'Api'
     ],
     function () {
-
         Route::apiResource('album', 'AlbumController')
             ->only(['show']);
+
+        Route::apiResource('album-order', 'AlbumOrderController')
+            ->only(['store']);
 
         Route::apiResource('my-album', 'MyAlbumController')
             ->only(['update']);
