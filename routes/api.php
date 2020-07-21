@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [
         'namespace' => 'Api',
-        //'middleware' => 'api',
+        'middleware' => 'api',
         'prefix' => 'auth'
     ],
     function () {
@@ -35,8 +35,7 @@ Route::group(
 
 Route::group(
     [
-        'namespace' => 'Api',
-        'middleware' => 'api'
+        'namespace' => 'Api'
     ],
     function () {
         Route::apiResource('album', 'AlbumController')

@@ -23,7 +23,7 @@ class AlbumOrderController extends Controller
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api');
+        $this->middleware('jwt.auth');
     }
 
     /**
