@@ -23,8 +23,8 @@
 
     <p>Proceda com a requisição do album, clique no link abaixo, e siga os passos, 1º monte seu album, 2º preencha o formulário e 3º confirme os dados.</p>
 
-    <a href="http://{{ $_SERVER['SERVER_NAME'] }}/mu-album/{{ $order->transaction_id }}">
-        http://{{ $_SERVER['SERVER_NAME'] }}/mu-album/{{ $order->transaction_id }}
+    <a href="http://{{ $_SERVER['SERVER_NAME'] }}{{ ((env('APP_DEBUG') == true)? ":".$_SERVER['SERVER_PORT']:"") }}/meu-album/{{ $order->transaction_id }}">
+        http://{{ $_SERVER['SERVER_NAME'] }}/meu-album/{{ $order->transaction_id }}
     </a>
 
     @include('mail.partials.contact-us')
