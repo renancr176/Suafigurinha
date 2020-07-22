@@ -21,7 +21,7 @@ class CreateAlbumOrderFilesTable extends Migration
             $table->integer('sequence');
             $table->timestamps();
 
-            $table->unique(['album_order_file_type_id', 'sequence']);
+            $table->unique(['album_order_id', 'album_order_file_type_id', 'sequence'], 'uk_order_filetype_sequence');
         });
     }
 
