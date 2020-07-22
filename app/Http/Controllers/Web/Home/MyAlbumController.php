@@ -157,6 +157,8 @@ class MyAlbumController extends Controller
         }
 
         AlbumCreatedByClientEvent::dispatch($order);
+
+        return redirect()->route('home');
     }
 
     /**
