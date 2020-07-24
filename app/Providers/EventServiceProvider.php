@@ -18,8 +18,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\AlbumCreatedByClientEvent' => [
-            'App\EventHandlers\AlbumCreatedByClientEventHandler'
+        'App\Events\AlbumDataSentByClientEvent' => [
+            'App\EventHandlers\AlbumDataSentByClientEventHandler'
+        ],
+        'App\Events\ClientAlbumCreatedEvent' => [
+            'App\EventHandlers\ClientAlbumCreatedEventHandler'
         ],
     ];
 

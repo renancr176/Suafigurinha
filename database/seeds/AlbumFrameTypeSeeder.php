@@ -25,8 +25,8 @@ class AlbumFrameTypeSeeder extends Seeder
             'title' => 'Médio',
             'font_size' => '45',
             'image_path' => '/files/images/albuns/frames/default.png',
-            'width' => '73',
-            'height' => '73'
+            'width' => '72',
+            'height' => '72'
         ]);
 
         App\AlbumFrameType::create([

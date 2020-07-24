@@ -10,6 +10,8 @@ use BenSampo\Enum\Enum;
  */
 final class AlbumOrderFileTypeEnum extends Enum
 {
-    const Figure =   1;
-    const Background =   2;
+    const Figure = 1;
+    const Background = 2;
+    const Album = 3;
+    const FigureGrid = 4;
 }
