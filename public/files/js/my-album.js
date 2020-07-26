@@ -316,24 +316,24 @@ $(document).ready(function(){
         return backgroundElement;
     }
 
-    function generatePhotoElement(pageId, photoObj)
+    function generatePhotoElement(pageId, frameType, photoObj)
     {
         let photoElementStyle = 'style="'+
         'left: '+photoObj.x_position+'mm;'+
         'top: '+photoObj.y_position+'mm;'+
         'transform: rotate('+photoObj.rotation+'deg);'+
-        'width: '+photoObj.frame_type.width+'mm;'+
-        'height: '+photoObj.frame_type.height+'mm;'+
+        'width: '+frameType.width+'mm;'+
+        'height: '+frameType.height+'mm;'+
         '"';
         let pluginContainerStyle = 'style="'+
-        'width: '+photoObj.frame_type.width+'mm;'+
-        'height: '+photoObj.frame_type.height+'mm;'+
+        'width: '+frameType.width+'mm;'+
+        'height: '+frameType.height+'mm;'+
         '"';
         let croppieOpts = {
             enableExif: true,
             viewport: {
-                width: photoObj.frame_type.width+'mm',
-                height: photoObj.frame_type.height+'mm'
+                width: frameType.width+'mm',
+                height: frameType.height+'mm'
             },
             showZoomer: false,
             enableResize: false,
@@ -377,7 +377,7 @@ $(document).ready(function(){
             pagesElements[pageObj.id]['backgrounds'] = [];
 
             $.each(pageObj.photos, function(k, photoObj){
-                let photoElement = generatePhotoElement(pageObj.id, photoObj);
+                let photoElement = generatePhotoElement(pageObj.id, albumObj.frame_type, photoObj);
                 addElement(photoElement);
                 pagesElements[pageObj.id]['photos'].push(photoElement);
             });

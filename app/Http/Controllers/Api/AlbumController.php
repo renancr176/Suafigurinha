@@ -40,13 +40,13 @@ class AlbumController extends Controller
     {
         $album = Album::with([
             'pageType',
+            'frameType',
             'pages' => function($query){
                 $query->orderBy('sequence');
             },
             'pages.photos' => function($query){
                 $query->orderBy('sequence');
             },
-            'pages.photos.frameType',
             'pages.texts',
             'pages.texts.font',
             'pages.backgrounds'

@@ -13,6 +13,11 @@ class Album extends Model
         return $this->belongsTo('App\PageType');
     }
 
+    public function frameType()
+    {
+        return $this->belongsTo('App\AlbumFrameType', 'album_frame_type_id');
+    }
+
     public function pages()
     {
         return $this->hasMany('App\AlbumPage');
