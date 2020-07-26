@@ -16,6 +16,7 @@ class CreateAlbumsTable extends Migration
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('page_type_id');
+            $table->unsignedBigInteger('album_frame_type_id');
             $table->string('ref_code')->unique();
             $table->string('title');
             $table->decimal('price');

@@ -18,6 +18,8 @@ class CreateAlbumRelationships extends Migration
         Schema::table('albums', function (Blueprint $table) {
             $table->foreign('page_type_id')
             ->references('id')->on('page_types');
+            $table->foreign('album_frame_type_id')
+            ->references('id')->on('album_frame_types');
         });
 
         Schema::table('album_pages', function (Blueprint $table) {
@@ -35,8 +37,6 @@ class CreateAlbumRelationships extends Migration
             $table->foreign('album_page_id')
             ->references('id')->on('album_pages')
             ->onDelete('cascade');
-            $table->foreign('album_frame_type_id')
-            ->references('id')->on('album_frame_types');
         });
 
         Schema::table('album_page_texts', function (Blueprint $table) {
@@ -74,7 +74,6 @@ class CreateAlbumRelationships extends Migration
 
         Schema::table('album_page_photos', function (Blueprint $table) {
             $table->dropForeign('album_page_photos_album_page_id_foreign');
-            $table->dropForeign('album_page_photos_album_frame_type_id_foreign');
         });
 
         Schema::table('album_frame_types', function (Blueprint $table) {
@@ -87,6 +86,7 @@ class CreateAlbumRelationships extends Migration
 
         Schema::table('albums', function (Blueprint $table) {
             $table->dropForeign('albums_page_type_id_foreign');
+            $table->dropForeign('album_page_photos_album_frame_type_id_foreign');
         });
     }
 }
