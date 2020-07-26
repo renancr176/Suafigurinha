@@ -7,6 +7,8 @@ use BenSampo\Enum\Enum;
 /**
  * @method static static Figure()
  * @method static static Background()
+ * @method static static Album()
+ * @method static static FigureGrid()
  */
 final class AlbumOrderFileTypeEnum extends Enum
 {
