@@ -103,12 +103,12 @@ class AlbumDataSentByClientEventHandler
             foreach($page->texts()->get() as $text)
                 array_push($fonts, $text->font);
 
-        $albumPages = PDF::loadView('pdf.album-pages', compact('album', 'fonts', 'backgrounds', 'texts'))
+        $albumPagesPdf = PDF::loadView('pdf.album-pages', compact('album', 'fonts', 'backgrounds', 'texts'))
         ->setWarnings(false)
         ->setPaper($album->pageType->type, $album->page_orientation)
         ->output();
         $fileName = "$baseDir/album.pdf";
-        Storage::disk('local')->put($fileName, $albumPages);
+        Storage::disk('local')->put($fileName, $albumPagesPdf);
 
         $event->order->files()->updateOrCreate([
             'album_order_file_type_id' => AlbumOrderFileTypeEnum::Album,
@@ -120,49 +120,67 @@ class AlbumDataSentByClientEventHandler
 
         #region PDF Album Figures Grid
 
-        $figures = [];
-        $i = 1;
+        $figuresGrid = [];
+        $page = 1;
+        $figureCount = 1;
         $row = 0;
-        $figures[$row] = [];
-        $frameType = $album->pages()->get()->photos()->first()->frameType()->first();
-        $qttByRow = 4;
+        $figuresGrid[$page] = [$row => []];
+        $frameType = $album->frameType()->with(['font'])->first();
+        $qttRowsByPage = 6;
+        $qttFiguresByRow = 4;
         switch($frameType->id)
         {
             case AlbumFrameTypeEnum::Small:
-                $qttByRow = 4;
+                $qttRowsByPage = 6;
+                $qttFiguresByRow = 4;
                 break;
             case AlbumFrameTypeEnum::Medium:
-                $qttByRow = 4;
+                $qttRowsByPage = 6;
+                $qttFiguresByRow = 4;
                 break;
             case AlbumFrameTypeEnum::Big:
-                $qttByRow = 3;
+                $qttRowsByPage = 5;
+                $qttFiguresByRow = 3;
                 break;
         }
-        foreach( $event->order->files()
+
+        $figures = $event->order->files()
         ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Figure)
-        ->get() as $figureObj)
+        ->orderBy('sequence')
+        ->get();
+
+        foreach($figures as $figureObj)
         {
-            array_push($figures[$row], [
-                'width' => $frameType->width,
-                'height' => $frameType->height,
-                'path' => Storage::disk('local')->temporaryUrl($figureObj->path, now()->addMinutes(5))
+            array_push($figuresGrid[$page][$row], [
+                'path' => Storage::disk('local')->temporaryUrl($figureObj->path, now()->addMinutes(5)),
+                'sequence' => $figureObj->sequence
             ]);
 
-            if (($i % $qttByRow) == 0)
-            {
-                $row++;
-                $figures[$row] = [];
-            }
+            $figureCount++;
 
-            $i++;
+            if($figureCount <= count($figures))
+            {
+                if (($figureCount % $qttFiguresByRow) == 0)
+                {
+                    $row++;
+                    if((($row + 1) % $qttRowsByPage) == 0)
+                    {
+                        $page++;
+                        $row = 0;
+                        $figuresGrid[$page] = [$row => []];
+                    }
+                    else
+                        $figuresGrid[$page][$row] = [];
+                }
+            }
         }
 
-        $figuresGrid = PDF::loadView('pdf.album-figures-grid', compact('figures'))
+        $figuresGridPdf = PDF::loadView('pdf.album-figures-grid', compact('frameType', 'figuresGrid'))
         ->setWarnings(false)
         ->setPaper('A3', 'Portrait')
         ->output();
         $fileName = "$baseDir/gabarito.pdf";
-        Storage::disk('local')->put($fileName, $figuresGrid);
+        Storage::disk('local')->put($fileName, $figuresGridPdf);
 
         $event->order->files()->updateOrCreate([
             'album_order_file_type_id' => AlbumOrderFileTypeEnum::FigureGrid,

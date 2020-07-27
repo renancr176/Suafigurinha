@@ -86,7 +86,7 @@ class CreateAlbumRelationships extends Migration
 
         Schema::table('albums', function (Blueprint $table) {
             $table->dropForeign('albums_page_type_id_foreign');
-            $table->dropForeign('album_page_photos_album_frame_type_id_foreign');
+            $table->dropForeign('albums_album_frame_type_id_foreign');
         });
     }
 }
