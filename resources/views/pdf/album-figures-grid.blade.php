@@ -2,12 +2,18 @@
 <html lang="pt-BR">
 <head>
     <style>
-        {!! "@font-face {font-family: '".$frameType->font->title."'; src: url('".$frameType->font->path."');}" !!}
-        
+        {!! "@font-face {font-family: '".$frameType->font->title."'; src: url('".public_path($frameType->font->path)."');}" !!}
+
+        html,
         body
         {
-            margin: 4.5mm;
+            margin: 0px;
             padding: 0px;
+        }
+
+        html
+        {
+            margin: 4.5mm;
         }
 
         table,
@@ -29,23 +35,22 @@
             page-break-after: avoid;
         }
 
-        .page-bg
-        {
-            float: right;
-        }
-
-        .page-bg img
-        {
-            position: fixed;
-        }
-
-        .figure-bg-num
+        .page-bg td
         {
             position: relative;
+        }
+
+        .page-bg .figure-bg-num
+        {
+            position: absolute;
             padding: 0px;
             margin: 0px;
             color: #F5874F;
-            display: inline;
+        }
+
+        .space
+        {
+            margin-left: 8px;
         }
     </style>
 </head>
@@ -57,7 +62,8 @@
             <tr>
             @foreach ($row as $k => $figure)
                 <td style="width: {{ $frameType->width }}mm;">
-                    <img src="{{ $figure['path'] }}" style="width: {{ $frameType->width }}mm; height: {{ $frameType->height }}mm;"/>
+                    <img src="{{ $figure['path'] }}" style="width: {{ $frameType->width }}mm;
+                    height: {{ $frameType->height }}mm;"/>
                 </td>
             @endforeach
             </tr>
@@ -69,9 +75,19 @@
         @foreach ($page as $row)
             <tr>
             @foreach (array_reverse($row) as $k => $figure)
-                <td class="display-grid" style="width: {{ $frameType->width }}mm;">
-                    <img src="{{ $frameType->image_path }}" style="width: {{ $frameType->width }}mm; height: {{ $frameType->height }}mm;"/>
-                    <p class="figure-bg-num" style="top: {{ $frameType->y_position }}mm; left: {{ $frameType->x_position }}mm; font-family: '{{ $frameType->font->title }}';">{{ $figure['sequence'] }}</p>
+                <td style="width: {{ $frameType->width }}mm; height: {{ $frameType->height }}mm;">
+                    <img src="{{ public_path($frameType->image_path) }}" style="width: {{ $frameType->width }}mm;
+                    height: {{ $frameType->height }}mm;"/>
+                    <p class="figure-bg-num" style="top: {{ $frameType->y_position }}mm;
+                    left: {{ $frameType->x_position }}mm;
+                    font-size: {{ $frameType->sequence_font_size }}pt;
+                    font-family: '{{ $frameType->font->title }}';">
+                        @if (substr($figure['sequence'], 0, 1) == "1")
+                            {!! '<span class="space">'.$figure['sequence'].'</span>' !!}
+                        @else
+                            {{ $figure['sequence'] }}
+                        @endif
+                    </p>
                 </td>
             @endforeach
             </tr>

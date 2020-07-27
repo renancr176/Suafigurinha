@@ -11,6 +11,7 @@ use App\AlbumOrder;
 use Exception;
 use App\Enums\AlbumOrderFileTypeEnum;
 use App\Events\AlbumDataSentByClientEvent;
+use App\Events\ClientAlbumCreatedEvent;
 
 class MyAlbumController extends Controller
 {
@@ -110,7 +111,8 @@ class MyAlbumController extends Controller
             throw $e;
         }
 
-        AlbumDataSentByClientEvent::dispatch($order);
+        //AlbumDataSentByClientEvent::dispatch($order);
+        ClientAlbumCreatedEvent::dispatch($order);
     }
 
     /**

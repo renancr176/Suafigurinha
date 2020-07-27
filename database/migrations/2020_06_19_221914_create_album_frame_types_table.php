@@ -23,6 +23,7 @@ class CreateAlbumFrameTypesTable extends Migration
             $table->decimal('height');
             $table->decimal('x_position');
             $table->decimal('y_position');
+            $table->decimal('sequence_font_size');
             $table->timestamps();
         });
     }

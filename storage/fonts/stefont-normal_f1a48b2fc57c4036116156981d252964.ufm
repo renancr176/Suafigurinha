@@ -1,0 +1,126 @@
+StartFontMetrics 4.1
+Notice Converted by PHP-font-lib
+Comment https://github.com/PhenX/php-font-lib
+EncodingScheme FontSpecific
+Copyright Copyright (c) 2019 by Khurasan. All rights reserved.
+FontName Stefont
+FontSubfamily Regular
+UniqueID Khurasan: Stefont : 2019
+FullName Stefont
+Version Version 1.000
+PostScriptName Stefont
+Trademark Stefont is a trademark of Khurasan.
+Manufacturer Khurasan
+Designer Khurasan
+Description Copyright (c) 2019 by Khurasan. All rights reserved.
+FontVendorURL www.khurasan.net
+FontDesignerURL www.khurasan.net
+LicenseDescription contact me at khurasantype@gmail.com
+PreferredFamily Stefont
+CompatibleFullName 却敦潮
+Weight Medium
+ItalicAngle 0
+IsFixedPitch false
+UnderlineThickness 50
+UnderlinePosition -75
+FontHeightOffset 27
+Ascender 996
+Descender -294
+FontBBox -145 -294 797 851
+StartCharMetrics 81
+U 0 ; WX 0 ; N NULL ; G 1
+U 13 ; WX 282 ; N CR ; G 2
+U 32 ; WX 282 ; N space ; G 3
+U 33 ; WX 216 ; N exclam ; G 69
+U 35 ; WX 599 ; N numbersign ; G 71
+U 36 ; WX 534 ; N dollar ; G 68
+U 37 ; WX 504 ; N percent ; G 72
+U 38 ; WX 654 ; N ampersand ; G 73
+U 39 ; WX 163 ; N quotesingle ; G 67
+U 43 ; WX 407 ; N plus ; G 64
+U 44 ; WX 150 ; N comma ; G 75
+U 45 ; WX 402 ; N hyphen ; G 63
+U 46 ; WX 158 ; N period ; G 76
+U 48 ; WX 374 ; N zero ; G 53
+U 49 ; WX 223 ; N one ; G 54
+U 50 ; WX 403 ; N two ; G 55
+U 51 ; WX 421 ; N three ; G 56
+U 52 ; WX 378 ; N four ; G 57
+U 53 ; WX 371 ; N five ; G 58
+U 54 ; WX 344 ; N six ; G 59
+U 55 ; WX 364 ; N seven ; G 60
+U 56 ; WX 456 ; N eight ; G 61
+U 57 ; WX 372 ; N nine ; G 62
+U 61 ; WX 398 ; N equal ; G 65
+U 63 ; WX 419 ; N question ; G 77
+U 64 ; WX 603 ; N at ; G 70
+U 65 ; WX 523 ; N A ; G 78
+U 66 ; WX 451 ; N B ; G 14
+U 67 ; WX 350 ; N C ; G 13
+U 68 ; WX 493 ; N D ; G 12
+U 69 ; WX 644 ; N E ; G 11
+U 70 ; WX 399 ; N F ; G 10
+U 71 ; WX 563 ; N G ; G 9
+U 72 ; WX 574 ; N H ; G 8
+U 73 ; WX 418 ; N I ; G 7
+U 74 ; WX 527 ; N J ; G 6
+U 75 ; WX 484 ; N K ; G 5
+U 76 ; WX 306 ; N L ; G 4
+U 77 ; WX 694 ; N M ; G 52
+U 78 ; WX 553 ; N N ; G 80
+U 79 ; WX 438 ; N O ; G 79
+U 80 ; WX 504 ; N P ; G 15
+U 81 ; WX 566 ; N Q ; G 16
+U 82 ; WX 559 ; N R ; G 17
+U 83 ; WX 641 ; N S ; G 25
+U 84 ; WX 318 ; N T ; G 24
+U 85 ; WX 532 ; N U ; G 23
+U 86 ; WX 400 ; N V ; G 22
+U 87 ; WX 598 ; N W ; G 21
+U 88 ; WX 451 ; N X ; G 20
+U 89 ; WX 550 ; N Y ; G 19
+U 90 ; WX 639 ; N Z ; G 18
+U 97 ; WX 391 ; N a ; G 26
+U 98 ; WX 373 ; N b ; G 27
+U 99 ; WX 280 ; N c ; G 28
+U 100 ; WX 348 ; N d ; G 40
+U 101 ; WX 307 ; N e ; G 39
+U 102 ; WX 235 ; N f ; G 38
+U 103 ; WX 393 ; N g ; G 37
+U 104 ; WX 451 ; N h ; G 36
+U 105 ; WX 192 ; N i ; G 35
+U 106 ; WX 366 ; N j ; G 34
+U 107 ; WX 324 ; N k ; G 33
+U 108 ; WX 255 ; N l ; G 32
+U 109 ; WX 629 ; N m ; G 31
+U 110 ; WX 432 ; N n ; G 30
+U 111 ; WX 337 ; N o ; G 29
+U 112 ; WX 418 ; N p ; G 41
+U 113 ; WX 344 ; N q ; G 42
+U 114 ; WX 359 ; N r ; G 43
+U 115 ; WX 425 ; N s ; G 51
+U 116 ; WX 323 ; N t ; G 50
+U 117 ; WX 450 ; N u ; G 49
+U 118 ; WX 327 ; N v ; G 48
+U 119 ; WX 541 ; N w ; G 47
+U 120 ; WX 322 ; N x ; G 46
+U 121 ; WX 435 ; N y ; G 45
+U 122 ; WX 392 ; N z ; G 44
+U 305 ; WX 192 ; N dotlessi ; G 74
+U 730 ; WX 164 ; N ring ; G 66
+EndCharMetrics
+StartKernData 
+StartKernPairs 55
+
+KPX CR O 70
+
+KPX four N -53
+
+KPX N N -52
+
+KPX O N -82
+
+KPX P N -41
+EndKernPairs
+EndKernData
+EndFontMetrics

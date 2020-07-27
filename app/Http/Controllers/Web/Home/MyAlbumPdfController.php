@@ -1,41 +1,32 @@
 <?php
 
-namespace App\EventHandlers;
+namespace App\Http\Controllers\Web\Home;
 
-use App\Events\AlbumDataSentByClientEvent;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use App\Events\ClientAlbumCreatedEvent;
+use App\Http\Controllers\Controller;
+//use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
+use App\AlbumOrder;
 use App\Enums\AlbumOrderFileTypeEnum;
 use App\Enums\AlbumFrameTypeEnum;
 
-class AlbumDataSentByClientEventHandler
+class MyAlbumPdfController extends Controller
 {
     /**
-     * Create the event listener.
+     * Download PDF.
      *
-     * @return void
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function getPagesPdf($id)
     {
-        //
-    }
+        $order = AlbumOrder::where('transaction_id', $id)
+        ->firstOrFail();
 
-    /**
-     * Handle the event.
-     *
-     * @param  AlbumDataSentByClientEvent  $event
-     * @return void
-     */
-    public function handle(AlbumDataSentByClientEvent $event)
-    {
-        $baseDir = "album_orders/".$event->order->transaction_id;
+        $baseDir = "album_orders/".$order->transaction_id;
 
-        $album = $event->order->Album()->with([
+        $album = $order->Album()->with([
             'pageType',
-            'frameType',
             'pages' => function($query){
                 $query->orderBy('sequence');
             },
@@ -60,7 +51,7 @@ class AlbumDataSentByClientEventHandler
             {
                 foreach($albumPage->backgrounds()->get() as $albumBackground)
                 {
-                    $backgroundObj = $event->order->files()
+                    $backgroundObj = $order->files()
                     ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Background)
                     ->where('sequence', $albumBackground->sequence)
                     ->first();
@@ -80,7 +71,7 @@ class AlbumDataSentByClientEventHandler
 
                 foreach($albumPage->texts()->get() as $albumText)
                 {
-                    $textObj = $event->order->texts()
+                    $textObj = $order->texts()
                     ->where('album_page_id', $albumPage->id)
                     ->where('album_page_text_id', $albumText->id)
                     ->first();
@@ -112,10 +103,9 @@ class AlbumDataSentByClientEventHandler
             ->setPaper($album->pageType->type, $album->page_orientation)
             ->output();
 
-
             Storage::disk('local')->put($fileName, $albumPagesPdf);
 
-            $event->order->files()->updateOrCreate([
+            $order->files()->updateOrCreate([
                 'album_order_file_type_id' => AlbumOrderFileTypeEnum::Album,
                 'sequence' => 0,
                 'path' => $fileName
@@ -123,6 +113,36 @@ class AlbumDataSentByClientEventHandler
         }
 
         #endregion
+
+        return Storage::disk('local')->download($fileName);
+    }
+
+    /**
+     * Download PDF.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getGridPdf($id)
+    {
+        $order = AlbumOrder::where('transaction_id', $id)
+        ->firstOrFail();
+
+        $baseDir = "album_orders/".$order->transaction_id;
+
+        $album = $order->Album()->with([
+            'pageType',
+            'frameType',
+            'pages' => function($query){
+                $query->orderBy('sequence');
+            },
+            'pages.photos' => function($query){
+                $query->orderBy('sequence');
+            },
+            'pages.texts',
+            'pages.texts.font',
+            'pages.backgrounds'
+        ])->first();
 
         #region PDF Album Figures Grid
 
@@ -154,7 +174,7 @@ class AlbumDataSentByClientEventHandler
                     break;
             }
 
-            $figures = $event->order->files()
+            $figures = $order->files()
             ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Figure)
             ->orderBy('sequence')
             ->get();
@@ -192,7 +212,7 @@ class AlbumDataSentByClientEventHandler
 
             Storage::disk('local')->put($fileName, $figuresGridPdf);
 
-            $event->order->files()->updateOrCreate([
+            $order->files()->updateOrCreate([
                 'album_order_file_type_id' => AlbumOrderFileTypeEnum::FigureGrid,
                 'sequence' => 0,
                 'path' => $fileName
@@ -201,6 +221,6 @@ class AlbumDataSentByClientEventHandler
 
         #endregion
 
-        ClientAlbumCreatedEvent::dispatch($event->order);
+        return Storage::disk('local')->download($fileName);
     }
 }
