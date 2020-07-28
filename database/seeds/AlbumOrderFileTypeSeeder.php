@@ -18,5 +18,13 @@ class AlbumOrderFileTypeSeeder extends Seeder
         App\AlbumOrderFileType::create([
             'title' => 'Fundo'
         ]);
+
+        App\AlbumOrderFileType::create([
+            'title' => 'Album'
+        ]);
+
+        App\AlbumOrderFileType::create([
+            'title' => 'Gabarito'
+        ]);
     }
 }

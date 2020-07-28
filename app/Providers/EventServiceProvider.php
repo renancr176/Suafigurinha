@@ -6,6 +6,10 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Events\AlbumDataSentByClientEvent;
+use App\EventHandlers\AlbumDataSentByClientEventHandler;
+use App\Events\ClientAlbumCreatedEvent;
+use App\EventHandlers\ClientAlbumCreatedEventHandler;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,8 +22,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\AlbumCreatedByClientEvent' => [
-            'App\EventHandlers\AlbumCreatedByClientEventHandler'
+        AlbumDataSentByClientEvent::class => [
+            AlbumDataSentByClientEventHandler::class
+        ],
+        ClientAlbumCreatedEvent::class => [
+            ClientAlbumCreatedEventHandler::class
         ],
     ];
 

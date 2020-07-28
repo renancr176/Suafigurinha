@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Exception;
 use App\Enums\AlbumOrderFileTypeEnum;
-use App\Events\AlbumCreatedByClientEvent;
+use App\Events\AlbumDataSentByClientEvent;
 
 class MyAlbumController extends Controller
 {
@@ -156,7 +156,7 @@ class MyAlbumController extends Controller
             throw $e;
         }
 
-        AlbumCreatedByClientEvent::dispatch($order);
+        AlbumDataSentByClientEvent::dispatch($order);
 
         return redirect()->route('home');
     }

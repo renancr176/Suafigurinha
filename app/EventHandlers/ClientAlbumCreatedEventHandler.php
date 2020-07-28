@@ -2,7 +2,7 @@
 
 namespace App\EventHandlers;
 
-use App\Events\AlbumCreatedByClientEvent;
+use App\Events\ClientAlbumCreatedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
@@ -10,7 +10,7 @@ use App\Mail\SendMailFaild;
 use App\Mail\AlbumCreatedByClient;
 use App\Mail\AlbumCreatedClientConfirmation;
 
-class AlbumCreatedByClientEventHandler implements ShouldQueue
+class ClientAlbumCreatedEventHandler implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -25,10 +25,10 @@ class AlbumCreatedByClientEventHandler implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  AlbumCreatedByClientEvent  $event
+     * @param  ClientAlbumCreatedEvent  $event
      * @return void
      */
-    public function handle(AlbumCreatedByClientEvent $event)
+    public function handle(ClientAlbumCreatedEvent $event)
     {
         $emails = array_filter(array_map(function($value){
             if(filter_var($value, FILTER_VALIDATE_EMAIL))
@@ -44,8 +44,6 @@ class AlbumCreatedByClientEventHandler implements ShouldQueue
             {
                 Mail::to($email)->send(new AlbumCreatedByClient($event->order));
             }
-
-            $event->order->update(['album_email_sent' => true]);
         }
         else
         {
@@ -55,7 +53,5 @@ class AlbumCreatedByClientEventHandler implements ShouldQueue
 
         Mail::to($event->order->client()->first()->email)
         ->send(new AlbumCreatedClientConfirmation($event->order));
-
-        $event->order->update(['confirmation_email_sent' => true]);
     }
 }

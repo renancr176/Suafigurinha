@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\AlbumOrder;
 
-class AlbumCreatedByClientEvent
+class ClientAlbumCreatedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
