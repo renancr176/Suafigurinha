@@ -39,6 +39,14 @@
         .table .table {
             background-color: #fff;
         }
+
+        .alert {
+            position: relative;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +61,15 @@
             <tr>
                 <td style="text-align:right">Album:</td>
                 <td>{{ "$album->id - $album->ref_code - $album->title" }}</td>
+            </tr>
+            <tr>
+                <td>Links para downloads:</td>
+                <td>
+                    <ol>
+                        <li><a href="{{ env('APP_URL') }}/my-album-pages/{{ $order->transaction_id }}">Album em PDF</a></li>
+                        <li><a href="{{ env('APP_URL') }}/my-album-grid/{{ $order->transaction_id }}">Gabarito em PDF</a></li>
+                    </ol>
+                </td>
             </tr>
         </tbody>
     </table>

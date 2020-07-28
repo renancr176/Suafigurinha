@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\AlbumOrder;
+use App\Enums\AlbumOrderFileTypeEnum;
 
 class AlbumCreatedByClient extends Mailable
 {
@@ -50,7 +51,10 @@ class AlbumCreatedByClient extends Mailable
         $mail = $this->subject("Album criado pelo cliente - código do pedido $order->id")
             ->view('mail.album-created-by-client', compact('order', 'album', 'client', 'deliveryAddress', 'texts'));
 
-        foreach ($order->files()->get() as $file)
+        foreach ($order->files()
+        ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Figure)
+        ->orWhere('album_order_file_type_id', AlbumOrderFileTypeEnum::Background)
+        ->get() as $file)
             $mail->attachFromStorage($file->path);
 
         return $mail;
