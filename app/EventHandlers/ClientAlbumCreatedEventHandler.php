@@ -10,7 +10,7 @@ use App\Mail\SendMailFaild;
 use App\Mail\AlbumCreatedByClient;
 use App\Mail\AlbumCreatedClientConfirmation;
 
-class ClientAlbumCreatedEventHandler
+class ClientAlbumCreatedEventHandler implements ShouldQueue
 {
     /**
      * Create the event listener.

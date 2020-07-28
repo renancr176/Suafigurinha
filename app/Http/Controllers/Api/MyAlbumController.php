@@ -111,8 +111,7 @@ class MyAlbumController extends Controller
             throw $e;
         }
 
-        //AlbumDataSentByClientEvent::dispatch($order);
-        ClientAlbumCreatedEvent::dispatch($order);
+        AlbumDataSentByClientEvent::dispatch($order);
     }
 
     /**

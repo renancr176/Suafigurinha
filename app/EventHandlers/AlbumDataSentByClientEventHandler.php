@@ -11,7 +11,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use App\Enums\AlbumOrderFileTypeEnum;
 use App\Enums\AlbumFrameTypeEnum;
 
-class AlbumDataSentByClientEventHandler
+class AlbumDataSentByClientEventHandler implements ShouldQueue
 {
     /**
      * Create the event listener.
