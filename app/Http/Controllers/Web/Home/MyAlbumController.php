@@ -158,7 +158,7 @@ class MyAlbumController extends Controller
 
         AlbumDataSentByClientEvent::dispatch($order);
 
-        return redirect()->route('home');
+        return redirect()->route('meu-album.sucesso');
     }
 
     /**
