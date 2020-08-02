@@ -64,7 +64,7 @@
     </div>
 
     <div class="alert alert-warning" role="alert">
-        <p>Obs: Os dados da montagem do album não são salvos até completar e enviar, portanto resver um tempo para monta-lo, desde que o navegador não seja fechado você não perderá nada.</p>
+        <p>Obs: Os dados da montagem do album não são salvos até completar e enviar, portanto reserve um tempo para monta-lo, desde que o navegador não seja fechado você não perderá nada.</p>
     </div>
 
     <a href="{{ env('APP_URL') }}/meu-album/{{ $order->transaction_id }}">
