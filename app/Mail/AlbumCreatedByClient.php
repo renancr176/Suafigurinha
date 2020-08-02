@@ -53,7 +53,11 @@ class AlbumCreatedByClient extends Mailable
 
         foreach ($order->files()
         ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Figure)
-        ->orWhere('album_order_file_type_id', AlbumOrderFileTypeEnum::Background)
+        ->get() as $file)
+            $mail->attachFromStorage($file->path);
+
+        foreach ($order->files()
+        ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Background)
         ->get() as $file)
             $mail->attachFromStorage($file->path);
 

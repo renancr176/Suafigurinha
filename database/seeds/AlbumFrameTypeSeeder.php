@@ -19,7 +19,7 @@ class AlbumFrameTypeSeeder extends Seeder
             'width' => 60,
             'height' => 60,
             'x_position' => 22,
-            'y_position' => 10,
+            'y_position' => 8,
             'sequence_font_size' => 45
         ]);
 
@@ -31,7 +31,7 @@ class AlbumFrameTypeSeeder extends Seeder
             'width' => '72',
             'height' => '72',
             'x_position' => 27,
-            'y_position' => 16,
+            'y_position' => 10,
             'sequence_font_size' => 45
         ]);
 
