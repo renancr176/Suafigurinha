@@ -13,17 +13,17 @@ class UserSeeder extends Seeder
     public function run()
     {
         App\User::create([
-            'name' => 'Renan de Carvalho Ribeiro',
-            'email' => 'renancr176@gmail.com',
+            'name' => 'Admin',
+            'email' => 'admin@suafigurinha.com.br',
             'email_verified_at' => gmdate("M d Y H:i:s", time()),
-            'password' => Hash::make('#$horde%23*&')
+            'password' => Hash::make(env('ADMIN_PWD'))
         ]);
 
         App\User::create([
             'name' => 'Usuário de integração WIX',
-            'email' => 'suafigurinha@gmail.com',
+            'email' => 'wixintegration@suafigurinha.com.br',
             'email_verified_at' => gmdate("M d Y H:i:s", time()),
-            'password' => Hash::make('!5dM&-myCH82?L4E')
+            'password' => Hash::make(env('WIX_PWD'))
         ]);
     }
 }
