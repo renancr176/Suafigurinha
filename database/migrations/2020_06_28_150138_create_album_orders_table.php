@@ -20,6 +20,7 @@ class CreateAlbumOrdersTable extends Migration
             $table->boolean('completed')->default(false);
             $table->boolean('confirmation_email_sent')->default(false);
             $table->boolean('album_email_sent')->default(false);
+            $table->boolean('deleted')->default(false);
             $table->timestamps();
         });
     }
