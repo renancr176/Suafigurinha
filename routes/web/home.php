@@ -20,5 +20,6 @@ Route::group(
 
         Route::get('my-album-pages/{id}', 'MyAlbumPdfController@getPagesPdf');
         Route::get('my-album-grid/{id}', 'MyAlbumPdfController@getGridPdf');
+        Route::get('my-album-image/{id}/{imageId}', 'MyAlbumPdfController@getImage');
     }
 );

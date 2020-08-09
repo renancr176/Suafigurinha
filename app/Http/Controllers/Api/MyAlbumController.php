@@ -10,8 +10,11 @@ use Illuminate\Support\Facades\Storage;
 use App\AlbumOrder;
 use Exception;
 use App\Enums\AlbumOrderFileTypeEnum;
-use App\Events\AlbumDataSentByClientEvent;
-use App\Events\ClientAlbumCreatedEvent;
+//use App\Events\AlbumDataSentByClientEvent;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailFaild;
+use App\Mail\AlbumCreatedByClient;
+use App\Mail\AlbumCreatedClientConfirmation;
 
 class MyAlbumController extends Controller
 {
@@ -111,7 +114,9 @@ class MyAlbumController extends Controller
             throw $e;
         }
 
-        AlbumDataSentByClientEvent::dispatch($order);
+        //AlbumDataSentByClientEvent::dispatch($order);
+
+        $this->sendStaffEmail($order);
     }
 
     /**
@@ -252,5 +257,45 @@ class MyAlbumController extends Controller
         {
             Storage::disk('local')->delete($file['path']);
         }
+    }
+
+    private function sendStaffEmail(AlbumOrder $order)
+    {
+        $emails = array_filter(array_map(function($value){
+            if(filter_var($value, FILTER_VALIDATE_EMAIL))
+                return $value;
+
+            return null;
+        },
+        explode(';', env('ALBUM_MAIL_TEAM'))));
+
+        if (count($emails) > 0)
+        {
+            foreach ($emails as $email)
+            {
+                Mail::to($email)->send(new AlbumCreatedByClient($order, false));
+            }
+
+            $order->update([
+                'album_email_sent' => true
+            ]);
+        }
+        else
+        {
+            Mail::to(env('MAIL_USERNAME', 'renancr176@gmail.com'))
+            ->send(new SendMailFaild(['Não está configurado o parâmetro ALBUM_MAIL_TEAM no arquivo .env ou não há emails definido para esta chave.']));
+        }
+
+        $this->sendEmailConfirmationToClient($order);
+    }
+
+    private function sendEmailConfirmationToClient(AlbumOrder $order)
+    {
+        Mail::to($order->client()->first()->email)
+        ->send(new AlbumCreatedClientConfirmation($order));
+
+        $order->update([
+            'confirmation_email_sent' => true
+        ]);
     }
 }

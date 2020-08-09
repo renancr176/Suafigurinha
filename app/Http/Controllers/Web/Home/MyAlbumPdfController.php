@@ -223,4 +223,21 @@ class MyAlbumPdfController extends Controller
 
         return Storage::disk('local')->download($fileName);
     }
+
+    /**
+     * Download image.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getImage($id, $imageId)
+    {
+        $order = AlbumOrder::where('transaction_id', $id)
+        ->firstOrFail();
+
+        $file = $order->files()->where('id', $imageId)
+        ->firstOrFail();
+
+        return Storage::disk('local')->download($file->path);
+    }
 }

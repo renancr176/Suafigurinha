@@ -158,5 +158,18 @@
         </table>
     @endif
 
+    @if (!$atachFiles)
+        <hr />
+        <h2>Link para download das imagens.</h2>
+        <ul>
+            @foreach ($figureFiles as $file)
+                {!! '<li><a href="'.env('APP_URL').'/my-album-image/'.$order->transaction_id.'/'.$file->id.'">'.basename($file->path).'</a></li>' !!}
+            @endforeach
+            @foreach ($backgroundFiles as $file)
+                {!! '<li><a href="'.env('APP_URL').'/my-album-image/'.$order->transaction_id.'/'.$file->id.'">'.basename($file->path).'</a></li>' !!}
+            @endforeach
+        </ul>
+    @endif
+
     </body>
 </html>

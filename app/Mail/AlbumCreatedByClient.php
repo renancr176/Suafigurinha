@@ -14,15 +14,17 @@ class AlbumCreatedByClient extends Mailable
     use Queueable, SerializesModels;
 
     public $order;
+    public $atachFiles;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(AlbumOrder $order)
+    public function __construct(AlbumOrder $order, $atachFiles = false)
     {
         $this->order = $order;
+        $this->atachFiles = $atachFiles;
     }
 
     /**
@@ -33,6 +35,7 @@ class AlbumCreatedByClient extends Mailable
     public function build()
     {
         $order = $this->order;
+        $atachFiles = $this->atachFiles;
         $album = $this->order->album()->first();
         $client = $this->order->client()->first();
         $deliveryAddress = $this->order->deliveryAddress()->first();
@@ -47,19 +50,25 @@ class AlbumCreatedByClient extends Mailable
 
             array_push($texts, $text);
         }
+        $figureFiles = $order->files()
+        ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Figure)
+        ->get();
+        $backgroundFiles = $order->files()
+        ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Background)
+        ->get();
 
         $mail = $this->subject("Album criado pelo cliente - código do pedido $order->id")
-            ->view('mail.album-created-by-client', compact('order', 'album', 'client', 'deliveryAddress', 'texts'));
+            ->view('mail.album-created-by-client', 
+            compact('order', 'album', 'client', 'deliveryAddress', 'texts', 'atachFiles', 'figureFiles', 'backgroundFiles'));
 
-        foreach ($order->files()
-        ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Figure)
-        ->get() as $file)
-            $mail->attachFromStorage($file->path);
+        if ($this->atachFiles)
+        {
+            foreach ($figureFiles as $file)
+                $mail->attachFromStorage($file->path);
 
-        foreach ($order->files()
-        ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Background)
-        ->get() as $file)
-            $mail->attachFromStorage($file->path);
+            foreach ($backgroundFiles as $file)
+                $mail->attachFromStorage($file->path);
+        }
 
         return $mail;
     }
