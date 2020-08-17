@@ -12,15 +12,17 @@ class SendMailFaild extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $subject;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct(array $data, string $subject = null)
     {
         $this->data = $data;
+        $this->subject = $subject;
     }
 
     /**
@@ -31,6 +33,7 @@ class SendMailFaild extends Mailable
     public function build()
     {
         $data = $this->data;
-        return $this->view('mail.send-mail-faild', compact('data'));
+        return $this->subject((($this->subject != null)? $this->subject:"Email de falha"))
+        ->view('mail.send-mail-faild', compact('data'));
     }
 }

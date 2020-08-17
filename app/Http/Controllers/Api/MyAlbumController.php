@@ -267,7 +267,7 @@ class MyAlbumController extends Controller
 
             return null;
         },
-        explode(';', env('ALBUM_MAIL_TEAM'))));
+        explode(';', env('STAFF_EMAILS'))));
 
         if (count($emails) > 0)
         {
@@ -283,7 +283,7 @@ class MyAlbumController extends Controller
         else
         {
             Mail::to(env('MAIL_USERNAME', 'renancr176@gmail.com'))
-            ->send(new SendMailFaild(['Não está configurado o parâmetro ALBUM_MAIL_TEAM no arquivo .env ou não há emails definido para esta chave.']));
+            ->send(new SendMailFaild(['Não está configurado o parâmetro STAFF_EMAILS no arquivo .env ou não há emails definido para esta chave.']));
         }
 
         $this->sendEmailConfirmationToClient($order);

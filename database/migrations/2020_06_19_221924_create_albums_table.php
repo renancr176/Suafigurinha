@@ -17,6 +17,7 @@ class CreateAlbumsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('page_type_id');
             $table->unsignedBigInteger('album_frame_type_id');
+            $table->boolean('have_bookbinding_options');
             $table->string('ref_code')->unique();
             $table->string('title');
             $table->decimal('price');

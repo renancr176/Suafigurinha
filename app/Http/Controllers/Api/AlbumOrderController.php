@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\AlbumOrderRequest;
 use App\Album;
+use App\BookbindingType;
 use App\AlbumOrder;
+use App\Enums\BookbindingTypeEnum;
 use App\Mail\SendMailFaild;
 use App\Mail\AlbumOrderCreationFailed;
 use App\Mail\AlbumOrderCreatedClientOrientation;
@@ -44,7 +47,18 @@ class AlbumOrderController extends Controller
      */
     public function store(AlbumOrderRequest $request)
     {
-        Album::where('id', $request->album_id)->firstOrFail();
+        $album = Album::where('id', $request->album_id)->firstOrFail();
+
+        if ($album->have_bookbinding_options && $request->bookbinding_type_id == null)
+        {
+            $this->SendEmailToStaff(new SendMailFaild([
+                'Erro ao receber a requisição de criação de pedido após o pedido de compra.',
+                'Tipo de encardenação não informado.',
+                $request->all()
+            ], 'Erro no cadastro de pedido'));
+            
+            return response("bookbinding_type_id is required.", 400);
+        }
 
         if(!array_key_exists('client_email', $request->all()))
         {
@@ -56,23 +70,19 @@ class AlbumOrderController extends Controller
 
                 return null;
             },
-            explode(';', env('ALBUM_MAIL_TEAM'))));
+            explode(';', env('STAFF_EMAILS'))));
 
             if (count($emails) > 0)
             {
-                foreach ($emails as $email)
-                {
-                    Mail::to($email)->send(new AlbumOrderCreationFailed($message, $request->all()));
-                }
+                $this->SendEmailToStaff(new AlbumOrderCreationFailed($message, $request->all()));
             }
             else
             {
-                Mail::to(env('MAIL_USERNAME', 'renancr176@gmail.com'))
-                ->send(new SendMailFaild([
-                    'Não está configurado o parâmetro ALBUM_MAIL_TEAM no arquivo .env ou não há emails definido para esta chave.',
+                $this->SendEmailToStaff(new SendMailFaild([
+                    'Não está configurado o parâmetro STAFF_EMAILS no arquivo .env ou não há emails definido para esta chave.',
                     $message,
                     $request->all()
-                ]));
+                ], 'Erro no cadastro de pedido'));
             }
 
             return response(null, 400);
@@ -85,7 +95,8 @@ class AlbumOrderController extends Controller
 
         $order = AlbumOrder::create([
             'transaction_id' => $transactionId,
-            'album_id' => $request->album_id
+            'album_id' => $request->album_id,
+            'bookbinding_type_id' => (($album->have_bookbinding_options)? $request->bookbinding_type_id:BookbindingTypeEnum::SaddleStitching)
         ]);
 
         try
@@ -97,13 +108,12 @@ class AlbumOrderController extends Controller
         {
             if(count(Mail::failures()) > 0)
             {
-                Mail::to(env('MAIL_USERNAME', 'renancr176@gmail.com'))
-                ->send(new SendMailFaild([
+                $this->SendEmailToStaff(new SendMailFaild([
                     'Falha ao enviar o e-mail de orientação ao cliente após receber o pedido de compra.',
                     "E-mail do cliente: $request->client_email",
                     "Código de integração: $transactionId",
                     $request->all()
-                ]));
+                ], 'Falha ao enviar o e-mail de orientação ao cliente'));
             }
 
             return response(null, 400);
@@ -144,5 +154,29 @@ class AlbumOrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function SendEmailToStaff(Mailable $mail)
+    {
+        $emails = array_filter(array_map(function($value){
+            if(filter_var($value, FILTER_VALIDATE_EMAIL))
+                return $value;
+
+            return null;
+        },
+        explode(';', env('STAFF_EMAILS'))));
+
+        if (count($emails) > 0)
+        {
+            foreach ($emails as $email)
+            {
+                Mail::to($email)->send($mail);
+            }
+        }
+        else
+        {
+            Mail::to(env('MAIL_USERNAME', 'renancr176@gmail.com'))
+            ->send($mail);
+        }
     }
 }

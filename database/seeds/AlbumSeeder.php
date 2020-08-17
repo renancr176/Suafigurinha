@@ -14,6 +14,7 @@ class AlbumSeeder extends Seeder
         App\Album::create([
             'page_type_id' => 5,
             'album_frame_type_id' => 2,
+            'have_bookbinding_options' => false,
             'ref_code' => 'A015',
             'title' => 'AMOR DO OIAPOQUE AO CHUI',
             'price' => 0,

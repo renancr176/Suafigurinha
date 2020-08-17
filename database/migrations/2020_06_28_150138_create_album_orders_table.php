@@ -17,6 +17,7 @@ class CreateAlbumOrdersTable extends Migration
             $table->id();
             $table->string('transaction_id')->unique();
             $table->foreignId('album_id')->constrained();
+            $table->foreignId('bookbinding_type_id')->constrained()->default(1);
             $table->boolean('completed')->default(false);
             $table->boolean('confirmation_email_sent')->default(false);
             $table->boolean('album_email_sent')->default(false);
