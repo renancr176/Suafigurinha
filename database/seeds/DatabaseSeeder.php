@@ -16,8 +16,12 @@ class DatabaseSeeder extends Seeder
         $this->call(PageTypeSeeder::class);
         $this->call(FontSeeder::class);
         $this->call(AlbumFrameTypeSeeder::class);
-        $this->call(AlbumSeeder::class);
         $this->call(AlbumOrderFileTypeSeeder::class);
         $this->call(BookbindingType::class);
+
+        #region Albuns
+        $this->call(AlbumSeeder::class);
+        $this->call(Album2Seeder::class);
+        #endregion
     }
 }
