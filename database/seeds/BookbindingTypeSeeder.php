@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class BookbindingType extends Seeder
+class BookbindingTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
