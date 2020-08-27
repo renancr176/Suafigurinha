@@ -47,6 +47,12 @@
             border: 1px solid transparent;
             border-radius: 0.25rem;
         }
+
+        ul.no-list-style,
+        ol.no-list-style{
+            list-style-type: none;
+            padding: 0px;
+        }
     </style>
 </head>
 <body>
@@ -65,10 +71,10 @@
             <tr>
                 <td>Links para downloads:</td>
                 <td>
-                    <ol>
+                    <ul class="no-list-style">
                         <li><a href="{{ env('APP_URL') }}/my-album-pages/{{ $order->transaction_id }}">Album em PDF</a></li>
                         <li><a href="{{ env('APP_URL') }}/my-album-grid/{{ $order->transaction_id }}">Gabarito em PDF</a></li>
-                    </ol>
+                    </ul>
                 </td>
             </tr>
         </tbody>
@@ -132,7 +138,7 @@
                 <td>{{ $deliveryAddress->receiver_name }}</td>
             </tr>
         </tbody>
-    </table>';
+    </table>
 
     @if (count($texts) > 0)
         <hr />
@@ -158,18 +164,16 @@
         </table>
     @endif
 
-    @if (!$atachFiles)
-        <hr />
-        <h2>Link para download das imagens.</h2>
-        <ul>
-            @foreach ($figureFiles as $file)
-                {!! '<li><a href="'.env('APP_URL').'/my-album-image/'.$order->transaction_id.'/'.$file->id.'">'.basename($file->path).'</a></li>' !!}
-            @endforeach
-            @foreach ($backgroundFiles as $file)
-                {!! '<li><a href="'.env('APP_URL').'/my-album-image/'.$order->transaction_id.'/'.$file->id.'">'.basename($file->path).'</a></li>' !!}
-            @endforeach
-        </ul>
-    @endif
+    <hr />
+    <h2>Link para download das imagens.</h2>
+    <ul>
+        @foreach ($figureFiles as $file)
+            {!! '<li><a href="'.env('APP_URL').'/my-album-image/'.$order->transaction_id.'/'.$file->id.'">'.basename($file->path).'</a></li>' !!}
+        @endforeach
+        @foreach ($backgroundFiles as $file)
+            {!! '<li><a href="'.env('APP_URL').'/my-album-image/'.$order->transaction_id.'/'.$file->id.'">'.basename($file->path).'</a></li>' !!}
+        @endforeach
+    </ul>
 
     </body>
 </html>

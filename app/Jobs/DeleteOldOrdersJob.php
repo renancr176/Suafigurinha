@@ -45,8 +45,8 @@ class DeleteOldOrdersJob implements ShouldQueue
                 foreach($oldOrders as $order)
                 {
                     foreach($order->files()->get() as $file)
-                        if (Storage::disk('local')->exists($file->path))
-                            Storage::disk('local')->delete($file->path);
+                        if (Storage::disk(env('STORAGE', 'local'))->exists($file->path))
+                            Storage::disk(env('STORAGE', 'local'))->delete($file->path);
 
                     $order->update([
                         'deleted' => true

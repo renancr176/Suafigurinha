@@ -14,17 +14,15 @@ class AlbumCreatedByClient extends Mailable
     use Queueable, SerializesModels;
 
     public $order;
-    public $atachFiles;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(AlbumOrder $order, $atachFiles = false)
+    public function __construct(AlbumOrder $order)
     {
         $this->order = $order;
-        $this->atachFiles = $atachFiles;
     }
 
     /**
@@ -35,7 +33,6 @@ class AlbumCreatedByClient extends Mailable
     public function build()
     {
         $order = $this->order;
-        $atachFiles = $this->atachFiles;
         $album = $this->order->album()->first();
         $client = $this->order->client()->first();
         $deliveryAddress = $this->order->deliveryAddress()->first();
@@ -59,16 +56,7 @@ class AlbumCreatedByClient extends Mailable
 
         $mail = $this->subject("Album criado pelo cliente - código do pedido $order->id")
             ->view('mail.album-created-by-client', 
-            compact('order', 'album', 'client', 'deliveryAddress', 'texts', 'atachFiles', 'figureFiles', 'backgroundFiles'));
-
-        if ($this->atachFiles)
-        {
-            foreach ($figureFiles as $file)
-                $mail->attachFromStorage($file->path);
-
-            foreach ($backgroundFiles as $file)
-                $mail->attachFromStorage($file->path);
-        }
+            compact('order', 'album', 'client', 'deliveryAddress', 'texts', 'figureFiles', 'backgroundFiles'));
 
         return $mail;
     }

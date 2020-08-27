@@ -42,10 +42,10 @@ class ClientAlbumCreatedEventHandler implements ShouldQueue
         {
             foreach ($emails as $email)
             {
-                Mail::to($email)->send(new AlbumCreatedByClient($event->order, true));
+                Mail::to($email)->send(new AlbumCreatedByClient($event->order));
             }
 
-            $order->update([
+            $event->order->update([
                 'album_email_sent' => true
             ]);
         }
@@ -58,7 +58,7 @@ class ClientAlbumCreatedEventHandler implements ShouldQueue
         Mail::to($event->order->client()->first()->email)
         ->send(new AlbumCreatedClientConfirmation($event->order));
 
-        $order->update([
+        $event->order->update([
             'confirmation_email_sent' => true
         ]);
     }

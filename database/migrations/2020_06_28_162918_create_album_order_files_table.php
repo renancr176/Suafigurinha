@@ -17,7 +17,7 @@ class CreateAlbumOrderFilesTable extends Migration
             $table->id();
             $table->foreignId('album_order_id')->constrained();
             $table->foreignId('album_order_file_type_id')->constrained();
-            $table->string('path');
+            $table->string('path')->unique();
             $table->integer('sequence');
             $table->timestamps();
 

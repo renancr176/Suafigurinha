@@ -19,6 +19,8 @@ class CreateAlbumPagesTable extends Migration
             $table->integer('sequence');
             $table->string('image_path')->unique();
             $table->timestamps();
+
+            $table->unique(['album_id', 'sequence'], 'uk_album_sequence');
         });
     }
 
