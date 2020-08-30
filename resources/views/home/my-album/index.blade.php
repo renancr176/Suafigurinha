@@ -36,9 +36,9 @@
             </div>
         </div>
         <div id="step-1-content" class="step-content active">
-            <div class="mx-auto border border-secondary album-pages-container" albumid="{{ $album->id }}" style="width: {{ $album->pageType->width }}mm;">
+            <div class="mx-auto border border-secondary album-pages-container" albumid="{{ $album->id }}" style="width: {{ $album->presentationPageType->width }}mm;">
                 <div class="fotorama"
-                    data-width="{{ $album->pageType->width }}mm"
+                    data-width="{{ $album->presentationPageType->width }}mm"
                     data-nav="thumbs"
                     data-arrows="false"
                     data-click="false"

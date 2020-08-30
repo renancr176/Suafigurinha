@@ -15,14 +15,16 @@ class CreateAlbumsTable extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('page_type_id');
-            $table->unsignedBigInteger('album_frame_type_id');
-            $table->boolean('have_bookbinding_options');
             $table->string('ref_code')->unique();
             $table->string('title');
-            $table->decimal('price');
+            $table->decimal('price')->default(0);
             $table->text('description')->nullable();
-            $table->string('page_orientation');
+            $table->unsignedBigInteger('presentation_page_type_id');
+            $table->unsignedBigInteger('print_page_type_id');
+            $table->unsignedBigInteger('print_back_front_page_type_id');
+            $table->unsignedBigInteger('print_figure_grid_page_type_id');
+            $table->unsignedBigInteger('album_frame_type_id');
+            $table->boolean('have_bookbinding_options');
             $table->boolean('active');
             $table->timestamps();
         });

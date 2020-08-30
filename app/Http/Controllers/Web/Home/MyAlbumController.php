@@ -62,7 +62,7 @@ class MyAlbumController extends Controller
         ->firstOrFail();
 
         $album = $order->album()->with([
-            'pageType',
+            'presentationPageType',
             'frameType',
             'pages' => function($query){
                 $query->orderBy('sequence');

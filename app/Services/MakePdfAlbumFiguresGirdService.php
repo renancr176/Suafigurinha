@@ -21,7 +21,7 @@ class MakePdfAlbumFiguresGirdService
         $baseDir = "album_orders/".$order->transaction_id;
 
         $album = $order->Album()->with([
-            'pageType',
+            'printFigureGridPageType',
             'frameType',
             'pages' => function($query){
                 $query->orderBy('sequence');
@@ -95,7 +95,7 @@ class MakePdfAlbumFiguresGirdService
 
             $figuresGridPdf = PDF::loadView('pdf.album-figures-grid', compact('frameType', 'figuresGrid'))
             ->setWarnings(false)
-            ->setPaper('A3', 'Portrait')
+            ->setPaper(array(0,0,$album->printFigureGridPageType->width, $album->printFigureGridPageType->height))
             ->output();
 
             Storage::disk(env('STORAGE', 'local'))->put($fileName, $figuresGridPdf);

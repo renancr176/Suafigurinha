@@ -16,7 +16,13 @@ class CreateAlbumRelationships extends Migration
         //Schema::enableForeignKeyConstraints();
 
         Schema::table('albums', function (Blueprint $table) {
-            $table->foreign('page_type_id')
+            $table->foreign('presentation_page_type_id')
+            ->references('id')->on('page_types');
+            $table->foreign('print_page_type_id')
+            ->references('id')->on('page_types');
+            $table->foreign('print_back_front_page_type_id')
+            ->references('id')->on('page_types');
+            $table->foreign('print_figure_grid_page_type_id')
             ->references('id')->on('page_types');
             $table->foreign('album_frame_type_id')
             ->references('id')->on('album_frame_types');
@@ -85,7 +91,10 @@ class CreateAlbumRelationships extends Migration
         });
 
         Schema::table('albums', function (Blueprint $table) {
-            $table->dropForeign('albums_page_type_id_foreign');
+            $table->dropForeign('albums_presentation_page_type_id_foreign');
+            $table->dropForeign('albums_print_page_type_id_foreign');
+            $table->dropForeign('albums_print_back_front_page_type_id_foreign');
+            $table->dropForeign('albums_print_figure_grid_page_type_id_foreign');
             $table->dropForeign('albums_album_frame_type_id_foreign');
         });
     }

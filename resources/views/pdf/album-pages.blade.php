@@ -52,7 +52,7 @@
         }
     </style>
 </head>
-<body style="width: {{ $album->pageType->width }}mm;">
+<body style="width: {{ $album->presentationPageType->width }}mm;">
     @foreach ($album->pages as $page)
     <div class="page">
         @if (count($page->backgrounds) > 0 && array_key_exists($page->id, $backgrounds))

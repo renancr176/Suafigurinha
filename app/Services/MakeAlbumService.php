@@ -15,7 +15,7 @@ class MakeAlbumService
     public function requestIsValid(MyAlbumRequest $request, AlbumOrder $order)
     {
         $album = $order->album()->with([
-            'pageType',
+            'presentationPageType',
             'frameType',
             'pages' => function($query){
                 $query->orderBy('sequence');
@@ -129,7 +129,7 @@ class MakeAlbumService
     private function makeAlbum(MyAlbumRequest $request, AlbumOrder $order)
     {
         $album = $order->album()->with([
-            'pageType',
+            'presentationPageType',
             'frameType',
             'pages' => function($query){
                 $query->orderBy('sequence');

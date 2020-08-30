@@ -15,9 +15,11 @@ class CreatePageTypesTable extends Migration
     {
         Schema::create('page_types', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->integer('width');
-            $table->integer('height');
+            $table->string('type')->unique();
+            $table->boolean('custom')->default(false);
+            $table->boolean('used_on_print')->default(false);
+            $table->decimal('width');
+            $table->decimal('height');
             $table->timestamps();
         });
     }

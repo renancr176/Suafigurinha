@@ -8,9 +8,24 @@ class Album extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function pageType()
+    public function presentationPageType()
     {
-        return $this->belongsTo('App\PageType');
+        return $this->belongsTo('App\PageType', 'presentation_page_type_id');
+    }
+
+    public function printPageType()
+    {
+        return $this->belongsTo('App\PageType', 'print_page_type_id');
+    }
+
+    public function printBackFrontPageType()
+    {
+        return $this->belongsTo('App\PageType', 'print_back_front_page_type_id');
+    }
+
+    public function printFigureGridPageType()
+    {
+        return $this->belongsTo('App\PageType', 'print_figure_grid_page_type_id');
     }
 
     public function frameType()
