@@ -15,12 +15,13 @@ class Album2Seeder extends Seeder
             'ref_code' => substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4),
             'title' => '1 Ano de Namoro - Edição Especial',
             'description' => '',
+            'have_bookbinding_options' => true,
             'presentation_page_type_id' => 1,
             'print_page_type_id' => 2,
             'print_back_front_page_type_id' => 3,
             'print_figure_grid_page_type_id' => 4,
             'album_frame_type_id' => 1,
-            'have_bookbinding_options' => true,
+            'print_cut_space' => 5,
             'active' => true
         ]);
 

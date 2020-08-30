@@ -19,12 +19,15 @@ class CreateAlbumsTable extends Migration
             $table->string('title');
             $table->decimal('price')->default(0);
             $table->text('description')->nullable();
+            $table->boolean('have_bookbinding_options');
+
             $table->unsignedBigInteger('presentation_page_type_id');
             $table->unsignedBigInteger('print_page_type_id');
             $table->unsignedBigInteger('print_back_front_page_type_id');
             $table->unsignedBigInteger('print_figure_grid_page_type_id');
             $table->unsignedBigInteger('album_frame_type_id');
-            $table->boolean('have_bookbinding_options');
+            $table->decimal('print_cut_space')->default(0);
+
             $table->boolean('active');
             $table->timestamps();
         });

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\Home;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use App\AlbumOrder;
 use App\Services\MakePdfAlbumService;
 use App\Services\MakePdfAlbumFiguresGirdService;
 

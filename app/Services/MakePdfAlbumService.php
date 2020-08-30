@@ -20,6 +20,7 @@ class MakePdfAlbumService
         $baseDir = "album_orders/".$order->transaction_id;
 
         $album = $order->Album()->with([
+            'presentationPageType',
             'printPageType',
             'printBackFrontPageType',
             'frameType',
@@ -94,7 +95,6 @@ class MakePdfAlbumService
 
             $albumPagesPdf = PDF::loadView('pdf.album-pages', compact('album', 'fonts', 'backgrounds', 'texts'))
             ->setWarnings(false)
-            ->setPaper(array(0,0,$album->printPageType->width, $album->printPageType->height))
             ->output();
 
             Storage::disk(env('STORAGE', 'local'))->put($fileName, $albumPagesPdf);

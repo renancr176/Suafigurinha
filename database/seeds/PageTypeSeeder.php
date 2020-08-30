@@ -14,8 +14,8 @@ class PageTypeSeeder extends Seeder
         App\PageType::create([
             'type' => 'Normal apresentação',
             'custom' => true,
-            'width' => 210,
-            'height' => 210
+            'width' => 215,
+            'height' => 215
         ]);
 
         App\PageType::create([

@@ -15,12 +15,13 @@ class AlbumSeeder extends Seeder
             'ref_code' => 'A015',
             'title' => 'AMOR DO OIAPOQUE AO CHUI',
             'description' => '',
+            'have_bookbinding_options' => false,
             'presentation_page_type_id' => 1,
             'print_page_type_id' => 2,
             'print_back_front_page_type_id' => 3,
             'print_figure_grid_page_type_id' => 4,
             'album_frame_type_id' => 2,
-            'have_bookbinding_options' => false,
+            'print_cut_space' => 5,
             'active' => true
         ]);
 
