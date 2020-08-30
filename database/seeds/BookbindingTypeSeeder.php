@@ -18,5 +18,6 @@ class BookbindingTypeSeeder extends Seeder
         App\BookbindingType::create([
             'title' => 'Capa Dura'
         ]);
+        
     }
 }
