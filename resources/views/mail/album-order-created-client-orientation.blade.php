@@ -59,17 +59,17 @@
     <hr/>
 
     <div class="alert alert-primary" role="alert">
-        <p>Proceda com a requisição do album, clique no link abaixo, e siga os passos, 1º monte seu album, 2º preencha o formulário e 3º confirme os dados.</p>
+        <p>Proceda com a criação do album, clique no link abaixo, e siga os passos, 1º monte seu album, 2º preencha o formulário e 3º confirme os dados.</p>
         <p>Recomendamos separar as fotos que deseja colocar no album antes de iniciar o processo de criação.</p>
     </div>
 
-    <div class="alert alert-warning" role="alert">
-        <p>Obs: Os dados da montagem do album não são salvos até completar e enviar, portanto reserve um tempo para monta-lo, desde que o navegador não seja fechado você não perderá nada.</p>
-    </div>
-
     <a href="{{ env('APP_URL') }}/meu-album/{{ $order->transaction_id }}">
-        {{ env('APP_URL') }}/meu-album/{{ $order->transaction_id }}
+        <h2>{{ env('APP_URL') }}/meu-album/{{ $order->transaction_id }}</h2>
     </a>
+
+    <div class="alert alert-warning" role="alert">
+        <p>Obs: Os dados da montagem do album não são salvos até completar as etapas e enviar, portanto reserve um tempo para monta-lo, desde que o navegador não seja fechado você não corre o risco de perder a montagem do album.</p>
+    </div>
 
     @include('mail.partials.contact-us')
 </body>

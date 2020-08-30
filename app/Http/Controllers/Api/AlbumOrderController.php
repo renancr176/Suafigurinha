@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
-use Illuminate\Mail\Mailable;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\AlbumOrderRequest;
 use App\Album;
-use App\BookbindingType;
 use App\AlbumOrder;
+use App\Services\SendEmailToStaffService;
 use App\Enums\BookbindingTypeEnum;
 use App\Mail\SendMailFaild;
 use App\Mail\AlbumOrderCreationFailed;
@@ -19,13 +18,16 @@ use Exception;
 
 class AlbumOrderController extends Controller
 {
+    private $sendEmailToStaffService;
 
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct(SendEmailToStaffService $sendEmailToStaffService)
+    {
+        $this->sendEmailToStaffService = $sendEmailToStaffService;
         $this->middleware('jwt.auth');
     }
 
@@ -56,7 +58,7 @@ class AlbumOrderController extends Controller
                 'Tipo de encardenação não informado.',
                 $request->all()
             ], 'Erro no cadastro de pedido'));
-            
+
             return response("bookbinding_type_id is required.", 400);
         }
 
@@ -64,25 +66,17 @@ class AlbumOrderController extends Controller
         {
             $message = 'Erro ao receber a requisição de criação de pedido após o pedido de compra, o e-mail do cliente não foi informado.';
 
-            $emails = array_filter(array_map(function($value){
-                if(filter_var($value, FILTER_VALIDATE_EMAIL))
-                    return $value;
+            $mail = new AlbumOrderCreationFailed($message, $request->all());
 
-                return null;
-            },
-            explode(';', env('STAFF_EMAILS'))));
-
-            if (count($emails) > 0)
+            if (!$this->sendEmailToStaffService->send($mail))
             {
-                $this->SendEmailToStaff(new AlbumOrderCreationFailed($message, $request->all()));
-            }
-            else
-            {
-                $this->SendEmailToStaff(new SendMailFaild([
-                    'Não está configurado o parâmetro STAFF_EMAILS no arquivo .env ou não há emails definido para esta chave.',
+                $this->sendEmailToStaffService->send(
+                    new SendMailFaild([
+                    'Não há nenhum emails ativo cadastrado na tabela staff_emails.',
                     $message,
                     $request->all()
-                ], 'Erro no cadastro de pedido'));
+                    ], 'Erro no cadastro de pedido')
+                );
             }
 
             return response(null, 400);
@@ -108,7 +102,7 @@ class AlbumOrderController extends Controller
         {
             if(count(Mail::failures()) > 0)
             {
-                $this->SendEmailToStaff(new SendMailFaild([
+                $this->sendEmailToStaffService->send(new SendMailFaild([
                     'Falha ao enviar o e-mail de orientação ao cliente após receber o pedido de compra.',
                     "E-mail do cliente: $request->client_email",
                     "Código de integração: $transactionId",
@@ -154,29 +148,5 @@ class AlbumOrderController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    private function SendEmailToStaff(Mailable $mail)
-    {
-        $emails = array_filter(array_map(function($value){
-            if(filter_var($value, FILTER_VALIDATE_EMAIL))
-                return $value;
-
-            return null;
-        },
-        explode(';', env('STAFF_EMAILS'))));
-
-        if (count($emails) > 0)
-        {
-            foreach ($emails as $email)
-            {
-                Mail::to($email)->send($mail);
-            }
-        }
-        else
-        {
-            Mail::to(env('MAIL_USERNAME', 'renancr176@gmail.com'))
-            ->send($mail);
-        }
     }
 }

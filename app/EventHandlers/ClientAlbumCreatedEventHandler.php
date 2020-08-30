@@ -6,20 +6,23 @@ use App\Events\ClientAlbumCreatedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
+use App\Services\SendEmailToStaffService;
 use App\Mail\SendMailFaild;
 use App\Mail\AlbumCreatedByClient;
 use App\Mail\AlbumCreatedClientConfirmation;
 
 class ClientAlbumCreatedEventHandler implements ShouldQueue
 {
+    private $sendEmailToStaffService;
+
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(SendEmailToStaffService $sendEmailToStaffService)
     {
-        //
+        $this->sendEmailToStaffService = $sendEmailToStaffService;
     }
 
     /**
@@ -30,29 +33,17 @@ class ClientAlbumCreatedEventHandler implements ShouldQueue
      */
     public function handle(ClientAlbumCreatedEvent $event)
     {
-        $emails = array_filter(array_map(function($value){
-            if(filter_var($value, FILTER_VALIDATE_EMAIL))
-                return $value;
+        $mail = new AlbumCreatedByClient($event->order);
 
-            return null;
-        },
-        explode(';', env('STAFF_EMAILS'))));
-
-        if (count($emails) > 0)
+        if ($this->sendEmailToStaffService->send($mail))
         {
-            foreach ($emails as $email)
-            {
-                Mail::to($email)->send(new AlbumCreatedByClient($event->order));
-            }
-
             $event->order->update([
                 'album_email_sent' => true
             ]);
         }
         else
         {
-            Mail::to(env('MAIL_USERNAME', 'renancr176@gmail.com'))
-            ->send(new SendMailFaild(['Não está configurado o parâmetro STAFF_EMAILS no arquivo .env ou não há emails definido para esta chave.']));
+            $this->sendEmailToStaffService->send(new SendMailFaild(['Não há nenhum emails ativo cadastrado na tabela staff_emails.']));
         }
 
         Mail::to($event->order->client()->first()->email)

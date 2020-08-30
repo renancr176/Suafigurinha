@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Services\MakeAlbumService;
 use App\Services\MakePdfAlbumService;
 use App\Services\MakePdfAlbumFiguresGirdService;
+use App\Services\SendEmailToStaffService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MakePdfAlbumFiguresGirdService::class, function($app)
         {
             return new MakePdfAlbumFiguresGirdService();
+        });
+
+        $this->app->bind(SendEmailToStaffService::class, function($app)
+        {
+            return new SendEmailToStaffService();
         });
     }
 
