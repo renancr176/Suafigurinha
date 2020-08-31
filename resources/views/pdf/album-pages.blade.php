@@ -31,31 +31,12 @@
             margin: 0px;
         }
 
-        table.page:last-child
-        {
-            page-break-after: avoid;
-        }
-
         table.page tr,
         table.page td
         {
             padding: 0px;
             margin: 0px;
         }
-
-        /* table.page tr:first-child,
-        table.page tr:last-child,
-        table.page tr:first-child td,
-        table.page tr:last-child td
-        {
-            height: {{ $marginHeight }}mm;
-        }
-
-        table.page tr.container,
-        table.page tr.container td
-        {
-            height: {{ $album->presentationPageType->height }}mm;
-        } */
 
         table.page .content
         {
@@ -115,6 +96,20 @@
         {
             margin-left: auto;
         }
+
+        .bottom-container .left-right-cut
+        {
+            position: fixed;
+            bottom: 0;
+            margin-left: {{ $marginWidth + $album->print_cut_space }}mm;
+            margin-right: {{ $marginWidth + $album->print_cut_space }}mm;
+        }
+
+        .space-holder
+        {
+            height: 5mm;
+            width: inherit;
+        }
     </style>
 </head>
 <body>
@@ -128,7 +123,9 @@
                 <td></td>
             </tr>
             <tr class="container">
-                <td class="cut-container"><div class="top-bottom-cut"></div></td>
+                <td class="cut-container">
+                    <div class="top-bottom-cut"></div>
+                </td>
                 <td class="content">
                     @if (count($page->backgrounds) > 0 && array_key_exists($page->id, $backgrounds))
                         @foreach ($backgrounds[$page->id] as $k => $v)
@@ -158,11 +155,16 @@
                         @endforeach
                     @endif
                 </td>
-                <td class="cut-container right-container"><div class="top-bottom-cut"></div></td>
+                <td class="cut-container right-container">
+                    <div class="top-bottom-cut"></div>
+                </td>
             </tr>
             <tr>
                 <td></td>
-                <td class="cut-container bottom-container"><div class="left-right-cut"></div></td>
+                <td class="cut-container bottom-container">
+                    <div class="space-holder"></div>
+                    <div class="left-right-cut"></div>
+                </td>
                 <td></td>
             </tr>
         </table>
