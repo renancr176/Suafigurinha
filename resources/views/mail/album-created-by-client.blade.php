@@ -69,9 +69,16 @@
                 <td>{{ "$album->id - $album->ref_code - $album->title" }}</td>
             </tr>
             <tr>
+                <td style="text-align:right">Encardenação:</td>
+                <td>{{ $bookbindingType->title }}</td>
+            </tr>
+            <tr>
                 <td>Links para downloads:</td>
                 <td>
                     <ul class="no-list-style">
+                        @if ($isBookbindingByPasting)
+                        <li><a href="{{ env('APP_URL') }}/my-album-cover/{{ $order->transaction_id }}">Capa do album em PDF</a></li>
+                        @endif
                         <li><a href="{{ env('APP_URL') }}/my-album-pages/{{ $order->transaction_id }}">Album em PDF</a></li>
                         <li><a href="{{ env('APP_URL') }}/my-album-grid/{{ $order->transaction_id }}">Gabarito em PDF</a></li>
                     </ul>

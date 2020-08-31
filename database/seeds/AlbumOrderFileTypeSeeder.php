@@ -26,5 +26,9 @@ class AlbumOrderFileTypeSeeder extends Seeder
         App\AlbumOrderFileType::create([
             'title' => 'Gabarito'
         ]);
+
+        App\AlbumOrderFileType::create([
+            'title' => 'Capa dura'
+        ]);
     }
 }

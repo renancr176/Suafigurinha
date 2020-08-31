@@ -7,17 +7,37 @@ use Illuminate\Support\Facades\Storage;
 use App\AlbumOrder;
 use App\Services\MakePdfAlbumService;
 use App\Services\MakePdfAlbumFiguresGirdService;
+use App\Services\MakePdfAlbumCoverService;
 
 class MyAlbumPdfController extends Controller
 {
     public $makePdfAlbumService;
     public $makePdfAlbumFiguresGirdService;
+    public $makePdfAlbumCoverService;
 
-    public function __construct(MakePdfAlbumService $makePdfAlbumService, 
-        MakePdfAlbumFiguresGirdService $makePdfAlbumFiguresGirdService)
+    public function __construct(MakePdfAlbumService $makePdfAlbumService,
+        MakePdfAlbumFiguresGirdService $makePdfAlbumFiguresGirdService,
+        MakePdfAlbumCoverService $makePdfAlbumCoverService)
     {
         $this->makePdfAlbumService = $makePdfAlbumService;
         $this->makePdfAlbumFiguresGirdService = $makePdfAlbumFiguresGirdService;
+        $this->makePdfAlbumCoverService = $makePdfAlbumCoverService;
+    }
+
+    /**
+     * Download PDF.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getCoverPdf($id)
+    {
+        $order = AlbumOrder::where('transaction_id', $id)
+        ->firstOrFail();
+
+        $fileName = $this->makePdfAlbumCoverService->make($order);
+
+        return Storage::disk(env('STORAGE', 'local'))->download($fileName);
     }
 
     /**

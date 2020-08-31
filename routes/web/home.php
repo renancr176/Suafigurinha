@@ -14,10 +14,11 @@ Route::group(
             $order = App\AlbumOrder::where('transaction_id', $id)
             ->where('completed', true)
             ->firstOrFail();
-    
+
             return view('home.my-album.success');
         }]);
 
+        Route::get('my-album-cover/{id}', 'MyAlbumPdfController@getCoverPdf');
         Route::get('my-album-pages/{id}', 'MyAlbumPdfController@getPagesPdf');
         Route::get('my-album-grid/{id}', 'MyAlbumPdfController@getGridPdf');
         Route::get('my-album-image/{id}/{imageId}', 'MyAlbumPdfController@getImage');

@@ -8,6 +8,7 @@ use App\Services\MakeAlbumService;
 use App\Services\MakePdfAlbumService;
 use App\Services\MakePdfAlbumFiguresGirdService;
 use App\Services\SendEmailToStaffService;
+use App\Services\MakePdfAlbumCoverService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MakePdfAlbumFiguresGirdService::class, function($app)
         {
             return new MakePdfAlbumFiguresGirdService();
+        });
+
+        $this->app->bind(MakePdfAlbumCoverService::class, function($app)
+        {
+            return new MakePdfAlbumCoverService();
         });
 
         $this->app->bind(SendEmailToStaffService::class, function($app)

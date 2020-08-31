@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\AlbumOrder;
 use App\Enums\AlbumOrderFileTypeEnum;
+use App\Enums\BookbindingTypeEnum;
 
 class AlbumCreatedByClient extends Mailable
 {
@@ -33,6 +34,7 @@ class AlbumCreatedByClient extends Mailable
     public function build()
     {
         $order = $this->order;
+        $bookbindingType = $this->order->bookbindingType()->first();
         $album = $this->order->album()->first();
         $client = $this->order->client()->first();
         $deliveryAddress = $this->order->deliveryAddress()->first();
@@ -54,9 +56,11 @@ class AlbumCreatedByClient extends Mailable
         ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Background)
         ->get();
 
+        $isBookbindingByPasting = $bookbindingType->id == BookbindingTypeEnum::Pasting;
+
         $mail = $this->subject("Album criado pelo cliente - código do pedido $order->id")
-            ->view('mail.album-created-by-client', 
-            compact('order', 'album', 'client', 'deliveryAddress', 'texts', 'figureFiles', 'backgroundFiles'));
+            ->view('mail.album-created-by-client',
+            compact('order', 'album', 'client', 'deliveryAddress', 'texts', 'figureFiles', 'backgroundFiles', 'bookbindingType', 'isBookbindingByPasting'));
 
         return $mail;
     }

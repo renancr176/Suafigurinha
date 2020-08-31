@@ -16,4 +16,5 @@ final class AlbumOrderFileTypeEnum extends Enum
     const Background = 2;
     const Album = 3;
     const FigureGrid = 4;
+    const Cover = 5;
 }
