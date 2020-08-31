@@ -19,11 +19,11 @@ class MakePdfAlbumService
     public function make(AlbumOrder $order)
     {
         $baseDir = "album_orders/".$order->transaction_id;
+        $fileName = "$baseDir/album.pdf";
 
         $album = $order->album()->with([
             'presentationPageType',
             'printPageType',
-            'printBackFrontPageType',
             'frameType',
             'pages' => function($query) use ($order)
             {
@@ -42,12 +42,12 @@ class MakePdfAlbumService
             'pages.backgrounds'
         ])->first();
 
-        $fileName = "$baseDir/album.pdf";
-
         if(!Storage::disk(env('STORAGE', 'local'))->exists($fileName))
         {
             $backgrounds = [];
             $texts = [];
+            $marginWidth = (($album->printPageType->width - $album->presentationPageType->width) / 2);
+            $marginHeight = (($album->printPageType->height - $album->presentationPageType->height) / 2);
 
             foreach($album->pages()->get() as $albumPage)
             {
@@ -62,8 +62,8 @@ class MakePdfAlbumService
                         $backgrounds[$albumPage->id] = [];
 
                     array_push($backgrounds[$albumPage->id], [
-                        'x_position' => $albumBackground->x_position,
-                        'y_position' => $albumBackground->y_position,
+                        'x_position' => $albumBackground->x_position + $marginWidth,
+                        'y_position' => $albumBackground->y_position + $marginHeight,
                         'rotation' => $albumBackground->rotation,
                         'width' => $albumBackground->width,
                         'height' => $albumBackground->height,
@@ -83,8 +83,8 @@ class MakePdfAlbumService
 
                     array_push($texts[$albumPage->id], [
                         'width' => $albumText->width,
-                        'x_position' => $albumText->x_position,
-                        'y_position' => $albumText->y_position,
+                        'x_position' => $albumText->x_position + $marginWidth,
+                        'y_position' => $albumText->y_position + $marginHeight,
                         'rotation' => $albumText->rotation,
                         'color' => $albumText->color,
                         'alignment' => $albumText->alignment,
@@ -99,9 +99,6 @@ class MakePdfAlbumService
             foreach($album->pages()->get() as $page)
                 foreach($page->texts()->get() as $text)
                     array_push($fonts, $text->font);
-
-            $marginWidth = (($album->printPageType->width - $album->presentationPageType->width) / 2);
-            $marginHeight = (($album->printPageType->height - $album->presentationPageType->height) / 2);
 
             $albumPagesPdf = PDF::loadView('pdf.album-pages', compact('album', 'fonts', 'backgrounds', 'texts', 'marginWidth', 'marginHeight'))
             ->setWarnings(false)
