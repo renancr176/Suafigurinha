@@ -93,7 +93,11 @@ class MakePdfAlbumService
                 foreach($page->texts()->get() as $text)
                     array_push($fonts, $text->font);
 
-            $albumPagesPdf = PDF::loadView('pdf.album-pages', compact('album', 'fonts', 'backgrounds', 'texts'))
+            $redux = 0.2;
+            $marginWidth = (($album->printPageType->width - $album->presentationPageType->width) / 2) - $redux;
+            $marginHeight = (($album->printPageType->height - $album->presentationPageType->height) / 2) - $redux;
+
+            $albumPagesPdf = PDF::loadView('pdf.album-pages', compact('album', 'fonts', 'backgrounds', 'texts', 'marginWidth', 'marginHeight'))
             ->setWarnings(false)
             ->output();
 

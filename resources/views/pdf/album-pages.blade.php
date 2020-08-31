@@ -27,6 +27,8 @@
             width: 100%;
             height: 100%;
             page-break-after: always;
+            padding: 0px;
+            margin: 0px;
         }
 
         table.page:last-child
@@ -34,10 +36,26 @@
             page-break-after: avoid;
         }
 
+        table.page tr,
         table.page td
         {
             padding: 0px;
+            margin: 0px;
         }
+
+        /* table.page tr:first-child,
+        table.page tr:last-child,
+        table.page tr:first-child td,
+        table.page tr:last-child td
+        {
+            height: {{ $marginHeight }}mm;
+        }
+
+        table.page tr.container,
+        table.page tr.container td
+        {
+            height: {{ $album->presentationPageType->height }}mm;
+        } */
 
         table.page .content
         {
@@ -72,56 +90,81 @@
             margin: 0px;
             padding: 0px;
         }
+
+        .left-right-cut
+        {
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            height: 5mm;
+            width: inherit;
+            margin-left: {{ $album->print_cut_space }}mm;
+            margin-right: {{ $album->print_cut_space }}mm;
+        }
+
+        .top-bottom-cut
+        {
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            width:  5mm;
+            height: {{ ($album->presentationPageType->height - (2 * $album->print_cut_space)) }}mm;
+            margin-top: {{ $album->print_cut_space }}mm;
+            margin-bottom: {{ $album->print_cut_space }}mm;
+        }
+
+        .right-container .top-bottom-cut
+        {
+            margin-left: auto;
+        }
     </style>
 </head>
 <body>
     @foreach ($album->pages as $page)
         <table class="page">
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="content">
-                        @if (count($page->backgrounds) > 0 && array_key_exists($page->id, $backgrounds))
-                            @foreach ($backgrounds[$page->id] as $k => $v)
-                                <img src="{{ $v['path'] }}" class="background" style="
-                                left: {{ $v['x_position'] }}mm;
-                                top: {{ $v['y_position'] }}mm;
-                                transform: rotate({{ $v['rotation'] }}deg);
-                                width: {{ $v['width'] }}mm;
-                                height: {{ $v['height'] }}mm;"/>
-                            @endforeach
-                        @endif
-                        <img src="{{ public_path($page->image_path) }}" class="album-page-image"/>
-                        @if (count($page->texts) > 0 && array_key_exists($page->id, $texts))
-                            @foreach ($texts[$page->id] as $k => $v)
-                                <div class="text" style="
-                                width: {{ $v['width'] }}mm;
-                                left: {{ $v['x_position'] }}mm;
-                                top: {{ $v['y_position'] }}mm;
-                                transform: rotate({{ $v['rotation'] }}deg);">
-                                    <p style="color: {{ $v['color'] }};
-                                    text-align: {{ $v['alignment'] }};
-                                    font-size: {{ $v['font_size'] }}pt;
-                                    font-family: {{ $v['font_family'] }};">
-                                        {{ $v['text'] }}
-                                    </p>
-                                </div>
-                            @endforeach
-                        @endif
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
+            <tr>
+                <td></td>
+                <td class="cut-container">
+                    <div class="left-right-cut"></div>
+                </td>
+                <td></td>
+            </tr>
+            <tr class="container">
+                <td class="cut-container"><div class="top-bottom-cut"></div></td>
+                <td class="content">
+                    @if (count($page->backgrounds) > 0 && array_key_exists($page->id, $backgrounds))
+                        @foreach ($backgrounds[$page->id] as $k => $v)
+                            <img src="{{ $v['path'] }}" class="background" style="
+                            left: {{ $v['x_position'] }}mm;
+                            top: {{ $v['y_position'] }}mm;
+                            transform: rotate({{ $v['rotation'] }}deg);
+                            width: {{ $v['width'] }}mm;
+                            height: {{ $v['height'] }}mm;"/>
+                        @endforeach
+                    @endif
+                    <img src="{{ public_path($page->image_path) }}" class="album-page-image"/>
+                    @if (count($page->texts) > 0 && array_key_exists($page->id, $texts))
+                        @foreach ($texts[$page->id] as $k => $v)
+                            <div class="text" style="
+                            width: {{ $v['width'] }}mm;
+                            left: {{ $v['x_position'] }}mm;
+                            top: {{ $v['y_position'] }}mm;
+                            transform: rotate({{ $v['rotation'] }}deg);">
+                                <p style="color: {{ $v['color'] }};
+                                text-align: {{ $v['alignment'] }};
+                                font-size: {{ $v['font_size'] }}pt;
+                                font-family: {{ $v['font_family'] }};">
+                                    {{ $v['text'] }}
+                                </p>
+                            </div>
+                        @endforeach
+                    @endif
+                </td>
+                <td class="cut-container right-container"><div class="top-bottom-cut"></div></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="cut-container bottom-container"><div class="left-right-cut"></div></td>
+                <td></td>
+            </tr>
         </table>
     @endforeach
 </body>
