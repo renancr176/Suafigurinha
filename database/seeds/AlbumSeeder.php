@@ -11,7 +11,7 @@ class AlbumSeeder extends Seeder
      */
     public function run()
     {
-        App\Album::create([
+        $album = App\Album::create([
             'ref_code' => 'A015',
             'title' => 'AMOR DO OIAPOQUE AO CHUI',
             'description' => '',
@@ -25,17 +25,23 @@ class AlbumSeeder extends Seeder
             'active' => true
         ]);
 
+        $pageSequence = 0;
+        $photoSequece = 0;
+        $backgroundSequece = 0;
+
         #region Page 1
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 1,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_1.png'
         ]);
 
+        $backgroundSequece++;
         App\AlbumPageBackground::create([
-            'album_page_id' => 1,
-            'sequence' => 1,
+            'album_page_id' => $page->id,
+            'sequence' => $backgroundSequece,
             'width' => 142,
             'height' => 113,
             'x_position' => 33.5,
@@ -45,7 +51,7 @@ class AlbumSeeder extends Seeder
         ]);
 
         App\AlbumPageText::create([
-            'album_page_id' => 1,
+            'album_page_id' => $page->id,
             'font_id' => 2,
             'text' => 'Eu e Ele(a)',
             'alignment' => 'center',
@@ -65,42 +71,47 @@ class AlbumSeeder extends Seeder
 
         #region Page 2
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 2,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_2.png'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 2,
-            'sequence' => 1,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 23,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 2,
-            'sequence' => 2,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 114.3,
             'y_position' => 23,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 2,
-            'sequence' => 3,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 114.3,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 2,
-            'sequence' => 4,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 114.3,
             'y_position' => 114.3,
             'rotation' => 0,
@@ -111,33 +122,37 @@ class AlbumSeeder extends Seeder
 
         #region Page 3
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 3,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_3.png'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 3,
-            'sequence' => 5,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 14.3,
             'y_position' => 23,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 3,
-            'sequence' => 6,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 14.3,
             'y_position' => 114.3,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
 
+        $backgroundSequece++;
         App\AlbumPageBackground::create([
-            'album_page_id' => 3,
-            'sequence' => 2,
+            'album_page_id' => $page->id,
+            'sequence' => $backgroundSequece,
             'width' => 125,
             'height' => 210,
             'x_position' => 85,
@@ -150,33 +165,37 @@ class AlbumSeeder extends Seeder
 
         #region Page 4
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 4,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_4.png'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 4,
-            'sequence' => 7,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 11.8,
             'rotation' => 0,
             'controls_position' => 'left'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 4,
-            'sequence' => 8,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 114.3,
             'y_position' => 11.8,
             'rotation' => 0,
             'controls_position' => 'right'
         ]);
 
+        $backgroundSequece++;
         App\AlbumPageBackground::create([
-            'album_page_id' => 4,
-            'sequence' => 3,
+            'album_page_id' => $page->id,
+            'sequence' => $backgroundSequece,
             'width' => 168,
             'height' => 117,
             'x_position' => 21,
@@ -189,42 +208,47 @@ class AlbumSeeder extends Seeder
 
         #region Page 5
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 5,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_5.png'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 5,
-            'sequence' => 9,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 23,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 5,
-            'sequence' => 10,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 114.3,
             'y_position' => 23,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 5,
-            'sequence' => 11,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 114.3,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 5,
-            'sequence' => 12,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 114.3,
             'y_position' => 114.3,
             'rotation' => 0,
@@ -235,15 +259,17 @@ class AlbumSeeder extends Seeder
 
         #region Page 6
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 6,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_6.png'
         ]);
 
+        $backgroundSequece++;
         App\AlbumPageBackground::create([
-            'album_page_id' => 6,
-            'sequence' => 4,
+            'album_page_id' => $page->id,
+            'sequence' => $backgroundSequece,
             'width' => 175.5,
             'height' => 161,
             'x_position' => 18,
@@ -256,33 +282,37 @@ class AlbumSeeder extends Seeder
 
         #region Page 7
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 7,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_7.png'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 7,
-            'sequence' => 13,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 23,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 7,
-            'sequence' => 14,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 114.3,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
 
+        $backgroundSequece++;
         App\AlbumPageBackground::create([
-            'album_page_id' => 7,
-            'sequence' => 5,
+            'album_page_id' => $page->id,
+            'sequence' => $backgroundSequece,
             'width' => 110,
             'height' => 210,
             'x_position' => 100,
@@ -295,15 +325,17 @@ class AlbumSeeder extends Seeder
 
         #region Page 8
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 8,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_8.png'
         ]);
 
+        $backgroundSequece++;
         App\AlbumPageBackground::create([
-            'album_page_id' => 8,
-            'sequence' => 6,
+            'album_page_id' => $page->id,
+            'sequence' => $backgroundSequece,
             'width' => 143,
             'height' => 210,
             'x_position' => 32,
@@ -316,42 +348,47 @@ class AlbumSeeder extends Seeder
 
         #region Page 9
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 9,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_9.png'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 9,
-            'sequence' => 15,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 23,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 9,
-            'sequence' => 16,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 114.3,
             'y_position' => 23,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 9,
-            'sequence' => 17,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 114.3,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 9,
-            'sequence' => 18,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 114.3,
             'y_position' => 114.3,
             'rotation' => 0,
@@ -362,15 +399,17 @@ class AlbumSeeder extends Seeder
 
         #region Page 10
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 10,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_10.png'
         ]);
 
+        $backgroundSequece++;
         App\AlbumPageBackground::create([
-            'album_page_id' => 10,
-            'sequence' => 7,
+            'album_page_id' => $page->id,
+            'sequence' => $backgroundSequece,
             'width' => 210,
             'height' => 154,
             'x_position' => 0,
@@ -383,24 +422,27 @@ class AlbumSeeder extends Seeder
 
         #region Page 11
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 11,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_11.png'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 11,
-            'sequence' => 19,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 23,
             'y_position' => 55.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
 
+        $photoSequece++;
         App\AlbumPagePhoto::create([
-            'album_page_id' => 11,
-            'sequence' => 20,
+            'album_page_id' => $page->id,
+            'sequence' => $photoSequece,
             'x_position' => 114.3,
             'y_position' => 55.8,
             'rotation' => 0,
@@ -411,9 +453,10 @@ class AlbumSeeder extends Seeder
 
         #region Page 12
 
-        App\AlbumPage::create([
-            'album_id' => 1,
-            'sequence' => 12,
+        $pageSequence++;
+        $page = App\AlbumPage::create([
+            'album_id' => $album->id,
+            'sequence' => $pageSequence,
             'image_path' => '/files/images/albuns/album_1/img_12.png'
         ]);
 
