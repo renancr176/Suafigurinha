@@ -6,6 +6,7 @@ use App\AlbumOrder;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
 use App\Enums\AlbumOrderFileTypeEnum;
+use App\Enums\BookbindingTypeEnum;
 
 class MakePdfAlbumService
 {
@@ -19,13 +20,19 @@ class MakePdfAlbumService
     {
         $baseDir = "album_orders/".$order->transaction_id;
 
-        $album = $order->Album()->with([
+        $album = $order->album()->with([
             'presentationPageType',
             'printPageType',
             'printBackFrontPageType',
             'frameType',
-            'pages' => function($query){
-                $query->orderBy('sequence');
+            'pages' => function($query) use ($order)
+            {
+                if ($order->bookbinding_type_id == BookbindingTypeEnum::Pasting)
+                    $query->where('id', '<>', $order->album()->first()->pages()->orderBy('sequence', 'asc')->first()->id)
+                    ->where('id', '<>', $order->album()->first()->pages()->orderBy('sequence', 'desc')->first()->id)
+                    ->orderBy('sequence');
+                else
+                    $query->orderBy('sequence');
             },
             'pages.photos' => function($query){
                 $query->orderBy('sequence');
