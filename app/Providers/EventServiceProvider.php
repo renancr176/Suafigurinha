@@ -8,8 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\AlbumDataSentByClientEvent;
 use App\EventHandlers\AlbumDataSentByClientEventHandler;
-use App\Events\ClientAlbumCreatedEvent;
-use App\EventHandlers\ClientAlbumCreatedEventHandler;
+use App\Events\GenerateClientAlbumPdfEvent;
+use App\EventHandlers\GenerateClientAlbumPdfEventHandler;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -25,8 +25,8 @@ class EventServiceProvider extends ServiceProvider
         AlbumDataSentByClientEvent::class => [
             AlbumDataSentByClientEventHandler::class
         ],
-        ClientAlbumCreatedEvent::class => [
-            ClientAlbumCreatedEventHandler::class
+        GenerateClientAlbumPdfEvent::class => [
+            GenerateClientAlbumPdfEventHandler::class
         ],
     ];
 

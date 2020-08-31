@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use App\AlbumOrder;
 
-class ClientAlbumCreatedEvent
+class GenerateClientAlbumPdfEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
