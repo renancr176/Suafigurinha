@@ -23,11 +23,6 @@ class Album extends Model
         return $this->belongsTo('App\PageType', 'print_back_front_page_type_id');
     }
 
-    public function printFigureGridPageType()
-    {
-        return $this->belongsTo('App\PageType', 'print_figure_grid_page_type_id');
-    }
-
     public function frameType()
     {
         return $this->belongsTo('App\AlbumFrameType', 'album_frame_type_id');

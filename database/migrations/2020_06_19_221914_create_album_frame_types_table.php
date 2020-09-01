@@ -24,6 +24,13 @@ class CreateAlbumFrameTypesTable extends Migration
             $table->decimal('x_position');
             $table->decimal('y_position');
             $table->decimal('sequence_font_size');
+            $table->unsignedBigInteger('print_page_type_id');
+            $table->integer('quantity_rows_by_page');
+            $table->integer('quantity_figures_by_row');
+            $table->decimal('margin_width');
+            $table->decimal('margin_height');
+            $table->decimal('space_between_figures');
+            $table->decimal('container_border_space');
             $table->timestamps();
         });
     }

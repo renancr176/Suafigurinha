@@ -22,8 +22,7 @@ class CreateAlbumRelationships extends Migration
             ->references('id')->on('page_types');
             $table->foreign('print_back_front_page_type_id')
             ->references('id')->on('page_types');
-            $table->foreign('print_figure_grid_page_type_id')
-            ->references('id')->on('page_types');
+
             $table->foreign('album_frame_type_id')
             ->references('id')->on('album_frame_types');
         });
@@ -35,6 +34,8 @@ class CreateAlbumRelationships extends Migration
         });
 
         Schema::table('album_frame_types', function (Blueprint $table) {
+            $table->foreign('print_page_type_id')
+            ->references('id')->on('page_types');
             $table->foreign('font_id')
             ->references('id')->on('fonts');
         });

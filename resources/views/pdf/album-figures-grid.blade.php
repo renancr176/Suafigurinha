@@ -6,7 +6,7 @@
 
         @page
         {
-            size: {{ $album->printFigureGridPageType->width }}mm {{ $album->printFigureGridPageType->height }}mm;
+            size: {{ $frameType->printPageType->width }}mm {{ $frameType->printPageType->height }}mm;
         }
 
         html,
@@ -14,40 +14,77 @@
         {
             margin: 0px;
             padding: 0px;
-            width: {{ $album->printFigureGridPageType->width }}mm;
-            height: {{ $album->printFigureGridPageType->height }}mm;
+            width: {{ $frameType->printPageType->width }}mm;
+            height: {{ $frameType->printPageType->height }}mm;
         }
 
-        table
+        table.page
         {
-            border: 3mm;
-            border-spacing: 3mm;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: auto;
-            margin-bottom: auto;
             padding: 0px;
-            background-color: {{ $album->background_color_firgure_grid }};
-        }
-
-        .page
-        {
+            margin: auto;
             page-break-after: always;
+            border-spacing: 0px;
         }
 
-        .page:last-child
+        table.page:last-child
         {
             page-break-after: avoid;
         }
 
-        .page-bg td
+        .cut-horizontal-mark
         {
-            position: relative;
-            width: {{ $frameType->width }}mm; 
-            height: {{ $frameType->height }}mm;
+            border-right: 1px solid black;
         }
 
-        .page-bg .figure-bg-num
+        .cut-vertical-mark
+        {
+            border-bottom: 1px solid black;
+        }
+
+        table.page tr:nth-child(2) td:nth-child({{ $frameType->quantity_figures_by_row + 4 }}),
+        table.page tr:nth-child({{ $frameType->quantity_rows_by_page + 4 }}) td:nth-child({{ $frameType->quantity_figures_by_row + 3 }})
+        {
+            border-right: none;
+        }
+
+        table.page tr:nth-child({{ $frameType->quantity_rows_by_page + 3 }}) .cut-vertical-mark:first-child,
+        table.page tr:nth-child({{ $frameType->quantity_rows_by_page + 3 }}) .cut-vertical-mark:last-child
+        {
+            border-bottom: none;
+        }
+
+        table.page.figures-grid td.border-corner,
+        table.page.figures-grid td.border-horizontal,
+        table.page.figures-grid td.border-vertical,
+        table.page.figures-grid td.figure-container
+        {
+            background-color: {{ $album->background_color_firgure_grid }};
+        }
+
+        .border-horizontal
+        {
+            height: {{ $frameType->container_border_space }}mm;
+        }
+
+        .border-vertical
+        {
+            width: {{ $frameType->container_border_space }}mm;
+        }
+
+        table.page.figures-grid td.figure-container
+        {
+            text-align: center;
+            padding: {{ $frameType->space_between_figures }}mm;
+        }
+
+        table.page.figures-grid-bg td.figure-container
+        {
+            position: relative;
+            text-align: center;
+            padding: {{ $frameType->space_between_figures }}mm;
+        }
+
+        table.page.figures-grid-bg .figure-bg-num
         {
             position: absolute;
             padding: 0px;
@@ -63,26 +100,104 @@
 </head>
 <body>
     @foreach ($figuresGrid as $page)
-    <table class="page">
+    <table class="page figures-grid">
         <tbody>
-        @foreach ($page as $row)
             <tr>
-            @foreach ($row as $k => $figure)
-                <td>
+                <td>&nbsp;</td>
+                <td colspan="{{ $frameType->quantity_figures_by_row + 4 }}">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td rowspan="{{ $frameType->quantity_rows_by_page + 4 }}">&nbsp;</td>
+                <td style="width: 5mm; height: 5mm;">&nbsp;</td>
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                @for ($i = $frameType->quantity_figures_by_row; $i > 0; $i--)
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                @endfor
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                <td style="width: 5mm; height: 5mm;">&nbsp;</td>
+                <td rowspan="{{ $frameType->quantity_rows_by_page + 4 }}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="cut-vertical-mark">&nbsp;</td>
+                <td class="border-corner">&nbsp;</td>
+                @for ($i = $frameType->quantity_figures_by_row; $i > 0; $i--)
+                <td class="border-horizontal">&nbsp;</td>
+                @endfor
+                <td class="border-corner">&nbsp;</td>
+                <td class="cut-vertical-mark">&nbsp;</td>
+            </tr>
+            @foreach ($page as $row)
+            <tr>
+                <td class="cut-vertical-mark">&nbsp;</td>
+                <td class="border-vertical">&nbsp;</td>
+                @foreach ($row as $k => $figure)
+                <td class="figure-container">
                     <img src="{{ $figure['path'] }}" style="width: {{ $frameType->width }}mm;
                     height: {{ $frameType->height }}mm;"/>
                 </td>
-            @endforeach
+                @endforeach
+                <td class="border-vertical">&nbsp;</td>
+                <td class="cut-vertical-mark">&nbsp;</td>
             </tr>
-        @endforeach
+            @endforeach
+            <tr>
+                <td class="cut-vertical-mark">&nbsp;</td>
+                <td class="border-corner">&nbsp;</td>
+                @for ($i = $frameType->quantity_figures_by_row; $i > 0; $i--)
+                <td class="border-horizontal">&nbsp;</td>
+                @endfor
+                <td class="border-corner">&nbsp;</td>
+                <td class="cut-vertical-mark">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width: 5mm; height: 5mm;">&nbsp;</td>
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                @for ($i = $frameType->quantity_figures_by_row; $i > 0; $i--)
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                @endfor
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                <td style="width: 5mm; height: 5mm;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="{{ $frameType->quantity_figures_by_row + 4 }}">&nbsp;</td>
+            </tr>
         </tbody>
     </table>
-    <table class="page page-bg">
+
+    <table class="page figures-grid-bg">
         <tbody>
-        @foreach ($page as $row)
             <tr>
-            @foreach (array_reverse($row) as $k => $figure)
-                <td>
+                <td>&nbsp;</td>
+                <td colspan="{{ $frameType->quantity_figures_by_row + 4 }}">&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td rowspan="{{ $frameType->quantity_rows_by_page + 4 }}">&nbsp;</td>
+                <td style="width: 5mm; height: 5mm;">&nbsp;</td>
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                @for ($i = $frameType->quantity_figures_by_row; $i > 0; $i--)
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                @endfor
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                <td style="width: 5mm; height: 5mm;">&nbsp;</td>
+                <td rowspan="{{ $frameType->quantity_rows_by_page + 4 }}">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="cut-vertical-mark">&nbsp;</td>
+                <td class="border-corner">&nbsp;</td>
+                @for ($i = $frameType->quantity_figures_by_row; $i > 0; $i--)
+                <td class="border-horizontal">&nbsp;</td>
+                @endfor
+                <td class="border-corner">&nbsp;</td>
+                <td class="cut-vertical-mark">&nbsp;</td>
+            </tr>
+            @foreach ($page as $row)
+            <tr>
+                <td class="cut-vertical-mark">&nbsp;</td>
+                <td class="border-vertical">&nbsp;</td>
+                @foreach (array_reverse($row) as $k => $figure)
+                <td class="figure-container">
                     <img src="{{ public_path($frameType->image_path) }}" style="width: {{ $frameType->width }}mm;
                     height: {{ $frameType->height }}mm;"/>
                     <p class="figure-bg-num" style="top: {{ $frameType->y_position }}mm;
@@ -96,9 +211,32 @@
                         @endif
                     </p>
                 </td>
-            @endforeach
+                @endforeach
+                <td class="border-vertical">&nbsp;</td>
+                <td class="cut-vertical-mark">&nbsp;</td>
             </tr>
-        @endforeach
+            @endforeach
+            <tr>
+                <td class="cut-vertical-mark">&nbsp;</td>
+                <td class="border-corner">&nbsp;</td>
+                @for ($i = $frameType->quantity_figures_by_row; $i > 0; $i--)
+                <td class="border-horizontal">&nbsp;</td>
+                @endfor
+                <td class="border-corner">&nbsp;</td>
+                <td class="cut-vertical-mark">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width: 5mm; height: 5mm;">&nbsp;</td>
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                @for ($i = $frameType->quantity_figures_by_row; $i > 0; $i--)
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                @endfor
+                <td class="cut-horizontal-mark">&nbsp;</td>
+                <td style="width: 5mm; height: 5mm;">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="{{ $frameType->quantity_figures_by_row + 4 }}">&nbsp;</td>
+            </tr>
         </tbody>
     </table>
     @endforeach

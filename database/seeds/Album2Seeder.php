@@ -19,7 +19,6 @@ class Album2Seeder extends Seeder
             'presentation_page_type_id' => 2,
             'print_page_type_id' => 3,
             'print_back_front_page_type_id' => 4,
-            'print_figure_grid_page_type_id' => 5,
             'album_frame_type_id' => 1,
             'print_cut_space' => 5,
             'background_color_firgure_grid' => '#9CDBF8',
@@ -132,7 +131,7 @@ class Album2Seeder extends Seeder
         ]);
 
         #endregion
-        
+
         #region Page 3
 
         $pageSequence++;
@@ -203,7 +202,7 @@ class Album2Seeder extends Seeder
         ]);
 
         #endregion
-        
+
         #region Page 4
 
         $pageSequence++;
@@ -296,7 +295,7 @@ class Album2Seeder extends Seeder
         ]);
 
         #endregion
-        
+
         #region Page 7
 
         $pageSequence++;
@@ -367,7 +366,7 @@ class Album2Seeder extends Seeder
         ]);
 
         #endregion
-        
+
         #region Page 8
 
         $pageSequence++;
@@ -527,7 +526,7 @@ class Album2Seeder extends Seeder
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
-        
+
         #endregion
 
         #region Page 10
@@ -551,7 +550,7 @@ class Album2Seeder extends Seeder
         ]);
 
         #endregion
-    
+
         #region Page 12
 
         $pageSequence++;
@@ -622,7 +621,7 @@ class Album2Seeder extends Seeder
         ]);
 
         #endregion
-        
+
         #region Page 13
 
         $pageSequence++;
@@ -711,9 +710,9 @@ class Album2Seeder extends Seeder
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
-        
+
         #endregion
-        
+
         #region Page 14
 
         $pageSequence++;
@@ -784,7 +783,7 @@ class Album2Seeder extends Seeder
         ]);
 
         #endregion
-        
+
         #region Page 15
 
         $pageSequence++;
@@ -863,7 +862,7 @@ class Album2Seeder extends Seeder
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
-        
+
         #endregion
 
         #region Page 16

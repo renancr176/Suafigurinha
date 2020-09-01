@@ -5,7 +5,6 @@ namespace App\Services;
 use App\AlbumOrder;
 use Illuminate\Support\Facades\Storage;
 use Barryvdh\DomPDF\Facade as PDF;
-use App\Enums\AlbumFrameTypeEnum;
 use App\Enums\AlbumOrderFileTypeEnum;
 
 class MakePdfAlbumFiguresGirdService
@@ -21,7 +20,6 @@ class MakePdfAlbumFiguresGirdService
         $baseDir = "album_orders/".$order->transaction_id;
 
         $album = $order->Album()->with([
-            'printFigureGridPageType',
             'frameType',
             'pages' => function($query){
                 $query->orderBy('sequence');
@@ -34,6 +32,11 @@ class MakePdfAlbumFiguresGirdService
             'pages.backgrounds'
         ])->first();
 
+        $frameType = $album->frameType()->with([
+            'printPageType',
+            'font'
+        ])->first();
+
         $fileName = "$baseDir/gabarito.pdf";
 
         if(!Storage::disk(env('STORAGE', 'local'))->exists($fileName))
@@ -43,24 +46,6 @@ class MakePdfAlbumFiguresGirdService
             $figureCount = 1;
             $row = 0;
             $figuresGrid[$page] = [$row => []];
-            $frameType = $album->frameType()->with(['font'])->first();
-            $qttRowsByPage = 6;
-            $qttFiguresByRow = 4;
-            switch($frameType->id)
-            {
-                case AlbumFrameTypeEnum::Small:
-                    $qttRowsByPage = 8;
-                    $qttFiguresByRow = 5;
-                    break;
-                case AlbumFrameTypeEnum::Medium:
-                    $qttRowsByPage = 6;
-                    $qttFiguresByRow = 4;
-                    break;
-                case AlbumFrameTypeEnum::Big:
-                    $qttRowsByPage = 5;
-                    $qttFiguresByRow = 3;
-                    break;
-            }
 
             $figures = $order->files()
             ->where('album_order_file_type_id', AlbumOrderFileTypeEnum::Figure)
@@ -76,10 +61,10 @@ class MakePdfAlbumFiguresGirdService
 
                 if($figureCount <= count($figures))
                 {
-                    if (($figureCount % $qttFiguresByRow) == 0)
+                    if (($figureCount % $frameType->quantity_figures_by_row) == 0)
                     {
                         $row++;
-                        if(($row % $qttRowsByPage) == 0)
+                        if(($row % $frameType->quantity_rows_by_page) == 0)
                         {
                             $page++;
                             $row = 0;
@@ -92,6 +77,8 @@ class MakePdfAlbumFiguresGirdService
 
                 $figureCount++;
             }
+
+            //die(view('pdf.album-figures-grid', compact('album', 'frameType', 'figuresGrid')));
 
             $figuresGridPdf = PDF::loadView('pdf.album-figures-grid', compact('album', 'frameType', 'figuresGrid'))
             ->setWarnings(false)

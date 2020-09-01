@@ -19,7 +19,6 @@ class AlbumSeeder extends Seeder
             'presentation_page_type_id' => 1,
             'print_page_type_id' => 3,
             'print_back_front_page_type_id' => 4,
-            'print_figure_grid_page_type_id' => 5,
             'album_frame_type_id' => 2,
             'print_cut_space' => 0,
             'background_color_firgure_grid' => '#ECBEB3',

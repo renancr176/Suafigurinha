@@ -24,7 +24,6 @@ class CreateAlbumsTable extends Migration
             $table->unsignedBigInteger('presentation_page_type_id');
             $table->unsignedBigInteger('print_page_type_id');
             $table->unsignedBigInteger('print_back_front_page_type_id');
-            $table->unsignedBigInteger('print_figure_grid_page_type_id');
             $table->unsignedBigInteger('album_frame_type_id');
             $table->decimal('print_cut_space')->default(0);
             $table->string('background_color_firgure_grid', 7)->default('#FFFFFF');
