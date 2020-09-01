@@ -22,6 +22,7 @@ class Album2Seeder extends Seeder
             'print_figure_grid_page_type_id' => 5,
             'album_frame_type_id' => 1,
             'print_cut_space' => 5,
+            'background_color_firgure_grid' => '#9CDBF8',
             'active' => true
         ]);
 

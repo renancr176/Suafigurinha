@@ -4,25 +4,30 @@
     <style>
         {!! "@font-face {font-family: '".$frameType->font->title."'; src: url('".public_path($frameType->font->path)."');}" !!}
 
+        @page
+        {
+            size: {{ $album->printFigureGridPageType->width }}mm {{ $album->printFigureGridPageType->height }}mm;
+        }
+
         html,
         body
         {
             margin: 0px;
             padding: 0px;
+            width: {{ $album->printFigureGridPageType->width }}mm;
+            height: {{ $album->printFigureGridPageType->height }}mm;
         }
 
-        html
+        table
         {
-            margin: 4.5mm;
-        }
-
-        table,
-        table td
-        {
-            border: none;
-            border-spacing: 0px;
-            margin: 0px;
+            border: 3mm;
+            border-spacing: 3mm;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+            margin-bottom: auto;
             padding: 0px;
+            background-color: {{ $album->background_color_firgure_grid }};
         }
 
         .page
@@ -38,6 +43,8 @@
         .page-bg td
         {
             position: relative;
+            width: {{ $frameType->width }}mm; 
+            height: {{ $frameType->height }}mm;
         }
 
         .page-bg .figure-bg-num
@@ -61,7 +68,7 @@
         @foreach ($page as $row)
             <tr>
             @foreach ($row as $k => $figure)
-                <td style="width: {{ $frameType->width }}mm;">
+                <td>
                     <img src="{{ $figure['path'] }}" style="width: {{ $frameType->width }}mm;
                     height: {{ $frameType->height }}mm;"/>
                 </td>
@@ -75,7 +82,7 @@
         @foreach ($page as $row)
             <tr>
             @foreach (array_reverse($row) as $k => $figure)
-                <td style="width: {{ $frameType->width }}mm; height: {{ $frameType->height }}mm;">
+                <td>
                     <img src="{{ public_path($frameType->image_path) }}" style="width: {{ $frameType->width }}mm;
                     height: {{ $frameType->height }}mm;"/>
                     <p class="figure-bg-num" style="top: {{ $frameType->y_position }}mm;

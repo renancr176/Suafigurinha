@@ -49,8 +49,8 @@ class MakePdfAlbumFiguresGirdService
             switch($frameType->id)
             {
                 case AlbumFrameTypeEnum::Small:
-                    $qttRowsByPage = 6;
-                    $qttFiguresByRow = 4;
+                    $qttRowsByPage = 8;
+                    $qttFiguresByRow = 5;
                     break;
                 case AlbumFrameTypeEnum::Medium:
                     $qttRowsByPage = 6;
@@ -93,9 +93,8 @@ class MakePdfAlbumFiguresGirdService
                 $figureCount++;
             }
 
-            $figuresGridPdf = PDF::loadView('pdf.album-figures-grid', compact('frameType', 'figuresGrid'))
+            $figuresGridPdf = PDF::loadView('pdf.album-figures-grid', compact('album', 'frameType', 'figuresGrid'))
             ->setWarnings(false)
-            ->setPaper(array(0,0,$album->printFigureGridPageType->width, $album->printFigureGridPageType->height))
             ->output();
 
             Storage::disk(env('STORAGE', 'local'))->put($fileName, $figuresGridPdf);
