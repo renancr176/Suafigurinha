@@ -46,6 +46,7 @@
 
         table.page .content .album-page-image
         {
+            position: relative;
             width: 100%;
             height: 100%;
             margin: 0px;

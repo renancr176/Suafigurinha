@@ -17,11 +17,11 @@ class AlbumSeeder extends Seeder
             'description' => '',
             'have_bookbinding_options' => false,
             'presentation_page_type_id' => 1,
-            'print_page_type_id' => 2,
-            'print_back_front_page_type_id' => 3,
-            'print_figure_grid_page_type_id' => 4,
+            'print_page_type_id' => 3,
+            'print_back_front_page_type_id' => 4,
+            'print_figure_grid_page_type_id' => 5,
             'album_frame_type_id' => 2,
-            'print_cut_space' => 5,
+            'print_cut_space' => 0,
             'active' => true
         ]);
 

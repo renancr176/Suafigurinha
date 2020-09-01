@@ -16,10 +16,10 @@ class Album2Seeder extends Seeder
             'title' => '1 Ano de Namoro - Edição Especial',
             'description' => '',
             'have_bookbinding_options' => true,
-            'presentation_page_type_id' => 1,
-            'print_page_type_id' => 2,
-            'print_back_front_page_type_id' => 3,
-            'print_figure_grid_page_type_id' => 4,
+            'presentation_page_type_id' => 2,
+            'print_page_type_id' => 3,
+            'print_back_front_page_type_id' => 4,
+            'print_figure_grid_page_type_id' => 5,
             'album_frame_type_id' => 1,
             'print_cut_space' => 5,
             'active' => true
@@ -37,6 +37,28 @@ class Album2Seeder extends Seeder
             'image_path' => "/files/images/albuns/album_$album->id/page_$pageSequence.png"
         ]);
 
+        $font = App\Font::updateOrCreate([
+            'title' => 'Jushley Shine',
+            'path' => '/files/fonts/Jushley-Shine.otf'
+        ]);
+
+        App\AlbumPageText::create([
+            'album_page_id' => $page->id,
+            'font_id' => $font->id,
+            'text' => 'Eu e Ele(a)',
+            'alignment' => 'center',
+            'color' => '#FFFFFF',
+            'font_size' => 34.31,
+            'bold' => false,
+            'italic' => false,
+            'underlined' => false,
+            'width' => 91.5,
+            'x_position' => 64,
+            'y_position' => 163.5,
+            'rotation' => -5,
+            'controls_position' => 'bottom'
+        ]);
+
         #endregion
 
         #region Page 2
@@ -52,8 +74,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 14.3,
+            'x_position' => 16.4,
+            'y_position' => 15.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -62,8 +84,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 14.3,
+            'x_position' => 81.2,
+            'y_position' => 15.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -72,8 +94,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 14.3,
+            'x_position' => 146,
+            'y_position' => 15.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -82,8 +104,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 143.1,
+            'x_position' => 16.4,
+            'y_position' => 147.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -92,8 +114,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 143.1,
+            'x_position' => 81.2,
+            'y_position' => 147.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -102,8 +124,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 143.1,
+            'x_position' => 146,
+            'y_position' => 147.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -123,8 +145,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 34.6,
+            'x_position' => 16.4,
+            'y_position' => 36.1,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -133,8 +155,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 34.6,
+            'x_position' => 81.2,
+            'y_position' => 36.1,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -143,8 +165,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 34.6,
+            'x_position' => 146,
+            'y_position' => 36.1,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -153,8 +175,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 120.5,
+            'x_position' => 16.4,
+            'y_position' => 124,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -163,8 +185,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 120.5,
+            'x_position' => 81.2,
+            'y_position' => 124,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -173,8 +195,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 120.5,
+            'x_position' => 146,
+            'y_position' => 124,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -194,8 +216,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 17.4,
+            'x_position' => 16.4,
+            'y_position' => 18.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -204,8 +226,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 17.4,
+            'x_position' => 81.2,
+            'y_position' => 18.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -214,8 +236,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 17.4,
+            'x_position' => 146,
+            'y_position' => 18.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -224,8 +246,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 79.3,
+            'x_position' => 16.4,
+            'y_position' => 82,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -234,8 +256,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 79.3,
+            'x_position' => 81.2,
+            'y_position' => 82,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -244,8 +266,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 79.3,
+            'x_position' => 146,
+            'y_position' => 82,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -287,8 +309,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 80,
+            'x_position' => 16.4,
+            'y_position' => 82.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -297,8 +319,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 80,
+            'x_position' => 81.2,
+            'y_position' => 82.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -307,8 +329,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 80,
+            'x_position' => 146,
+            'y_position' => 82.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -317,8 +339,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 142,
+            'x_position' => 16.4,
+            'y_position' => 146,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -327,8 +349,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 142,
+            'x_position' => 81.2,
+            'y_position' => 146,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -337,8 +359,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 142,
+            'x_position' => 146,
+            'y_position' => 146,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -358,8 +380,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 14.3,
+            'x_position' => 16.4,
+            'y_position' => 15.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -368,8 +390,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 14.3,
+            'x_position' => 81.2,
+            'y_position' => 15.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -378,8 +400,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 14.3,
+            'x_position' => 146,
+            'y_position' => 15.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -388,8 +410,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 143.1,
+            'x_position' => 16.4,
+            'y_position' => 147.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -398,8 +420,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 143.1,
+            'x_position' => 81.2,
+            'y_position' => 147.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -408,8 +430,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 143.1,
+            'x_position' => 146,
+            'y_position' => 147.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -429,8 +451,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 16.6,
+            'x_position' => 16.4,
+            'y_position' => 17.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -439,8 +461,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 16.6,
+            'x_position' => 81.2,
+            'y_position' => 17.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -449,8 +471,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 16.6,
+            'x_position' => 146,
+            'y_position' => 17.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -459,8 +481,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 78.5,
+            'x_position' => 16.4,
+            'y_position' => 81,
             'rotation' => 0,
             'controls_position' => 'left'
         ]);
@@ -469,8 +491,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 78.5,
+            'x_position' => 146,
+            'y_position' => 81,
             'rotation' => 0,
             'controls_position' => 'right'
         ]);
@@ -479,8 +501,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 140.8,
+            'x_position' => 16.4,
+            'y_position' => 144.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -489,8 +511,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 140.8,
+            'x_position' => 81.2,
+            'y_position' => 144.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -499,8 +521,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 140.8,
+            'x_position' => 146,
+            'y_position' => 144.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -542,8 +564,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 34.1,
+            'x_position' => 16.4,
+            'y_position' => 35.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -552,8 +574,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 34.1,
+            'x_position' => 81.2,
+            'y_position' => 35.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -562,8 +584,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 34.1,
+            'x_position' => 146,
+            'y_position' => 35.5,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -572,8 +594,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 122.5,
+            'x_position' => 16.4,
+            'y_position' => 126.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -582,8 +604,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 122.5,
+            'x_position' => 81.2,
+            'y_position' => 126.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -592,8 +614,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 122.5,
+            'x_position' => 146,
+            'y_position' => 126.2,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -613,8 +635,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 16.6,
+            'x_position' => 16.4,
+            'y_position' => 17.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -623,8 +645,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 16.6,
+            'x_position' => 81.2,
+            'y_position' => 17.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -633,8 +655,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 16.6,
+            'x_position' => 146,
+            'y_position' => 17.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -643,8 +665,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 78.5,
+            'x_position' => 16.4,
+            'y_position' => 81,
             'rotation' => 0,
             'controls_position' => 'left'
         ]);
@@ -653,8 +675,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 78.5,
+            'x_position' => 146,
+            'y_position' => 81,
             'rotation' => 0,
             'controls_position' => 'right'
         ]);
@@ -663,8 +685,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 140.8,
+            'x_position' => 16.4,
+            'y_position' => 144.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -673,8 +695,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 140.8,
+            'x_position' => 81.2,
+            'y_position' => 144.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -683,8 +705,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 140.8,
+            'x_position' => 146,
+            'y_position' => 144.8,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -704,8 +726,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 15.6,
+            'x_position' => 16.4,
+            'y_position' => 16.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -714,8 +736,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 15.6,
+            'x_position' => 81.2,
+            'y_position' => 16.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -724,8 +746,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 15.6,
+            'x_position' => 146,
+            'y_position' => 16.6,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -734,8 +756,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 78,
+            'x_position' => 16.4,
+            'y_position' => 80.5,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -744,8 +766,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 78,
+            'x_position' => 81.2,
+            'y_position' => 80.5,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -754,8 +776,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 78,
+            'x_position' => 146,
+            'y_position' => 80.5,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -775,8 +797,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 15.4,
+            'x_position' => 16.4,
+            'y_position' => 16.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -785,8 +807,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 15.4,
+            'x_position' => 81.2,
+            'y_position' => 16.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -795,8 +817,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 15.4,
+            'x_position' => 146,
+            'y_position' => 16.2,
             'rotation' => 0,
             'controls_position' => 'top'
         ]);
@@ -805,8 +827,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 77.6,
+            'x_position' => 146,
+            'y_position' => 80.2,
             'rotation' => 0,
             'controls_position' => 'right'
         ]);
@@ -815,8 +837,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 15.5,
-            'y_position' => 142.1,
+            'x_position' => 16.4,
+            'y_position' => 146.1,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -825,8 +847,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 78.8,
-            'y_position' => 142.1,
+            'x_position' => 81.2,
+            'y_position' => 146.1,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);
@@ -835,8 +857,8 @@ class Album2Seeder extends Seeder
         App\AlbumPagePhoto::create([
             'album_page_id' => $page->id,
             'sequence' => $photoSequece,
-            'x_position' => 142,
-            'y_position' => 142.1,
+            'x_position' => 146,
+            'y_position' => 146.1,
             'rotation' => 0,
             'controls_position' => 'bottom'
         ]);

@@ -12,7 +12,14 @@ class PageTypeSeeder extends Seeder
     public function run()
     {
         App\PageType::create([
-            'type' => 'Normal apresentação',
+            'type' => 'Normal apresentação normal',
+            'custom' => true,
+            'width' => 210,
+            'height' => 210
+        ]);
+
+        App\PageType::create([
+            'type' => 'Normal apresentação com sangria',
             'custom' => true,
             'width' => 215,
             'height' => 215
@@ -27,7 +34,7 @@ class PageTypeSeeder extends Seeder
         ]);
 
         App\PageType::create([
-            'type' => 'Normal impressão capa dura',
+            'type' => 'Normal impressão dupla',
             'custom' => true,
             'used_on_print' => true,
             'width' => 510.4,

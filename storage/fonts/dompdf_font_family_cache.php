@@ -78,9 +78,9 @@
     'normal' => $rootDir . '/lib/fonts/DejaVuSerif',
   ),
   'stefont' => array(
-    'normal' => $fontDir . '/stefont-normal_f1a48b2fc57c4036116156981d252964',
+    'normal' => $fontDir . '/stefont-normal_867a27b862777389a06d502d0e688efa',
   ),
   'rage italic' => array(
-    'normal' => $fontDir . '/rage-italic-normal_e0c59964a41d1e17cce70cd6496d5fd6',
+    'normal' => $fontDir . '/rage-italic-normal_74bc2350011f136f9a7b0a4f7e517564',
   ),
 ) ?>
