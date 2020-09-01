@@ -2,6 +2,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/fonts/cache/*
+!/storage/fonts/cache/.gitkeep
 /vendor
 .env
 .env.backup
