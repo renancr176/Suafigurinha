@@ -41,17 +41,17 @@
             border-bottom: 1px solid black;
         }
 
-        table.page tr:nth-child(2) td:nth-child({{ $frameType->quantity_figures_by_row + 4 }}),
-        table.page tr:nth-child({{ $frameType->quantity_rows_by_page + 4 }}) td:nth-child({{ $frameType->quantity_figures_by_row + 3 }})
+        /* table.page tr:nth-child(2) td:nth-child({{ $frameType->quantity_figures_by_row + 4 }}),
+        table.page tr:nth-last-child(2) td:nth-child({{ $frameType->quantity_figures_by_row + 3 }})
         {
             border-right: none;
-        }
+        } */
 
-        table.page tr:nth-child({{ $frameType->quantity_rows_by_page + 3 }}) .cut-vertical-mark:first-child,
-        table.page tr:nth-child({{ $frameType->quantity_rows_by_page + 3 }}) .cut-vertical-mark:last-child
+        /* table.page tr:nth-last-child(3) .cut-vertical-mark:first-child,
+        table.page tr:nth-last-child(3) .cut-vertical-mark:last-child
         {
             border-bottom: none;
-        }
+        } */
 
         table.page.figures-grid td.border-corner,
         table.page.figures-grid td.border-horizontal,
@@ -202,9 +202,9 @@
                     height: {{ $frameType->height }}mm;"/>
                     <p class="figure-bg-num" style="top: {{ $frameType->y_position }}mm;
                     left: {{ $frameType->x_position }}mm;
-                    font-size: {{ $frameType->sequence_font_size }}pt;
+                    font-size: {{ $frameType->font_size }}pt;
                     font-family: '{{ $frameType->font->title }}';">
-                        @if (substr($figure['sequence'], 0, 1) == "1")
+                        @if (substr_count($figure['sequence'], "1") > 0)
                             {!! '<span class="space">'.$figure['sequence'].'</span>' !!}
                         @else
                             {{ $figure['sequence'] }}

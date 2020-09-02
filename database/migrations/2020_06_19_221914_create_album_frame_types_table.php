@@ -17,13 +17,12 @@ class CreateAlbumFrameTypesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('font_id');
             $table->string('title');
-            $table->decimal('font_size');
             $table->string('image_path');
             $table->decimal('width');
             $table->decimal('height');
+            $table->decimal('font_size');
             $table->decimal('x_position');
             $table->decimal('y_position');
-            $table->decimal('sequence_font_size');
             $table->unsignedBigInteger('print_page_type_id');
             $table->integer('quantity_rows_by_page');
             $table->integer('quantity_figures_by_row');
