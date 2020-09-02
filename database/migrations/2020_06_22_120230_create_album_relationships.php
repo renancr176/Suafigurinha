@@ -84,6 +84,7 @@ class CreateAlbumRelationships extends Migration
         });
 
         Schema::table('album_frame_types', function (Blueprint $table) {
+            $table->dropForeign('album_frame_types_print_page_type_id_foreign');
             $table->dropForeign('album_frame_types_font_id_foreign');
         });
 
@@ -95,7 +96,6 @@ class CreateAlbumRelationships extends Migration
             $table->dropForeign('albums_presentation_page_type_id_foreign');
             $table->dropForeign('albums_print_page_type_id_foreign');
             $table->dropForeign('albums_print_back_front_page_type_id_foreign');
-            $table->dropForeign('albums_print_figure_grid_page_type_id_foreign');
             $table->dropForeign('albums_album_frame_type_id_foreign');
         });
     }

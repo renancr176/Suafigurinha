@@ -12,21 +12,29 @@ class PageTypeSeeder extends Seeder
     public function run()
     {
         App\PageType::create([
-            'type' => 'Normal apresentação normal',
+            'type' => 'Apresentação quadrada',
             'custom' => true,
             'width' => 210,
             'height' => 210
         ]);
 
         App\PageType::create([
-            'type' => 'Normal apresentação com sangria',
+            'type' => 'Apresentação quadrada com sangria',
             'custom' => true,
             'width' => 215,
             'height' => 215
         ]);
 
         App\PageType::create([
-            'type' => 'Normal impressão',
+            'type' => 'Apresentação retangular',
+            'custom' => true,
+            'used_on_print' => false,
+            'width' => 153,
+            'height' => 215
+        ]);
+
+        App\PageType::create([
+            'type' => 'Impressão quadrada',
             'custom' => true,
             'used_on_print' => true,
             'width' => 240.4,
@@ -34,11 +42,19 @@ class PageTypeSeeder extends Seeder
         ]);
 
         App\PageType::create([
-            'type' => 'Normal impressão dupla',
+            'type' => 'Impressão quadrada combinada',
             'custom' => true,
             'used_on_print' => true,
             'width' => 510.4,
             'height' => 360.4
+        ]);
+
+        App\PageType::create([
+            'type' => 'Impressão retangular',
+            'custom' => true,
+            'used_on_print' => true,
+            'width' => 178.4,
+            'height' => 240.4
         ]);
 
         App\PageType::create([
@@ -48,5 +64,7 @@ class PageTypeSeeder extends Seeder
             'width' => 330,
             'height' => 480
         ]);
+
+
     }
 }

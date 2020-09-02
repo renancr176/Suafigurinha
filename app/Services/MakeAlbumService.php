@@ -70,6 +70,8 @@ class MakeAlbumService
         if(!$this->requestIsValid($request, $order))
             throw new Exception("Invalid request.");
 
+        $files = [];
+
         try
         {
             DB::beginTransaction();
@@ -95,10 +97,10 @@ class MakeAlbumService
                 'complement' => $request->complement,
                 'receiver_name' => $request->receiver_name
             ]);
-            
+
             foreach ($files as $file)
                 $order->files()->create($file);
-            
+
             if ($request->has('texts'))
                 foreach ($request->texts as $pageId => $texts)
                     foreach ($texts as $textId => $text)
