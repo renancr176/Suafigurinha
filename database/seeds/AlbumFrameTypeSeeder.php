@@ -13,7 +13,7 @@ class AlbumFrameTypeSeeder extends Seeder
     {
         App\AlbumFrameType::create([
             'font_id' => 1,
-            'title' => 'Pequeno',
+            'title' => 'Quadrado 55x55',
             'image_path' => '/files/images/albuns/frames/default.png',
             'width' => 52,
             'height' => 52,
@@ -29,7 +29,7 @@ class AlbumFrameTypeSeeder extends Seeder
 
         App\AlbumFrameType::create([
             'font_id' => 1,
-            'title' => 'Médio',
+            'title' => 'Retangular 50x70',
             'image_path' => '/files/images/albuns/frames/default.png',
             'width' => 47,
             'height' => 67,
@@ -45,7 +45,7 @@ class AlbumFrameTypeSeeder extends Seeder
 
         App\AlbumFrameType::create([
             'font_id' => 1,
-            'title' => 'Grande',
+            'title' => 'Quadrado 75x75',
             'image_path' => '/files/images/albuns/frames/default.png',
             'width' => 72,
             'height' => 72,

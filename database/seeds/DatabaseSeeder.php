@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         #region Albuns
         $this->call(AlbumSeeder::class);
         $this->call(Album2Seeder::class);
+        $this->call(Album3Seeder::class);
         #endregion
     }
 }

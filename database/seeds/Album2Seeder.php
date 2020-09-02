@@ -20,7 +20,7 @@ class Album2Seeder extends Seeder
             'presentation_page_type_id' => App\PageType::where('type', 'Apresentação quadrada com sangria')->firstOrFail()->id,
             'print_page_type_id' => App\PageType::where('type', 'Impressão quadrada')->firstOrFail()->id,
             'print_back_front_page_type_id' => App\PageType::where('type', 'Impressão quadrada combinada')->firstOrFail()->id,
-            'album_frame_type_id' => App\AlbumFrameType::where('title', 'Pequeno')->firstOrFail()->id,
+            'album_frame_type_id' => App\AlbumFrameType::where('title', 'Quadrado 55x55')->firstOrFail()->id,
             'print_cut_space' => 5,
             'background_color_firgure_grid' => '#9CDBF8',
             'active' => true
