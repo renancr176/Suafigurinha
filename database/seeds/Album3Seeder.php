@@ -11,6 +11,7 @@ class Album3Seeder extends Seeder
      */
     public function run()
     {
+        
         $album = App\Album::create([
             'ref_code' => substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4),
             'title' => '10 motivos para amar você',
@@ -20,7 +21,7 @@ class Album3Seeder extends Seeder
             'print_page_type_id' => App\PageType::where('type', 'Impressão retangular')->firstOrFail()->id,
             'print_back_front_page_type_id' => App\PageType::where('type', 'Impressão quadrada combinada')->firstOrFail()->id,
             'album_frame_type_id' => App\AlbumFrameType::where('title', 'Retangular 50x70')->firstOrFail()->id,
-            'print_cut_space' => 0,
+            'print_cut_space' => 5,
             'background_color_firgure_grid' => '#9CDBF8',
             'active' => true
         ]);
@@ -411,7 +412,7 @@ class Album3Seeder extends Seeder
         #endregion
 
         #region Page 12
-
+        
         $pageSequence++;
         $page = App\AlbumPage::create([
             'album_id' => $album->id,
@@ -420,5 +421,6 @@ class Album3Seeder extends Seeder
         ]);
 
         #endregion
+
     }
 }
