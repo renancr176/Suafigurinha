@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Enums\AlbumConverTypeEnum;
 
 class Album2Seeder extends Seeder
 {
@@ -28,6 +29,18 @@ class Album2Seeder extends Seeder
 
         $pageSequence = 0;
         $photoSequece = 0;
+
+        App\AlbumHardCover::create([
+            'album_id' => $album->id,
+            'album_cover_type_id' => AlbumConverTypeEnum::Front,
+            'image_path' => "/files/images/albuns/album_$album->id/front_hard_cover.png"
+        ]);
+
+        App\AlbumHardCover::create([
+            'album_id' => $album->id,
+            'album_cover_type_id' => AlbumConverTypeEnum::Back,
+            'image_path' => "/files/images/albuns/album_$album->id/back_hard_cover.png"
+        ]);
 
         #region Page 1
 

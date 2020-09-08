@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AlbumOrderFileTypeSeeder::class);
         $this->call(BookbindingTypeSeeder::class);
         $this->call(StaffEmailSeeder::class);
+        $this->call(AlbumConverTypeSeeder::class);
 
         #region Albuns
         $this->call(AlbumSeeder::class);
