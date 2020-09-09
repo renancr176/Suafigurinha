@@ -8,8 +8,8 @@ class AlbumCoverType extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function hardCovers()
+    public function covers()
     {
-        return $this->hasMany('App\AlbumHardCover');
+        return $this->hasMany('App\AlbumCover');
     }
 }

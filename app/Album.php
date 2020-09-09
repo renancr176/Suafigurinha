@@ -18,19 +18,19 @@ class Album extends Model
         return $this->belongsTo('App\PageType', 'print_page_type_id');
     }
 
-    public function printBackFrontPageType()
+    public function presentationCoverPageType()
     {
-        return $this->belongsTo('App\PageType', 'print_back_front_page_type_id');
+        return $this->belongsTo('App\PageType', 'presentation_cover_page_type_id');
+    }
+
+    public function printCoverPageType()
+    {
+        return $this->belongsTo('App\PageType', 'print_cover_page_type_id');
     }
 
     public function frameType()
     {
         return $this->belongsTo('App\AlbumFrameType', 'album_frame_type_id');
-    }
-
-    public function hardCovers()
-    {
-        return $this->hasMany('App\AlbumHardCover');
     }
 
     public function pages()

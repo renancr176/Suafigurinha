@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AlbumHardCover extends Model
+class AlbumCover extends Model
 {
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
 
-    public function album()
+    public function albumPage()
     {
-        return $this->belongsTo('App\Album');
+        return $this->belongsTo('App\AlbumPage');
     }
 
     public function albumCoverType()

@@ -18,18 +18,12 @@ class CreateAlbumRelationships extends Migration
             ->references('id')->on('page_types');
             $table->foreign('print_page_type_id')
             ->references('id')->on('page_types');
-            $table->foreign('print_back_front_page_type_id')
+            $table->foreign('presentation_cover_page_type_id')
+            ->references('id')->on('page_types');
+            $table->foreign('print_cover_page_type_id')
             ->references('id')->on('page_types');
             $table->foreign('album_frame_type_id')
             ->references('id')->on('album_frame_types');
-        });
-
-        Schema::table('album_hard_covers', function (Blueprint $table) {
-            $table->foreign('album_id')
-            ->references('id')->on('albums')
-            ->onDelete('cascade');
-            $table->foreign('album_cover_type_id')
-            ->references('id')->on('album_cover_types');
         });
 
         Schema::table('album_pages', function (Blueprint $table) {
@@ -97,15 +91,11 @@ class CreateAlbumRelationships extends Migration
             $table->dropForeign('album_pages_album_id_foreign');
         });
 
-        Schema::table('album_hard_covers', function (Blueprint $table) {
-            $table->dropForeign('album_hard_covers_album_id_foreign');
-            $table->dropForeign('album_hard_covers_album_cover_type_id_foreign');
-        });
-
         Schema::table('albums', function (Blueprint $table) {
             $table->dropForeign('albums_presentation_page_type_id_foreign');
             $table->dropForeign('albums_print_page_type_id_foreign');
-            $table->dropForeign('albums_print_back_front_page_type_id_foreign');
+            $table->dropForeign('albums_presentation_cover_page_type_id_foreign');
+            $table->dropForeign('albums_print_cover_page_type_id_foreign');
             $table->dropForeign('albums_album_frame_type_id_foreign');
         });
     }

@@ -7,11 +7,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Services\MakePdfAlbumService;
 use App\Services\MakePdfAlbumFiguresGirdService;
+use App\Services\MakePdfAlbumCoverService;
+use App\Enums\BookbindingTypeEnum;
 
 class GenerateClientAlbumPdfEventHandler implements ShouldQueue
 {
     public $makePdfAlbumService;
     public $makePdfAlbumFiguresGirdService;
+    public $makePdfAlbumCoverService;
 
     /**
      * Create the event listener.
@@ -19,10 +22,12 @@ class GenerateClientAlbumPdfEventHandler implements ShouldQueue
      * @return void
      */
     public function __construct(MakePdfAlbumService $makePdfAlbumService,
-        MakePdfAlbumFiguresGirdService $makePdfAlbumFiguresGirdService)
+        MakePdfAlbumFiguresGirdService $makePdfAlbumFiguresGirdService,
+        MakePdfAlbumCoverService $makePdfAlbumCoverService)
     {
         $this->makePdfAlbumService = $makePdfAlbumService;
         $this->makePdfAlbumFiguresGirdService = $makePdfAlbumFiguresGirdService;
+        $this->makePdfAlbumCoverService = $makePdfAlbumCoverService;
     }
 
     /**
@@ -35,5 +40,7 @@ class GenerateClientAlbumPdfEventHandler implements ShouldQueue
     {
         $this->makePdfAlbumService->make($event->order);
         $this->makePdfAlbumFiguresGirdService->make($event->order);
+        if ($event->order->bookbinding_type_id == BookbindingTypeEnum::Pasting)
+            $this->makePdfAlbumCoverService->make($event->order);
     }
 }

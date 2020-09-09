@@ -34,6 +34,14 @@ class PageTypeSeeder extends Seeder
         ]);
 
         App\PageType::create([
+            'type' => 'Apresentação capa dura quadrada',
+            'custom' => true,
+            'used_on_print' => true,
+            'width' => 235,
+            'height' => 235
+        ]);
+
+        App\PageType::create([
             'type' => 'Impressão quadrada',
             'custom' => true,
             'used_on_print' => true,
@@ -42,7 +50,7 @@ class PageTypeSeeder extends Seeder
         ]);
 
         App\PageType::create([
-            'type' => 'Impressão quadrada combinada',
+            'type' => 'Impressão capa dura quadrada',
             'custom' => true,
             'used_on_print' => true,
             'width' => 510.4,

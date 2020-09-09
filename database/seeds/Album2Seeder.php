@@ -20,7 +20,8 @@ class Album2Seeder extends Seeder
             'have_bookbinding_options' => true,
             'presentation_page_type_id' => App\PageType::where('type', 'Apresentação quadrada com sangria')->firstOrFail()->id,
             'print_page_type_id' => App\PageType::where('type', 'Impressão quadrada')->firstOrFail()->id,
-            'print_back_front_page_type_id' => App\PageType::where('type', 'Impressão quadrada combinada')->firstOrFail()->id,
+            'presentation_cover_page_type_id' => App\PageType::where('type', 'Apresentação capa dura quadrada')->firstOrFail()->id,
+            'print_cover_page_type_id' => App\PageType::where('type', 'Impressão capa dura quadrada')->firstOrFail()->id,
             'album_frame_type_id' => App\AlbumFrameType::where('title', 'Quadrado 55x55')->firstOrFail()->id,
             'print_cut_space' => 5,
             'background_color_firgure_grid' => '#9CDBF8',
@@ -30,18 +31,6 @@ class Album2Seeder extends Seeder
         $pageSequence = 0;
         $photoSequece = 0;
 
-        App\AlbumHardCover::create([
-            'album_id' => $album->id,
-            'album_cover_type_id' => AlbumConverTypeEnum::Front,
-            'image_path' => "/files/images/albuns/album_$album->id/front_hard_cover.png"
-        ]);
-
-        App\AlbumHardCover::create([
-            'album_id' => $album->id,
-            'album_cover_type_id' => AlbumConverTypeEnum::Back,
-            'image_path' => "/files/images/albuns/album_$album->id/back_hard_cover.png"
-        ]);
-
         #region Page 1
 
         $pageSequence++;
@@ -49,6 +38,12 @@ class Album2Seeder extends Seeder
             'album_id' => $album->id,
             'sequence' => $pageSequence,
             'image_path' => "/files/images/albuns/album_$album->id/page_$pageSequence.png"
+        ]);
+
+        App\AlbumCover::create([
+            'album_page_id' => $page->id,
+            'album_cover_type_id' => AlbumConverTypeEnum::Front,
+            'image_path' => "/files/images/albuns/album_$album->id/front_cover.png"
         ]);
 
         $font = App\Font::updateOrCreate([
@@ -888,6 +883,13 @@ class Album2Seeder extends Seeder
             'image_path' => "/files/images/albuns/album_$album->id/page_$pageSequence.png"
         ]);
 
+        App\AlbumCover::create([
+            'album_page_id' => $page->id,
+            'album_cover_type_id' => AlbumConverTypeEnum::Back,
+            'image_path' => "/files/images/albuns/album_$album->id/back_cover.png"
+        ]);
+
         #endregion
+
     }
 }

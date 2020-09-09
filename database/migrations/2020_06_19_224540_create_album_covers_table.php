@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAlbumHardCoversTable extends Migration
+class CreateAlbumCoversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateAlbumHardCoversTable extends Migration
      */
     public function up()
     {
-        Schema::create('album_hard_covers', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('album_id');
-            $table->unsignedBigInteger('album_cover_type_id');
+        Schema::create('album_covers', function (Blueprint $table) {
+            $table->foreignId('album_page_id')->constrained();
+            $table->foreignId('album_cover_type_id')->constrained();
             $table->string('image_path')->unique();
             $table->timestamps();
 
-            $table->unique(['album_id', 'album_cover_type_id'], 'uk_album_x_cover_type');
+            $table->unique(['album_page_id', 'album_cover_type_id'], 'uk_cover_x_cover_type');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateAlbumHardCoversTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('album_hard_covers');
+        Schema::dropIfExists('album_covers');
     }
 }

@@ -13,6 +13,11 @@ class AlbumPage extends Model
         return $this->belongsTo('App\Album');
     }
 
+    public function albumCover()
+    {
+        return $this->hasOne('App\AlbumCover', 'album_page_id');
+    }
+
     public function photos()
     {
         return $this->hasMany('App\AlbumPagePhoto');
