@@ -245,3 +245,13 @@
 {
     position: fixed;
 }
+
+.frame-number
+{
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    padding: 0px;
+    margin-top: 10px;
+}

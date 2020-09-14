@@ -615,7 +615,16 @@ $(document).ready(function(){
             getAddressByZipcode(this.val(), setAddressHandler);
         }
     });
+
     $('.phone').mask('(99) 9999-9999?9').change(changePhoneMask);
+
+    setTimeout(function(){
+        $.each($('.fotorama__nav__frame'), function(){
+            $(this).append($('<p class="frame-number">'+($('.fotorama__nav__frame').index($(this)) + 1)+'</p>'))
+        });
+        $('.fotorama__nav__shaft').css('height', ($('.fotorama__nav__shaft').height() + 18)+'px');
+     }, 1000);
+
     //#endregion
 
     //#region Event Handlers
