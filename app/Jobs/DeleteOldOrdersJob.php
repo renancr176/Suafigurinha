@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use App\AlbumOrder;
+use Illuminate\Support\Facades\Log;
 
 class DeleteOldOrdersJob implements ShouldQueue
 {
@@ -31,6 +32,8 @@ class DeleteOldOrdersJob implements ShouldQueue
      */
     public function handle()
     {
+        Log::info("Rotina de exclusão de pedidos completos antigos\nConfiguração de dias para exclusão => "+env('ORDER_EXPIRE_DAYS', 'Não definido'));
+
         if ($days = env('ORDER_EXPIRE_DAYS'))
         {
             if (is_int($days) && $days > 0)
