@@ -55,6 +55,6 @@ class AlbumDataSentByClientEventHandler implements ShouldQueue
             'confirmation_email_sent' => true
         ]);
 
-        GenerateClientAlbumPdfEvent::dispatch($event->order);
+        //GenerateClientAlbumPdfEvent::dispatch($event->order);
     }
 }
