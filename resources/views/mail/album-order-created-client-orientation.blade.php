@@ -1,4 +1,4 @@
-<html lang="pt=BR">
+<html lang="pt-BR">
 <head>
     <style>
         .alert {

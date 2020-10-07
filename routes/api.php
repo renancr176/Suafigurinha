@@ -46,6 +46,9 @@ Route::group(
 
         Route::apiResource('my-album', 'MyAlbumController')
             ->only(['update']);
+
+        Route::apiResource('wix-orders-webhooks', 'WixOrderWebHooksController')
+            ->only(['store']);
     }
 );
 
