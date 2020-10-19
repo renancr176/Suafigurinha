@@ -41,7 +41,10 @@ class WixOrderWebHooksController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->sendEmailToStaffService->send(new NewWixOrderReceived(json_encode($request->all())));
+        $header = (array) $request->header();
+        $body = (array) $request->all();
+        $data = json_encode(['header'=>$header, 'body'=>$body]);
+        return $this->sendEmailToStaffService->send(new NewWixOrderReceived($data));
     }
 
     /**
