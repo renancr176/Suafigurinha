@@ -4,23 +4,24 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use App\Services\SendEmailToStaffService;
+use App\Services\WixWebHookService;
 use App\Mail\NewWixOrderReceived;
-use Exception;
 
 class WixOrderWebHooksController extends Controller
 {
     private $sendEmailToStaffService;
+    private $wixWebHookService;
 
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
-    public function __construct(SendEmailToStaffService $sendEmailToStaffService)
+    public function __construct(SendEmailToStaffService $sendEmailToStaffService, WixWebHookService $wixWebHookService)
     {
         $this->sendEmailToStaffService = $sendEmailToStaffService;
+        $this->wixWebHookService = $wixWebHookService;
     }
 
     /**
@@ -43,7 +44,11 @@ class WixOrderWebHooksController extends Controller
     {
         $header = (array) $request->header();
         $body = (array) $request->all();
-        $data = json_encode(['header'=>$header, 'body'=>$body]);
+        $data = json_encode([
+            'header'=>$header,
+            'body'=>$body,
+            'validRequest'=>$this->wixWebHookService()->isValidRequest($request)
+        ]);
         return $this->sendEmailToStaffService->send(new NewWixOrderReceived($data));
     }
 

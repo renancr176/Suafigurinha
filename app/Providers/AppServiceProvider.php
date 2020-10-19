@@ -9,6 +9,7 @@ use App\Services\MakePdfAlbumService;
 use App\Services\MakePdfAlbumFiguresGirdService;
 use App\Services\SendEmailToStaffService;
 use App\Services\MakePdfAlbumCoverService;
+use App\Services\WixWebHookService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +43,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SendEmailToStaffService::class, function($app)
         {
             return new SendEmailToStaffService();
+        });
+
+        $this->app->bind(WixWebHookService::class, function($app)
+        {
+            return new WixWebHookService();
         });
     }
 
